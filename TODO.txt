@@ -1,0 +1,40 @@
+Google Doc: https://docs.google.com/document/d/1nMm4D5IqrIrv5WOxafP4Og23KmnmWSDHp_QFNauF8yY/edit
+HackMD from lab meeting: https://hackmd.io/h6GGjuFNRrOq9B48utY5xQ
+
+Current plan 2/26:
+
+ntp:  
++ Introduction: add context for publicly-available sequencing data. Add references for experimental design & stats. Reorganize & reframe. Concept: “you don’t know what you don’t know”. Contextualize w/ lit papers.
++ Add to comp section:https://datacarpentry.org/cloud-genomics/04-which-cloud/index.html
++ If sequencing: make sure your seq tech will actually work for your q
+
+
+ter:
++ Quality control: add more general quality control info (non-box text)
+    + To fastqc section: situations where fastqc is _not_ useful / a note to pay attn only to the right bits
+    + Batch effects 
+    + Lib prep methods lead to different batch effects
+    + Box: developing an intuition for what quality data look like
+        What’s reasonable to expect? What does a good alignment to a genome look like? what does a good fastqc look like? how to develop an intuition about good data?
+        3-4 exmples of good data.
+        radseq fastqc
+        differential expression on naturally occurring vs clonal, expectations for log2fc.
+        tell people how to find out this type of information with examples
++ find/add references to qc protocols & tools
+03/17/20
++ Workflows section 
+    + GUI-based: galaxy, 7 bridges genomics, qiime2?, cyverse/iplant
+    + code-based workflows: snakemake, nextflow, CWL
+    + make a note of paid solutions
++ Add some text to software (what's all the fuss, what does software even look like?)
++ version control for data (OSF). 
+
+To do:
++ Info on non-conda installations (containers, r-specific method, etc)
++ FAIR data principles
++ Curated references for all tools/protocols
++ ref table for diff types of sequence analysis? (popgen vs metag vs radseq etc)? - would need to be v. broad, just a “where to start” for each.
++ version control for data -- osf. links to google drive
+
+
+3/19
