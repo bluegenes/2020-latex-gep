@@ -327,11 +327,11 @@ First, it allows you to keep track of your samples and perform the experiments o
 Second, it allows you to control for batch effects that may arise from unintended batching during sampling or experimental procedures. 
 Third, recording more information may make the data you collect reusable for future applications and analysis, particularly for meta-analyses. 
 
-\subsection*{Securing Computational Resources}
+\subsubsection*{Securing Computational Resources}
 
 Sequence analysis requires access to computing systems with adequate storage and analysis power for your data. 
 For some smaller-scale datasets, local desktop or even laptop systems can be sufficient, especially if using tools that implement data-reduction strategies such as minhashing \cite{rowe2019streaming}. 
-However, larger projects require additional computing power, and may be restricted to certain operating systems (e.g. linux). 
+However, larger projects require additional computing power, or may be restricted to certain operating systems (e.g. linux). 
 For these projects, solutions range from research-focused high performance computing systems (e.g. university HPC, XSEDE/Jetstream, add non-USA example) to research-integrated commercial analysis platforms (e.g. AWS, Seven Bridges, Google Cloud, Microsoft Azure). 
 Both research-only and  and commercial clusters provide avenues for research and educational proposals to enable access to their computing resources (\textbf{TABLE XX}). 
 In preparing for data analysis, be sure to allocate sufficient computational resources and funding for storage and analysis, including large intermediate files and resources required for personnel training. 
@@ -359,20 +359,22 @@ MAKE A TABLE, link to research proposal info (or payment info, I guess? Or just 
 % - How to organize it ( this is really in the next section
 % - How and where to back it up
 %\subsection*{Wrangling Sequence Data} % is "wrangling" too close to data carpentry?
-MAKE THIS INTRO MORE DATA-FOCUSED
-Sequence analysis protocols can involve as many steps and components as laboratory biology, and structured handling of data, scripts, and visualizations is critical for successful projects. 
-Properly safeguarding your data and adopting a consistent organization scheme for your project will save time and resources, enable good collaboration, and facilitate sharing when it comes to publication.
+Data refers to raw sequencing data, metadata, intermediate files, and results files from an analysis.
+Each data type contains important information that may need to be accessed at some later point.
+Properly protecting your data and adopting a consistent organization scheme for your project will save time and resources, enable good collaboration, and facilitate sharing when it comes to publication.
 
 \subsection*{SOME CLEVER SUBSECTION NAME}
 
 \subsubsection*{Keeping track of metadata} % What is data? = BOTH seq data and metadata
-Sequence data analysis requires both raw sequence files and files storing associated experimental and sequencing metadata. 
-When using publicly available sequencing data, it can be challenging to find, format, and combine all metadata. 
-Some metadata is usually provided alongside raw sequencing data. For example, the Sequence Read Archive and the European Nucleotide Archive provide information like submitter’s sample name, the number of reads in a sample, and library preparation method, as well as other information. 
-However, metadata associated with the sample itself (metabolite concentrations, time collected, disease status, etc.) is often recorded in the paper that published the data, usually as a supplementary file. 
-It is up to the researcher to determine how to unite public database information with publication information, and this usually varies by the publication. 
-Although documenting metadata is important, formatting the data in a way that is easy for a computer to interpret is also important for downstream analyses. 
+Metadata accompany raw sequencing data, and record experimental and sequencing information about the sample.
+Keeping metadata formatted in a way that is easy for a computer to interpret makes using the metadata easier for things like quality control or comparisons between samples.
 Standard guidelines for formatting data for scientific computing are given in \cite{wilson2017good}. 
+
+When using publicly available sequencing data, it can be challenging to find, format, and combine all metadata. 
+Some metadata is usually provided alongside raw sequencing data such as submitter’s sample name and library preparation. 
+However, experimental metadata is often recorded in the paper that published the data. 
+It is up to the researcher to determine how to unite public database information with publication information, and this usually varies by the publication. 
+
 
 \subsubsection*{Transferring Data (or not)} 
 Once the data are in hand/once you've identified your data, you'll need to get it onto a computer where it can be analyzed and manipulated. 
