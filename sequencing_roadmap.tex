@@ -590,13 +590,13 @@ There are a number of ways to test out or run software without needing to worry 
 Some software packages are available as web-based tools and through a series of data upload and parameter specifications, allow the user to interact with a tool that is running on a back-end server. 
 This approach is ideal for testing a tool prior to installation to determine whether it produces an appropriate or useful output on your data. 
 Many groups also provide pre-built software “containers” that package the software and all dependencies (often even a full system os) together such that it can be run uniformly regardless of differences in the underlying computing system. 
-These are often also called “images” as they are a representation of all the software installed on a system at a time, aka a “snapshot”, or “image” of the system. 
+These are often called “images” as they are a representation of all the software installed on a system at a time, aka a “snapshot”, or “image” of the system. 
 Container software such as Docker and Singularity can be used to run these images directly on your machine, while platforms such as kubernetes facilitate execution on cluster systems.
 
 %\textbf{Software Installation} 
-In many cases, it is preferable to install the software you need on your local machine or cloud environment. 
+In many cases, it is preferable or necessary to install the software you need on your local machine or cloud environment. 
 If working on a managed cluster computing environment, you may be able to coordinate with your cluster staff to get your desired software installed. 
-However, system-wide installation is often reserved for software that many groups use, so it’s useful to learn to properly install your own software. 
+However, system-wide installation is often reserved for software that many groups use, so it’s useful to learn to install your own software. 
 There are many tools that can be used to install software, and some are operating-system specific. 
 Most programming languages provide their own package managers (e.g. pip for python, or the install.packages() function in R). 
 However, managing package installations that will work across operating systems and across programming languages can be difficult. 
@@ -605,7 +605,7 @@ The conda package and environment manager combines these two functions, and work
 
 \begin{greybox}{\subsubsection*{Conda}
 
-The conda package manager (https://conda.io) has emerged as a simple solution for installing many scientific software packages and managing environments. 
+The conda package manager (https://conda.io) has emerged as the leading solution for installing many scientific software packages and managing environments. 
 Conda simplifies installations by checking for a compatible version of each required dependency prior to installing the desired package (and installing those dependencies for you, if desired). 
 This works because software developers write a conda “recipe” for their package, specifying the required dependencies, including which versions (or ranges of versions) will work. 
 The utility of conda for scientific software has increased in large part due to the massive uptake by the scientific community, with many thousands of scientific packages available via the “bioconda” and “conda-forge” channels. 
@@ -616,7 +616,7 @@ Conda does not require root privileges for software installation, thus enabling 
 
 However, conda installation has a major limitation. 
 When many packages are installed together, the time required to avoid version conflicts (“solve the environment”) can increase dramatically, as conda must check compatibility and install the correct version of each tool. 
-To circumvent high solve times while also avoiding version conflicts that may arise during system-wide software installation, we recommend always using environments for your software and building many simple conda environments to accommodate different steps in your workflow. 
+To circumvent high solve times while also avoiding version conflicts that may arise during system-wide software installation, we recommend using environments for your software and building many simple environments to accommodate different steps in your workflow. 
 By specifying the version of each package within these environments, you can enhance reproducibility by ensuring that the same software versions are used to analyse the data, both now and in the future. }
 \end{greybox}
 
