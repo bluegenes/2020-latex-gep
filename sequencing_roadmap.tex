@@ -554,7 +554,7 @@ You can then generate a DOI for that release using Zenodo and make it available 
 %\end{greybox}
 
 \subsubsection*{Automation and Workflows}
-Most analyses in data intensive biology require several sequential steps, which together can be referred to as a pipeline or workflow. 
+A pipeline, or a workflow, is made up of each of the steps needed to complete an analysis.
 While a workflow can be manually executed step-by-step, this is both time-consuming and has the potential to introduce unintended errors. 
 Automating a workflow using scripting or workflow languages can instead ensure that the entire data analysis is documented and repeatable from start to finish. 
 
@@ -567,7 +567,7 @@ There is a learning curve associated with using these systems, but the benefits 
 % Workflow systems can be used both in local computing environments or on cloud systems, can be combined with versioned software installation via containers or environments, and keep track of file changes to ensure the entire data analysis is both automated and repeatable from start to finish. Many workflows can also detect whether new data was added or upstream programs were re-executed, and ensure the entire workflow is run on the new data. These systems explicitly keep a record of script dependency and order, which can simplify documentation. Other benefits include the ability to use virtual environments or containers via Conda or Docker to automatically and reproducibly handle software installation for each step (cite  https://www.nature.com/articles/d41586-019-02619-z), the ability to work across systems, and the ability to parallelize workflow steps where possible. 
 
 Workflow systems make bioinformatics pipelines repeatable, transferable, and better documented. 
-Although code written by the user is similar to what may be written in a coordinated set of bash or python scripts, workflow systems take care of behind-the-scenes checks and workflow scaffolding that ensure the entire workflow is accurately encoded and run completely and efficiently. 
+Although code written by the user is similar to what may be written in a coordinated set of bash or python scripts, workflow systems take care of behind-the-scenes checks and scaffolding that ensure the entire workflow is accurately encoded and run completely and efficiently. 
 This added layer of organization means one can easily rerun sections of a workflow, scale a workflow to new samples, parallelize non-dependent steps, coordinate software in step-dependent manner, and many other useful things. 
 
 Workflow systems are available as both scripting and graphical user interface systems. 
