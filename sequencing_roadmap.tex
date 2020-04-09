@@ -403,15 +403,15 @@ The recommendations above detail practices for organizing, moving, and safegaurd
 %...it’s helpful to use programs that automate file transfer and storage.
 
 \subsubsection*{Data storage and transfer} 
-Bioinformatic files can take up lots of space, and need to be transferred from one computer to another. 
-It's becoming common practice to build tools that work on compressed data (gzip, bzip2, BAM/CRAM, etc) in order to save space.
+Bioinformatic files can take up a lot of space, and often need to be transferred from one computer to another. 
+It's becoming common practice for tools to work on compressed data (gzip, bzip2, BAM/CRAM, etc) in order to save space.
 
 Every time a file is moved, there is a chance that the file could become corrupted. 
 Corruption occurs when unintended errors are introduced into a file during transfer, reading, writing, or processing of the file. 
-MD5 sums can be used to check integrity of a file after transfer.
+MD5sums can be used to check integrity of a file after transfer.
 If you do not have access to md5sums, you can also check the number of lines and the size of a file at its source and destination to estimate whether a file was corrupted during transfer.
 
-It’s helpful to use programs that automate file transfer and storage and check for issues with file completion and corruption. 
+Some programs automate file transfer and storage and check for issues with file completion and corruption. 
 Command-line tools (Rsync, Rclone) or GUI tools (cyberduck, filezilla, etc) can be used to 
 Rsync and Rclone are command line tools that provide transfer between computers or between computers and remote storage providers.
 Non-command line programs ..
@@ -419,8 +419,10 @@ Non-command line programs ..
 \subsubsection*{Backup and storage recommendations} 
 Many universities provide cloud storage space (e.g. through google drive, box, dropbox etc), and researchers can pay for individual storage on these services, or services attached to cloud computing (e.g. Amazon Web Services). 
 Full computer backups can be conducted to these storage locations (e.g. with rclone \cite{bailleul2016rclone}), or there are also a number of paid services that will conduct backups at regular intervals (e.g. Backblaze, Dropbox Pro). 
-There are also several free online repositories designed to help researchers store and share data and project materials. The Open Science Framework (OSF) \cite{foster2017open}, maintained and developed by the Center for Open Science, provides free storage of an unlimited number of files up to 5GB each in size, and allows the user to keep the data private until they are ready to share (make the project public). 
-OSF provides built-in version control and is supported by a data preservation fund that will keep the data available for 50+ years. While OSF and other similar repositories (e.g. figshare) are suitable for use at any stage of a research project, repositories such as Zenodo and the Dryad Digital Repository (Dryad), are designed to make publication-ready data discoverable, citable, and reusable. 
+There are also several free online repositories designed to help researchers store and share data and project materials. 
+The Open Science Framework (OSF) \cite{foster2017open}, maintained and developed by the Center for Open Science, provides free storage of an unlimited number of files up to 5GB each in size, and allows the user to keep the data private until they are ready to share (make the project public). 
+OSF provides built-in version control and is supported by a data preservation fund that will keep the data available for 50+ years. 
+While OSF and other similar repositories (e.g. figshare) are suitable for use at any stage of a research project, repositories such as Zenodo and the Dryad Digital Repository (Dryad), are designed to make publication-ready data discoverable, citable, and reusable. 
 %There are a number of repositories appropriate for online storage and backup of sequence data.
 
 % Link out to data/project management info? e.g. Many of these considerations are addressed in a data carpentry lesson (https://datacarpentry.org/organization-genomics/). 
@@ -444,7 +446,9 @@ OSF provides built-in version control and is supported by a data preservation fu
 
 
 \section*{Project Organization: Reproducible workflows and documentation for yourself and others}
-% tbh, this section includes our rec's on "project organization" - does title need to reflect that? Maybe it was fine as it was? IDK
+% NTP: tbh, this section includes our rec's on "project organization" - does title need to reflect that? Maybe it was fine as it was? IDK
+% TER Does this still? I think we should remove project organization from the title...its confusing, esp with the data org and 
+% management that's already included above
 As with experimental biology, it is essential to write down everything you do - that is, record the origin of every file (e.g. download URL) and all metadata, record the version of software and each parameter you used, record any manual filtering or data preprocessing steps, and keep track of the order in which you executed each program. 
 Without the ability to fully examine and reproduce your analysis, it will be impossible for you or your collaborators to assess whether the results are accurate, or even to understand how the heuristic decisions you took impact the conclusions made from an analysis. 
 
@@ -457,12 +461,12 @@ While the preferred tools discussed below will certainly change over time, these
 
 % current thinking: keep these principles short and general. Then put specific tools that will help with these below.
 \subsubsection*{Use consistent and descriptive names}  
-% "IT IS IMPORTANT" (lol)
-It is important to create a standardized yet flexible folder structure for your project, using unique identifiers for all samples or data, and naming files with unique, understandable identifiers that describe the data processing steps involved in producing that particular file. 
-This applies to your files, your scripts, your variables, your workflows, your manuscripts, and even your projects. 
+Consistent, descriptive names keep your project organized and interprettable for yourself and collaborators. 
+This applies to your files, your scripts, your variables, your workflows, your manuscripts, and even your projects, each of which should have a unique and descriptive identifier. 
 Since the number of files in data-intensive biology can quickly get out of hand, consistent file naming is especially important. 
 For example, you can implement a numbering scheme for your files, where the first file in your analysis starts with "00", the next with "01", etc. 
 You can also append the tool name to output to make it clear where the file came from. 
+Additionally, using a standardized yet flexibile folder structure from the outset of your project facilitates file organization, even as a project becomes increasingly complex. 
 Keeping independent portions of your analysis in descriptive folders can help keep your project workspace clean and organized.
 Within your files, using consistent and descriptive variable names will help build a readable codebase.
 
