@@ -366,7 +366,7 @@ Properly protecting your data and adopting a consistent organization scheme for 
 \subsection*{SOME CLEVER SUBSECTION NAME}
 
 \subsubsection*{Keeping track of metadata} % What is data? = BOTH seq data and metadata
-Metadata accompany raw sequencing data, and record experimental and sequencing information about the sample.
+Metadata accompany raw sequencing data and record experimental and sequencing information about the sample.
 Keeping metadata formatted in a way that is easy for a computer to interpret makes using the metadata easier for things like quality control or comparisons between samples.
 Standard guidelines for formatting data for scientific computing are given in \cite{wilson2017good}. 
 
@@ -378,7 +378,7 @@ It is up to the researcher to determine how to unite public database information
 
 \subsubsection*{Transferring Data (or not)} 
 Once the data are in hand/once you've identified your data, you'll need to get it onto a computer where it can be analyzed and manipulated. 
-If you can work on the same system where the data is already available, you can circumvent the time and effort required for downloading or moving the data. 
+Sometimes its possible to work on a system where the data are already available, circumventing time and effort required for downloading and moving the data.
 This is mostly likely to be possible if you’re working with already published data. 
 For example, the Sequence Read Archive (SRA) is now available on two commercial cloud services, AWS and Google (SRA in the cloud: https://www.ncbi.nlm.nih.gov/sra/docs/sra-cloud/). 
 Several groups are also working towards making model system genomic data available on cloud ecosystems commonly used for research analysis (CFDE? Common Fund efforts?). 
@@ -392,7 +392,8 @@ For both data and metadata, it’s important to “keep raw data raw” - that i
 Any changes you make to the raw data should be documented and saved to new files, rather than modifying the original data files. 
 Ideally, keep one copy of the data in a read-only (write-protected) location accessible to your computational workspace, and additional backups in different locations, such as \textit{both} a local backup disk and cloud storage. 
 
-SMALL TRANSITION PARAGRAPH JUST LIKE THE NEXT SECTION. Below, we discuss recommended tools that can facilitate data transfer and storage. 
+
+The recommendations above detail practices for organizing, moving, and safegaurding data. Below, we discuss recommended tools that can facilitate data transfer and storage. 
 
 \subsection*{Tools for data transfer and backup} %Strategies and 
 
