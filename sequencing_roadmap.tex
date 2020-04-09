@@ -663,8 +663,8 @@ Shiny apps allow collaborators who may or may not know R to change R visualisati
 % 3. big data are BIG! But some tools can make it smaller and get nearly identical answers. Try them!
 
 Your time and resources are valuable, and sequencing data analysis has the potential to use a lot of both. 
-To mitigate inefficiencies, its important to conduct good quality control and workflow testing to help you catch errors before they impact your full workflow or interpretation. 
-Further, \textbf{SOMETHING ABOUT BIG DATA AND HOW TO MAKE IT SMALLER}. 
+Conducting thorough quality control and workflow testing mitigates inefficiencies by helping you catch errors before they impact your full workflow or interpretation. 
+Further, adopting analysis methods that subsample or approximate the data while retaining key biological characteristics can reduce time to insights and resource usage.
 Below we discuss some tips to ensure that you're spending your time and resources wisely. 
 
 \subsection*{Quality control your data} %purpose and strategies
@@ -678,7 +678,7 @@ Below we discuss some tips to ensure that you're spending your time and resource
 The adage, "garbage in, garbage out" describes most sequencing data analysis: the quality of the input data determines the quality of the output results. 
 Errors in sequencing data can be introduced at every stage, from sample generation to analysis. 
 Sample labels can be mixed up during sample collection, nucleotide extraction may produce chemically contaminated or low concentration samples, sequencing platforms introduce erroneous base pairs, and analysis tools may output incomplete or mis-specified results. 
-Given how easily errors can sneak into every step of a sequencing analysis pipeline, it is critical to assess your data at every step. 
+Assessing data at every analysis step can reveal these errors early. 
 You are the single most effective quality control tool that you have, so its important to interrogate your data to search for problems. 
 While simply looking at your data is sometimes sufficient to catch issues, visualization and software tools (e.g. FastQC, see \textbf{GREYBOX XXX}) make quality control easier. 
 It is important to perform both general and targeted quality control, and to keep an eye out for common problems that often arise in sequencing data. 
@@ -726,7 +726,7 @@ Insights gained using FastQC may not be definitive, but given the speed and comp
 \subsubsection*{Handling common biases in sequencing data} % this title isn't right yet, just trying to concisely summarize the all caps
 
 There are many known biases in sequencing data. 
-These biases originate experimental design, methodology, sequencing chemistry, or workflows, and are helpful to target specifically with quality control measures. 
+These biases originate from experimental design, methodology, sequencing chemistry, or workflows, and are helpful to target specifically with quality control measures. 
 For example, PCR duplicates can cause problems in libraries that underwent an amplification step, and often need to be removed prior to downstream analysis. 
 Nucleotide extraction kits have their own microbiomes (CITATION), so it may be important to check for specific contaminant sequences. 
 Libraries sequenced with high concentrations of free adapters or with low concentration samples may have increased barcode hopping, leading to contamination between samples (CITATION). 
