@@ -276,7 +276,7 @@ The guidelines and tools presented below are designed to apply for novel or publ
 \section*{Before you Begin}
 
 As with all biological analyses, the most critical step of sequence analysis is obtaining high-quality data for your scientific question. 
-With the vast amounts of sequencing data already available in public repositories, we encourage you to begin by seeking out public data that may be appropriate for interrogating your research question. 
+With vast amounts of sequencing data already available in public repositories, it is often possible to begin interrogating your research question by seeking out publicly available data. 
 In some cases, these data will be sufficient to conduct your entire analysis. 
 In others, particularly for biologists conducting novel experiments, these data can inform decisions about sequencing type, depth, and replication, and can help uncover potential pitfalls before they cost valuable time and resources.
 
@@ -284,13 +284,15 @@ In others, particularly for biologists conducting novel experiments, these data 
 
 Most journals now require data for all manuscripts to be made accessible, either at publication or after a short moratorium.
 You can find relevant sequencing data either by starting from the "data accessibility" sections of papers relevant to your research or by directly searching for your organism, environment, or treatment of choice in public data portals and repositories. 
-Most repositories specialize in certain data types, organisms, projects, or other properties of interest. 
-For example, International Nucleotide Sequence Database Collaboration, which includes the Sequence Read Archive (SRA), European Nucleotide Archive (ENA), and DataBank of Japan (DDBJ), host raw sequencing data from any organism, while smaller databases such as \textbf{Wormbase}, \textbf{Saccharomyces Genome Database}, \textbf{FlyBase}, and \textbf{SoyBase} specialize in storing genetic information from the organisms \textit{Caenorhabditis elegans}, \textit{Saccharomyces cerevisiae}, \textit{Drosophila melanogaster}, and \textit{Glycine max}, respectively \cite{harris2020wormbase, cherry2012saccharomyces, st2014flybase, grant2010soybase}. 
-Projects governed by large consortia also frequently host databases; some examples include the \textbf{Tara Ocean Foundation}, the \textbf{Human Microbiome Project} (HMP) and \textbf{HMP2}, the \textbf{1000 Genomes Project}, and the \textbf{Marine Microbial Eukaryote Transcriptome Sequencing Project} \cite{pesant2015open, turnbaugh2007human, integrative2014integrative, clarke20121000, keeling2014marine}. 
+The International Nucleotide Sequence Database Collaboration, which includes the Sequence Read Archive (SRA), European Nucleotide Archive (ENA), and DataBank of Japan (DDBJ) is the largest repository for raw sequencing data. 
+However, these repositories have stringent requirements for data they host, so many smaller databases exist that host additional information. 
+For example, \textbf{Wormbase}, \textbf{Saccharomyces Genome Database}, \textbf{FlyBase}, and \textbf{SoyBase} specialize in storing genetic information from the organisms \textit{Caenorhabditis elegans}, \textit{Saccharomyces cerevisiae}, \textit{Drosophila melanogaster}, and \textit{Glycine max}, respectively \cite{harris2020wormbase, cherry2012saccharomyces, st2014flybase, grant2010soybase}. 
+The SRA, ENA, and DDBJ no longer accept raw sequencing data from large consortia projects, so data from these efforts are often hosted in consortia-specific databases. 
+This includes sequencing data \textbf{Tara Ocean Foundation}, the \textbf{Human Microbiome Project} (HMP) and \textbf{HMP2}, the \textbf{1000 Genomes Project}, and the \textbf{Marine Microbial Eukaryote Transcriptome Sequencing Project} \cite{pesant2015open, turnbaugh2007human, integrative2014integrative, clarke20121000, keeling2014marine}. 
 Unlike the SRA and associated databases which are centralized and searchable, databases overseen by consortia often require domain-specific knowledge and have unique download and authorization protocols. 
 Finally, more flexible repositories such as Dryad, Zenodo, and Open Science Framework are designed to hold all types of data and metadata associated with a specific project or manuscript (CITE?).
 
-No matter which repository you use, it is always worth following up on the metadata associated with the project, not only to ensure the data entry is accurate, but also as there may be important information available in the supplement of the original publication. 
+Each repository packages metadata in a different way. This information is often useful for quality control or for experimental design, so it can be helpful to download it along with the sequencing data. Additionally metadata is often available in the supplement of the original publication.
 Finally, as both sequencing technology and analysis tools have changed over time, we recommend conducting your own quality control upon beginning to work with a new dataset (see section \textbf{QUALITY CONTROL}).  % maybe move this last sentence to QC section
 
 %Please note that data available in a public database is not guaranteed to be error-free or complete, so 
@@ -316,20 +318,20 @@ If generating your own data, proper experimental design and planning are essenti
 For cost-intensive sequencing data, there are a range of decisions about experimental design and sequencing (including sequencing type, sequencing depth per sample, and biological replication) that impact your ability to properly address your research question. 
 These considerations will be different for different types of sequence analysis. 
 While we have curated a series of domain-specific references that may be useful as go about designing your experiment \textbf{TABLE XX}, conducting discussions with experienced bioinformaticians and statisticians, \textbf{prior to beginning your experiments} if possible, is the best way to ensure you will have sufficient statistical power to detect effects.
-Of course, as with any other scientific endeavor, be sure to build in a buffer to preserve your experimental design in the face of unexpected laboratory or technical issues. 
+Given the resources invested in collecting samples for sequencing, it's important to build in a buffer to preserve your experimental design in the face of unexpected laboratory or technical issues. 
 
 % I think this bit on metadata actually belongs here? (swiped from the data management section)
-As your experiment progresses, it’s important to keep track of as much information as possible -- dates and times of sample collection, storage, and extraction, sample names, aberrations that occurred during collection, kit lot used for extraction, and any other sample measurements you might be able to obtain (temperature, location, metabolite concentration, name of collector, etc). 
+As your experiment progresses, keep track of as much information as possible -- dates and times of sample collection, storage, and extraction, sample names, aberrations that occurred during collection, kit lot used for extraction, and any other sample measurements you might be able to obtain (temperature, location, metabolite concentration, name of collector, etc). 
 This metadata serves multiple purposes. 
 First, it allows you to keep track of your samples and perform the experiments or comparisons you intended to perform. 
 Second, it allows you to control for batch effects that may arise from unintended batching during sampling or experimental procedures. 
 Third, recording more information may make the data you collect reusable for future applications and analysis, particularly for meta-analyses. 
 
-\subsection*{Securing Computational Resources}
+\subsubsection*{Securing Computational Resources}
 
 Sequence analysis requires access to computing systems with adequate storage and analysis power for your data. 
 For some smaller-scale datasets, local desktop or even laptop systems can be sufficient, especially if using tools that implement data-reduction strategies such as minhashing \cite{rowe2019streaming}. 
-However, larger projects require additional computing power, and may be restricted to certain operating systems (e.g. linux). 
+However, larger projects require additional computing power, or may be restricted to certain operating systems (e.g. linux). 
 For these projects, solutions range from research-focused high performance computing systems (e.g. university HPC, XSEDE/Jetstream, add non-USA example) to research-integrated commercial analysis platforms (e.g. AWS, Seven Bridges, Google Cloud, Microsoft Azure). 
 Both research-only and  and commercial clusters provide avenues for research and educational proposals to enable access to their computing resources (\textbf{TABLE XX}). 
 In preparing for data analysis, be sure to allocate sufficient computational resources and funding for storage and analysis, including large intermediate files and resources required for personnel training. 
@@ -357,24 +359,26 @@ MAKE A TABLE, link to research proposal info (or payment info, I guess? Or just 
 % - How to organize it ( this is really in the next section
 % - How and where to back it up
 %\subsection*{Wrangling Sequence Data} % is "wrangling" too close to data carpentry?
-MAKE THIS INTRO MORE DATA-FOCUSED
-Sequence analysis protocols can involve as many steps and components as laboratory biology, and structured handling of data, scripts, and visualizations is critical for successful projects. 
-Properly safeguarding your data and adopting a consistent organization scheme for your project will save time and resources, enable good collaboration, and facilitate sharing when it comes to publication.
+Data refers to raw sequencing data, metadata, intermediate files, and results files from an analysis.
+Each data type contains important information that may need to be accessed at some later point.
+Properly protecting your data and adopting a consistent organization scheme for your project will save time and resources, enable good collaboration, and facilitate sharing when it comes to publication.
 
 \subsection*{SOME CLEVER SUBSECTION NAME}
 
 \subsubsection*{Keeping track of metadata} % What is data? = BOTH seq data and metadata
-Sequence data analysis requires both raw sequence files and files storing associated experimental and sequencing metadata. 
-When using publicly available sequencing data, it can be challenging to find, format, and combine all metadata. 
-Some metadata is usually provided alongside raw sequencing data. For example, the Sequence Read Archive and the European Nucleotide Archive provide information like submitter’s sample name, the number of reads in a sample, and library preparation method, as well as other information. 
-However, metadata associated with the sample itself (metabolite concentrations, time collected, disease status, etc.) is often recorded in the paper that published the data, usually as a supplementary file. 
-It is up to the researcher to determine how to unite public database information with publication information, and this usually varies by the publication. 
-Although documenting metadata is important, formatting the data in a way that is easy for a computer to interpret is also important for downstream analyses. 
+Metadata accompany raw sequencing data and record experimental and sequencing information about the sample.
+Keeping metadata formatted in a way that is easy for a computer to interpret makes using the metadata easier for things like quality control or comparisons between samples.
 Standard guidelines for formatting data for scientific computing are given in \cite{wilson2017good}. 
+
+When using publicly available sequencing data, it can be challenging to find, format, and combine all metadata. 
+Some metadata is usually provided alongside raw sequencing data such as submitter’s sample name and library preparation. 
+However, experimental metadata is often recorded in the paper that published the data. 
+It is up to the researcher to determine how to unite public database information with publication information, and this usually varies by the publication. 
+
 
 \subsubsection*{Transferring Data (or not)} 
 Once the data are in hand/once you've identified your data, you'll need to get it onto a computer where it can be analyzed and manipulated. 
-If you can work on the same system where the data is already available, you can circumvent the time and effort required for downloading or moving the data. 
+Sometimes its possible to work on a system where the data are already available, circumventing time and effort required for downloading and moving the data.
 This is mostly likely to be possible if you’re working with already published data. 
 For example, the Sequence Read Archive (SRA) is now available on two commercial cloud services, AWS and Google (SRA in the cloud: https://www.ncbi.nlm.nih.gov/sra/docs/sra-cloud/). 
 Several groups are also working towards making model system genomic data available on cloud ecosystems commonly used for research analysis (CFDE? Common Fund efforts?). 
@@ -388,7 +392,8 @@ For both data and metadata, it’s important to “keep raw data raw” - that i
 Any changes you make to the raw data should be documented and saved to new files, rather than modifying the original data files. 
 Ideally, keep one copy of the data in a read-only (write-protected) location accessible to your computational workspace, and additional backups in different locations, such as \textit{both} a local backup disk and cloud storage. 
 
-SMALL TRANSITION PARAGRAPH JUST LIKE THE NEXT SECTION. Below, we discuss recommended tools that can facilitate data transfer and storage. 
+
+The recommendations above detail practices for organizing, moving, and safegaurding data. Below, we discuss recommended tools that can facilitate data transfer and storage. 
 
 \subsection*{Tools for data transfer and backup} %Strategies and 
 
@@ -398,15 +403,15 @@ SMALL TRANSITION PARAGRAPH JUST LIKE THE NEXT SECTION. Below, we discuss recomme
 %...it’s helpful to use programs that automate file transfer and storage.
 
 \subsubsection*{Data storage and transfer} 
-Bioinformatic files can take up lots of space, and need to be transferred from one computer to another. 
-It's becoming common practice to build tools that work on compressed data (gzip, bzip2, BAM/CRAM, etc) in order to save space.
+Bioinformatic files can take up a lot of space, and often need to be transferred from one computer to another. 
+It's becoming common practice for tools to work on compressed data (gzip, bzip2, BAM/CRAM, etc) in order to save space.
 
 Every time a file is moved, there is a chance that the file could become corrupted. 
 Corruption occurs when unintended errors are introduced into a file during transfer, reading, writing, or processing of the file. 
-MD5 sums can be used to check integrity of a file after transfer.
+MD5sums can be used to check integrity of a file after transfer.
 If you do not have access to md5sums, you can also check the number of lines and the size of a file at its source and destination to estimate whether a file was corrupted during transfer.
 
-It’s helpful to use programs that automate file transfer and storage and check for issues with file completion and corruption. 
+Some programs automate file transfer and storage and check for issues with file completion and corruption. 
 Command-line tools (Rsync, Rclone) or GUI tools (cyberduck, filezilla, etc) can be used to 
 Rsync and Rclone are command line tools that provide transfer between computers or between computers and remote storage providers.
 Non-command line programs ..
@@ -414,8 +419,10 @@ Non-command line programs ..
 \subsubsection*{Backup and storage recommendations} 
 Many universities provide cloud storage space (e.g. through google drive, box, dropbox etc), and researchers can pay for individual storage on these services, or services attached to cloud computing (e.g. Amazon Web Services). 
 Full computer backups can be conducted to these storage locations (e.g. with rclone \cite{bailleul2016rclone}), or there are also a number of paid services that will conduct backups at regular intervals (e.g. Backblaze, Dropbox Pro). 
-There are also several free online repositories designed to help researchers store and share data and project materials. The Open Science Framework (OSF) \cite{foster2017open}, maintained and developed by the Center for Open Science, provides free storage of an unlimited number of files up to 5GB each in size, and allows the user to keep the data private until they are ready to share (make the project public). 
-OSF provides built-in version control and is supported by a data preservation fund that will keep the data available for 50+ years. While OSF and other similar repositories (e.g. figshare) are suitable for use at any stage of a research project, repositories such as Zenodo and the Dryad Digital Repository (Dryad), are designed to make publication-ready data discoverable, citable, and reusable. 
+There are also several free online repositories designed to help researchers store and share data and project materials. 
+The Open Science Framework (OSF) \cite{foster2017open}, maintained and developed by the Center for Open Science, provides free storage of an unlimited number of files up to 5GB each in size, and allows the user to keep the data private until they are ready to share (make the project public). 
+OSF provides built-in version control and is supported by a data preservation fund that will keep the data available for 50+ years. 
+While OSF and other similar repositories (e.g. figshare) are suitable for use at any stage of a research project, repositories such as Zenodo and the Dryad Digital Repository (Dryad), are designed to make publication-ready data discoverable, citable, and reusable. 
 %There are a number of repositories appropriate for online storage and backup of sequence data.
 
 % Link out to data/project management info? e.g. Many of these considerations are addressed in a data carpentry lesson (https://datacarpentry.org/organization-genomics/). 
@@ -439,7 +446,9 @@ OSF provides built-in version control and is supported by a data preservation fu
 
 
 \section*{Project Organization: Reproducible workflows and documentation for yourself and others}
-% tbh, this section includes our rec's on "project organization" - does title need to reflect that? Maybe it was fine as it was? IDK
+% NTP: tbh, this section includes our rec's on "project organization" - does title need to reflect that? Maybe it was fine as it was? IDK
+% TER Does this still? I think we should remove project organization from the title...its confusing, esp with the data org and 
+% management that's already included above
 As with experimental biology, it is essential to write down everything you do - that is, record the origin of every file (e.g. download URL) and all metadata, record the version of software and each parameter you used, record any manual filtering or data preprocessing steps, and keep track of the order in which you executed each program. 
 Without the ability to fully examine and reproduce your analysis, it will be impossible for you or your collaborators to assess whether the results are accurate, or even to understand how the heuristic decisions you took impact the conclusions made from an analysis. 
 
@@ -452,35 +461,35 @@ While the preferred tools discussed below will certainly change over time, these
 
 % current thinking: keep these principles short and general. Then put specific tools that will help with these below.
 \subsubsection*{Use consistent and descriptive names}  
-% "IT IS IMPORTANT" (lol)
-It is important to create a standardized yet flexible folder structure for your project, using unique identifiers for all samples or data, and naming files with unique, understandable identifiers that describe the data processing steps involved in producing that particular file. 
-This applies to your files, your scripts, your variables, your workflows, your manuscripts, and even your projects. 
+Consistent, descriptive names keep your project organized and interprettable for yourself and collaborators. 
+This applies to your files, your scripts, your variables, your workflows, your manuscripts, and even your projects, each of which should have a unique and descriptive identifier. 
 Since the number of files in data-intensive biology can quickly get out of hand, consistent file naming is especially important. 
 For example, you can implement a numbering scheme for your files, where the first file in your analysis starts with "00", the next with "01", etc. 
 You can also append the tool name to output to make it clear where the file came from. 
+Additionally, using a standardized yet flexibile folder structure from the outset of your project facilitates file organization, even as a project becomes increasingly complex. 
 Keeping independent portions of your analysis in descriptive folders can help keep your project workspace clean and organized.
 Within your files, using consistent and descriptive variable names will help build a readable codebase.
 
-\subsubsection*{Store metadata and information with your workflow} 
+\subsubsection*{Store metadata information with your workflow} 
 Biological analyses often span hundreds of steps and involve many small decisions: What parameters for each step? 
 Why did you use a certain reference file for annotation as compared with other available files? 
 How did you finally manage to get around the program or installation error? 
-All of these pieces of information may be useful assess your results and write your manuscript. 
-It's helpful if you keep information about these decisions in an easily accessible place. 
+All of these pieces of information contextualize your results and may be helpful when writing your manuscript. 
+Keeping information about these decisions in an intuitive and easily accessible place helps you find it when you need it. 
 Each main directory should include notes on the data or scripts contained within, so that a collaborator could look into the directory and understand what to find there (even if that “collaborator” is you, a few months from now!). 
 Code itself can be (or contain) documentation - you can add comments with the reasoning behind parameter choice or include a link to the seqanswers post that helped you decide how to shape your differential expression analysis. 
 Larger pieces of information can be kept in "README" or notes documents kept alongside your code and other documents. 
  %and liberal use of comments makes the purpose of specific lines of code explicitly clear.
 
 \subsubsection*{Add visual representations} 
-Visual representations are helpful for every level of documentation. 
-At the highest level, flowcharts that detail relationship between steps of a workflow can help provide big-picture clarification, especially when the pipeline is complicated. 
+Visual representations illustrate the connections in a workflow. 
+At the highest level, flowcharts that detail relationships between steps of a workflow can help provide big-picture clarification, especially when the pipeline is complicated. 
 For individual steps, a graphical representation of the output can show the status of the project or provide insight on additional analyses that should be added. 
 Whenever possible, adding visualizations can help improve the readability and reproducibility of your project.
 
 \subsubsection*{Version Control} 
-As your project develops, it is important to keep track of changes over time. 
-You may already do a version of this, perhaps with frequent hard drive backups or by manually saving different versions of the same file  - e.g. by appending the date to a script name or appending "version\_1" or "version\_FINAL" to a manuscript draft. 
+As your project develops, version control allows you to keep track of changes over time. 
+You may already do this in some ways, perhaps with frequent hard drive backups or by manually saving different versions of the same file  - e.g. by appending the date to a script name or appending "version\_1" or "version\_FINAL" to a manuscript draft. 
 For computational workflows that will inevitably undergo multiple changes in parameters, data, visualizations, and analysis, it is essential to keep track of which analysis produced which output files, so that the final analysis is reproducible. 
 However, version control can also save time and effort at every step. 
 If a key piece of a workflow inexplicably stops working, good version control can allow you to rewind in time and identify differences from when the pipeline worked to when it stopped working. 
@@ -489,10 +498,10 @@ If multiple people are working on the same project, version control can both avo
 %In order to keep track of changes over time, it’s important to build a method for saving new versions of code and documentation over time. . 
 
  \subsubsection*{Automate as Much as Possible} 
-One of the best ways to ensure the coding portion of your workflow is documented is to using scripting or workflow software to automate as much as possible. 
-If you implement consistent file and parameter naming, automation can not only provide baseline documentation, but also simplify testing parameters and programs for the best results on your data. 
+One of the best ways to ensure the coding portion of your workflow is documented is to use scripting or workflow software to automate as much as possible. 
+Automation can not only provide baseline documentation, but also simplify testing parameters and programs for the best results on your data. 
 
- Each of the recommendations above details key ideas for recording sufficient information about the data, tools, parameters, and decisions used to obtain the results at the end of your workflow. 
+Each of the recommendations above details key ideas for recording sufficient information about the data, tools, parameters, and decisions used to obtain the results at the end of your workflow. 
 Below we present some tools that greatly facilitate these practices.
  
 %However you run the analysis, it is key that you record both the tools and parameters used to obtain the results at the end of your workflow. One of the best ways to do this is to automate as much as possible: execute each step as an automated script and/or run each using workflow software. By keeping all steps within an automated workflow, you’ll not only save time when you need to run the analysis on your full data later, but you’ll also ensure that your analysis is both clearly documented and reproducible. Automation will also simplify testing parameters and programs for the best results on your data.
@@ -528,7 +537,7 @@ In particular, Git has emerged as the dominant version control system for biolog
 In addition to acting as an additional backup location, the online services support drag-and-drop file addition and full control over the repository using the web interface, which greatly lowers the barrier to getting started with version control systems. 
 While these systems do not work well with Google Docs or Microsoft Word, they can greatly simplify asynchronous collaborative manuscript writing when combined with services such as Overleaf and Manubot (CITE). 
 Git version control is primarily designed to handle small text files, but version control also exists for data sets, since intermediate data files can change with tool versions or parameters. 
-Many of the databases suggested for string raw data also provide version control for data sets, including the Open Science Framework. 
+Many of the databases suggested for storing raw data also provide version control for data sets, including the Open Science Framework. 
 Other services are compatible with git version control, e.g. Git Large File Storage (LFS) and Data Version Control (DVC).
 
 These version control systems can also facilitate code availability and reproducibility for publication. 
@@ -545,7 +554,7 @@ You can then generate a DOI for that release using Zenodo and make it available 
 %\end{greybox}
 
 \subsubsection*{Automation and Workflows}
-Most analyses in data intensive biology require several sequential steps, which together can be referred to as a pipeline or workflow. 
+A pipeline, or a workflow, is made up of each of the steps needed to complete an analysis.
 While a workflow can be manually executed step-by-step, this is both time-consuming and has the potential to introduce unintended errors. 
 Automating a workflow using scripting or workflow languages can instead ensure that the entire data analysis is documented and repeatable from start to finish. 
 
@@ -558,7 +567,7 @@ There is a learning curve associated with using these systems, but the benefits 
 % Workflow systems can be used both in local computing environments or on cloud systems, can be combined with versioned software installation via containers or environments, and keep track of file changes to ensure the entire data analysis is both automated and repeatable from start to finish. Many workflows can also detect whether new data was added or upstream programs were re-executed, and ensure the entire workflow is run on the new data. These systems explicitly keep a record of script dependency and order, which can simplify documentation. Other benefits include the ability to use virtual environments or containers via Conda or Docker to automatically and reproducibly handle software installation for each step (cite  https://www.nature.com/articles/d41586-019-02619-z), the ability to work across systems, and the ability to parallelize workflow steps where possible. 
 
 Workflow systems make bioinformatics pipelines repeatable, transferable, and better documented. 
-Although code written by the user is similar to what may be written in a coordinated set of bash or python scripts, workflow systems take care of behind-the-scenes checks and workflow scaffolding that ensure the entire workflow is accurately encoded and run completely and efficiently. 
+Although code written by the user is similar to what may be written in a coordinated set of bash or python scripts, workflow systems take care of behind-the-scenes checks and scaffolding that ensure the entire workflow is accurately encoded and run completely and efficiently. 
 This added layer of organization means one can easily rerun sections of a workflow, scale a workflow to new samples, parallelize non-dependent steps, coordinate software in step-dependent manner, and many other useful things. 
 
 Workflow systems are available as both scripting and graphical user interface systems. 
@@ -581,13 +590,13 @@ There are a number of ways to test out or run software without needing to worry 
 Some software packages are available as web-based tools and through a series of data upload and parameter specifications, allow the user to interact with a tool that is running on a back-end server. 
 This approach is ideal for testing a tool prior to installation to determine whether it produces an appropriate or useful output on your data. 
 Many groups also provide pre-built software “containers” that package the software and all dependencies (often even a full system os) together such that it can be run uniformly regardless of differences in the underlying computing system. 
-These are often also called “images” as they are a representation of all the software installed on a system at a time, aka a “snapshot”, or “image” of the system. 
+These are often called “images” as they are a representation of all the software installed on a system at a time, aka a “snapshot”, or “image” of the system. 
 Container software such as Docker and Singularity can be used to run these images directly on your machine, while platforms such as kubernetes facilitate execution on cluster systems.
 
 %\textbf{Software Installation} 
-In many cases, it is preferable to install the software you need on your local machine or cloud environment. 
+In many cases, it is preferable or necessary to install the software you need on your local machine or cloud environment. 
 If working on a managed cluster computing environment, you may be able to coordinate with your cluster staff to get your desired software installed. 
-However, system-wide installation is often reserved for software that many groups use, so it’s useful to learn to properly install your own software. 
+However, system-wide installation is often reserved for software that many groups use, so it’s useful to learn to install your own software. 
 There are many tools that can be used to install software, and some are operating-system specific. 
 Most programming languages provide their own package managers (e.g. pip for python, or the install.packages() function in R). 
 However, managing package installations that will work across operating systems and across programming languages can be difficult. 
@@ -596,7 +605,7 @@ The conda package and environment manager combines these two functions, and work
 
 \begin{greybox}{\subsubsection*{Conda}
 
-The conda package manager (https://conda.io) has emerged as a simple solution for installing many scientific software packages and managing environments. 
+The conda package manager (https://conda.io) has emerged as the leading solution for installing many scientific software packages and managing environments. 
 Conda simplifies installations by checking for a compatible version of each required dependency prior to installing the desired package (and installing those dependencies for you, if desired). 
 This works because software developers write a conda “recipe” for their package, specifying the required dependencies, including which versions (or ranges of versions) will work. 
 The utility of conda for scientific software has increased in large part due to the massive uptake by the scientific community, with many thousands of scientific packages available via the “bioconda” and “conda-forge” channels. 
@@ -607,7 +616,7 @@ Conda does not require root privileges for software installation, thus enabling 
 
 However, conda installation has a major limitation. 
 When many packages are installed together, the time required to avoid version conflicts (“solve the environment”) can increase dramatically, as conda must check compatibility and install the correct version of each tool. 
-To circumvent high solve times while also avoiding version conflicts that may arise during system-wide software installation, we recommend always using environments for your software and building many simple conda environments to accommodate different steps in your workflow. 
+To circumvent high solve times while also avoiding version conflicts that may arise during system-wide software installation, we recommend using environments for your software and building many simple environments to accommodate different steps in your workflow. 
 By specifying the version of each package within these environments, you can enhance reproducibility by ensuring that the same software versions are used to analyse the data, both now and in the future. }
 \end{greybox}
 
@@ -654,8 +663,8 @@ Shiny apps allow collaborators who may or may not know R to change R visualisati
 % 3. big data are BIG! But some tools can make it smaller and get nearly identical answers. Try them!
 
 Your time and resources are valuable, and sequencing data analysis has the potential to use a lot of both. 
-To mitigate inefficiencies, its important to conduct good quality control and workflow testing to help you catch errors before they impact your full workflow or interpretation. 
-Further, \textbf{SOMETHING ABOUT BIG DATA AND HOW TO MAKE IT SMALLER}. 
+Conducting thorough quality control and workflow testing mitigates inefficiencies by helping you catch errors before they impact your full workflow or interpretation. 
+Further, adopting analysis methods that subsample or approximate the data while retaining key biological characteristics can reduce time to insights and resource usage.
 Below we discuss some tips to ensure that you're spending your time and resources wisely. 
 
 \subsection*{Quality control your data} %purpose and strategies
@@ -669,7 +678,7 @@ Below we discuss some tips to ensure that you're spending your time and resource
 The adage, "garbage in, garbage out" describes most sequencing data analysis: the quality of the input data determines the quality of the output results. 
 Errors in sequencing data can be introduced at every stage, from sample generation to analysis. 
 Sample labels can be mixed up during sample collection, nucleotide extraction may produce chemically contaminated or low concentration samples, sequencing platforms introduce erroneous base pairs, and analysis tools may output incomplete or mis-specified results. 
-Given how easily errors can sneak into every step of a sequencing analysis pipeline, it is critical to assess your data at every step. 
+Assessing data at every analysis step can reveal these errors early. 
 You are the single most effective quality control tool that you have, so its important to interrogate your data to search for problems. 
 While simply looking at your data is sometimes sufficient to catch issues, visualization and software tools (e.g. FastQC, see \textbf{GREYBOX XXX}) make quality control easier. 
 It is important to perform both general and targeted quality control, and to keep an eye out for common problems that often arise in sequencing data. 
@@ -717,7 +726,7 @@ Insights gained using FastQC may not be definitive, but given the speed and comp
 \subsubsection*{Handling common biases in sequencing data} % this title isn't right yet, just trying to concisely summarize the all caps
 
 There are many known biases in sequencing data. 
-These biases originate experimental design, methodology, sequencing chemistry, or workflows, and are helpful to target specifically with quality control measures. 
+These biases originate from experimental design, methodology, sequencing chemistry, or workflows, and are helpful to target specifically with quality control measures. 
 For example, PCR duplicates can cause problems in libraries that underwent an amplification step, and often need to be removed prior to downstream analysis. 
 Nucleotide extraction kits have their own microbiomes (CITATION), so it may be important to check for specific contaminant sequences. 
 Libraries sequenced with high concentrations of free adapters or with low concentration samples may have increased barcode hopping, leading to contamination between samples (CITATION). 
