@@ -203,9 +203,6 @@
 
 Taylor Reiter 0000-0002-7388-421X\textsuperscript{1,2},
 %Name2 Surname\textsuperscript{1},
-%Name3 Surname\textsuperscript{1},
-%Name4 Surname\textsuperscript{1},
-%Name5 Surname\textsuperscript{1},
 C. Titus Brown 0000-0001-6001-2677\textsuperscript{1},
 N. Tessa Pierce 0000-0002-2942-5331\textsuperscript{1,*},
 \\
@@ -283,33 +280,16 @@ In others, particularly for biologists conducting novel experiments, these data 
 \subsubsection*{Accessing publicly-available data}
 
 Most journals now require data for all manuscripts to be made accessible, either at publication or after a short moratorium.
-You can find relevant sequencing data either by starting from the "data accessibility" sections of papers relevant to your research or by directly searching for your organism, environment, or treatment of choice in public data portals and repositories. 
-The International Nucleotide Sequence Database Collaboration, which includes the Sequence Read Archive (SRA), European Nucleotide Archive (ENA), and DataBank of Japan (DDBJ) is the largest repository for raw sequencing data. 
-However, these repositories have stringent requirements for data they host, so many smaller databases exist that host additional information. 
+You can find relevant sequencing data either by starting from the ``data accessibility" sections of papers relevant to your research or by directly searching for your organism, environment, or treatment of choice in public data portals and repositories. 
+These public repositories often store additional metadata critical for quality control or understanding of experimental design. However, each repository packages this information in a different way, and in some cases, you may need to obtain it from the supplement of the original publication.
+
+The International Nucleotide Sequence Database Collaboration (INSDC), which includes the Sequence Read Archive (SRA), European Nucleotide Archive (ENA), and DataBank of Japan (DDBJ) is the largest repository for raw sequencing data. 
+These repositories have stringent requirements for data they host, so many smaller databases exist that host additional information and different types of sequencing data.
 For example, \textbf{Wormbase}, \textbf{Saccharomyces Genome Database}, \textbf{FlyBase}, and \textbf{SoyBase} specialize in storing genetic information from the organisms \textit{Caenorhabditis elegans}, \textit{Saccharomyces cerevisiae}, \textit{Drosophila melanogaster}, and \textit{Glycine max}, respectively \cite{harris2020wormbase, cherry2012saccharomyces, st2014flybase, grant2010soybase}. 
 The SRA, ENA, and DDBJ no longer accept raw sequencing data from large consortia projects, so data from these efforts are often hosted in consortia-specific databases. 
 This includes sequencing data from the \textbf{Tara Ocean Foundation}, the \textbf{Human Microbiome Project} (HMP) and \textbf{HMP2}, the \textbf{1000 Genomes Project}, and the \textbf{Marine Microbial Eukaryote Transcriptome Sequencing Project} \cite{pesant2015open, turnbaugh2007human, integrative2014integrative, clarke20121000, keeling2014marine}. 
 Unlike the SRA and associated databases which are centralized and searchable, databases overseen by consortia often require domain-specific knowledge and have unique download and authorization protocols. 
-Finally, more flexible repositories such as Dryad, Zenodo, and Open Science Framework are designed to hold all types of data and metadata associated with a specific project or manuscript (CITE?).
-
-Each repository packages metadata in a different way. This information is often useful for quality control or for experimental design, so it can be helpful to download it along with the sequencing data. Additionally metadata is often available in the supplement of the original publication.
-Finally, as both sequencing technology and analysis tools have changed over time, we recommend conducting your own quality control upon beginning to work with a new dataset (see section \textbf{QUALITY CONTROL}).  % maybe move this last sentence to QC section
-
-%Please note that data available in a public database is not guaranteed to be error-free or complete, so 
-%the metadata associated with that data may not be complete, and 
-
-%When you find relevant data in a public database,
-% -> data portal, type of data (raw reads, assemblies, gene expression, etc) If your organism of choice has a published reference genome or transcriptome, you can 
-
-%\begin{greybox}{\textbf{Data Portals}
-% do we need this section? NO, quick sentence above, make the rest a TABLE
-%\textbf{The Sequence Read Archive} (SRA) is a public database designed to hold raw sequencing data from a variety of sequencing instruments \cite{leinonen2010}. Since its inception in 2009, SRA has grown to hold nearly 20 Pb of data, and continues to grow. The SRA is part of the International Nucleotide Sequence Database Collaboration in conjunction with the \textbf{European Nucleotide Archive} (ENA) and the \textbf{DataBank of Japan} (DDBJ) \cite{leinonen2010european, tateno2002dna}. These organizations exchange information daily and offer different user interface to interact with the same data.
-%(https://www.ncbi.nlm.nih.gov/sra/docs/sragrowth/). 
-
-%There are a number of other data repositories where you can find appropriate data for your organism(s) of choice or that might be %appropriate for answering your research question. 
-%\textbf{CFDE} %https://commonfund.nih.gov/dataecosystem
-%\textbf{Dryad}}
-%\end{greybox}
+Finally, rather than focusing on certain data types or organisms, some repositories are designed to hold any data and metadata associated with a specific project or manuscript (e.g. Open Science Framework, Dryad, Zenodo \cite{foster2017open}).
 
 %% a note about metadata for SRA, etc: https://www.embopress.org/doi/10.15252/embr.201745118
 
@@ -320,7 +300,6 @@ These considerations will be different for different types of sequence analysis.
 While we have curated a series of domain-specific references that may be useful as go about designing your experiment \textbf{TABLE XX}, conducting discussions with experienced bioinformaticians and statisticians, \textbf{prior to beginning your experiments} if possible, is the best way to ensure you will have sufficient statistical power to detect effects.
 Given the resources invested in collecting samples for sequencing, it's important to build in a buffer to preserve your experimental design in the face of unexpected laboratory or technical issues. 
 
-% I think this bit on metadata actually belongs here? (swiped from the data management section)
 As your experiment progresses, keep track of as much information as possible -- dates and times of sample collection, storage, and extraction, sample names, aberrations that occurred during collection, kit lot used for extraction, and any other sample measurements you might be able to obtain (temperature, location, metabolite concentration, name of collector, etc). 
 This metadata serves multiple purposes. 
 First, it allows you to keep track of your samples and perform the experiments or comparisons you intended to perform. 
@@ -349,21 +328,21 @@ MAKE A TABLE, link to research proposal info (or payment info, I guess? Or just 
    }
  \end{greybox}
 
-\section*{Data Management and Organization} % "organization" is really in the next section, though...
-% SHOOT, as it WAS written, this had a lot of overlap with the guidelines in "reproducible workflows"
-% decided to make this section mostly about data, then the next section is really about project org
+\section*{Data Management and Organization}
 
 % point of this section:
 % - What is data? = BOTH seq data and metadata
 % - How to get it / move it
 % - How to organize it ( this is really in the next section
 % - How and where to back it up
-%\subsection*{Wrangling Sequence Data} % is "wrangling" too close to data carpentry?
+
+%% NTP - working here
 Data refers to raw sequencing data, metadata, intermediate files, and results files from an analysis.
 Each data type contains important information that may need to be accessed at some later point.
 Properly protecting your data and adopting a consistent organization scheme for your project will save time and resources, enable good collaboration, and facilitate sharing when it comes to publication.
 
 \subsection*{SOME CLEVER SUBSECTION NAME}
+%\subsection*{Wrangling Sequence Data} % is "wrangling" too close to data carpentry?
 
 \subsubsection*{Keeping track of metadata} % What is data? = BOTH seq data and metadata
 Metadata accompany raw sequencing data and record experimental and sequencing information about the sample.
@@ -682,6 +661,10 @@ Assessing data at every analysis step can reveal these errors early.
 You are the single most effective quality control tool that you have, so its important to interrogate your data to search for problems. 
 While simply looking at your data is sometimes sufficient to catch issues, visualization and software tools (e.g. FastQC, see \textbf{GREYBOX XXX}) make quality control easier. 
 It is important to perform both general and targeted quality control, and to keep an eye out for common problems that often arise in sequencing data. 
+
+%% note on published data (from `accessing publicly-available data` section)
+As both sequencing technology and analysis tools have changed over time, we recommend conducting your own quality control upon beginning to work with a new dataset (see section \textbf{Quality  Control}).
+
 
 \subsubsection*{Critically assess your data}
 %\textbf{Look at your data} 
