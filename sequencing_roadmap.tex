@@ -281,7 +281,7 @@ In others, particularly for biologists conducting novel experiments, these data 
 
 Most journals now require data for all manuscripts to be made accessible, either at publication or after a short moratorium.
 You can find relevant sequencing data either by starting from the ``data accessibility" sections of papers relevant to your research or by directly searching for your organism, environment, or treatment of choice in public data portals and repositories. 
-These public repositories often store additional metadata critical for quality control or understanding of experimental design. However, each repository packages this information in a different way, and in some cases, you may need to obtain it from the supplement of the original publication.
+These public repositories often store additional metadata critical for quality control or understanding of experimental design. However, each repository packages this information in a different way, and it can be challenging to find, format, and combine the metadata for a published project. In some cases, you may need to obtain it from the supplement of the original publication.
 
 The International Nucleotide Sequence Database Collaboration (INSDC), which includes the Sequence Read Archive (SRA), European Nucleotide Archive (ENA), and DataBank of Japan (DDBJ) is the largest repository for raw sequencing data. 
 These repositories have stringent requirements for data they host, so many smaller databases exist that host additional information and different types of sequencing data.
@@ -328,74 +328,65 @@ MAKE A TABLE, link to research proposal info (or payment info, I guess? Or just 
    }
  \end{greybox}
 
-\section*{Data Management and Organization}
+\section*{Project Management and Organization}
 
+The data for sequence analysis - including raw sequence data, intermediate files, metadata, and results files - can quickly build up as you work. Developing a consistent organization scheme for your project at the start will save time and resources, enable good collaboration, and facilitate sharing when it comes to publication. 
+
+\subsection*{Wrangling Sequence data}
 % point of this section:
+%  Why data/project org?
 % - What is data? = BOTH seq data and metadata
 % - How to get it / move it
 % - How to organize it ( this is really in the next section
 % - How and where to back it up
 
-%% NTP - working here
-Data refers to raw sequencing data, metadata, intermediate files, and results files from an analysis.
-Each data type contains important information that may need to be accessed at some later point.
-Properly protecting your data and adopting a consistent organization scheme for your project will save time and resources, enable good collaboration, and facilitate sharing when it comes to publication.
+%Properly protecting your data and adopting a consistent organization scheme for your project will save time and resources, enable good collaboration, and facilitate sharing when it comes to publication.
+%The data for sequencing projects include raw sequencing data, metadata, intermediate files, and results files from an analysis. Each data type contains important information that may need to be accessed at some later point.
 
-\subsection*{SOME CLEVER SUBSECTION NAME}
+%\subsection*{SOME CLEVER SUBSECTION NAME}
 %\subsection*{Wrangling Sequence Data} % is "wrangling" too close to data carpentry?
 
-\subsubsection*{Keeping track of metadata} % What is data? = BOTH seq data and metadata
-Metadata accompany raw sequencing data and record experimental and sequencing information about the sample.
-Keeping metadata formatted in a way that is easy for a computer to interpret makes using the metadata easier for things like quality control or comparisons between samples.
-Standard guidelines for formatting data for scientific computing are given in \cite{wilson2017good}. 
+\subsubsection*{Storing data and metadata} %safeguard your data
 
-When using publicly available sequencing data, it can be challenging to find, format, and combine all metadata. 
-Some metadata is usually provided alongside raw sequencing data such as submitter’s sample name and library preparation. 
-However, experimental metadata is often recorded in the paper that published the data. 
-It is up to the researcher to determine how to unite public database information with publication information, and this usually varies by the publication. 
+As soon as you get your data, it is critical to store a read-only (write-protected) copy of your raw sequence files and any accompanying metadata (including experimental design, sequencing, and sample information) to safeguard against any accidental changes or deletions.
+Ideally, keep one copy of the data in a location accessible to your computational workspace, and additional backups in different locations, such as \textit{both} a local backup disk and cloud storage.
+Any changes you wish to make to your raw data during analysis (e.g. quality control) should be documented and saved to new files, rather than modifying the raw data. 
+By ``keeping raw data raw", you'll be able to return to it anytime you need to change your workflow or develop a new analysis. 
 
+When working with metadata, it may be necessary to reformat your files to facilitate computational analyses and comparisons between samples. In these cases, document the changes and store both the original files and the properly-formatted metadata as raw data. Standard guidelines for formatting data for scientific computing are given in \cite{wilson2017good}.
+
+%Keeping metadata formatted in a way that is easy for a computer to interpret makes using the metadata easier for things like quality control or comparisons between samples.
 
 \subsubsection*{Transferring Data (or not)} 
-Once the data are in hand/once you've identified your data, you'll need to get it onto a computer where it can be analyzed and manipulated. 
-Sometimes it's possible to work on a system where the data are already available, circumventing time and effort required for downloading and moving the data.
-This is mostly likely to be possible if you’re working with already published data. 
-For example, the Sequence Read Archive (SRA) is now available on two commercial cloud services, AWS and Google (SRA in the cloud: https://www.ncbi.nlm.nih.gov/sra/docs/sra-cloud/). 
-Several groups are also working towards making model system genomic data available on cloud ecosystems commonly used for research analysis (CFDE? Common Fund efforts?). 
-Other commercial clouds such as Terra and Seven Bridges may simplify your data transfer and analysis. 
-Outside of these cases, you’ll need to download or move your data.  
-As data analysis proceeds, you may also wish to back up important intermediate and end-stage files or share results with collaborators. 
-The file transfer and storage recommendation provided below can help ensure file integrity during these transfers.
 
-\subsubsection*{Safeguard your data} 
-For both data and metadata, it’s important to “keep raw data raw” - that is, to store a copy of your raw data so that you can return to it anytime you need to change your workflow or develop a new analysis. 
-Any changes you make to the raw data should be documented and saved to new files, rather than modifying the original data files. 
-Ideally, keep one copy of the data in a read-only (write-protected) location accessible to your computational workspace, and additional backups in different locations, such as \textit{both} a local backup disk and cloud storage. 
+If you’re working with publicly-available data, you may be able to work on a compute system where the data are already available, circumventing time and effort required for downloading and moving the data.
+Databases such as the Sequence Read Archive (SRA) are now available on commercial cloud computing systems (Google, AWS; https://www.ncbi.nlm.nih.gov/sra/docs/sra-cloud/), and open source projects such as Galaxy enable import and work on SRA sequence files directly from a web browser (CITE galaxy, sra in cloud site). Ongoing projects such as the NIH Common Fund Data Ecosystem, aim to develop a data portal to make NIH Common Fund data, including biomedical sequencing data, more findable,
+accessible, interoperable, and reusable (FAIR). 
 
+In most cases, you'll still need to transfer some data - either downloading raw data or transferring important intermediate and results files for backup and sharing (or both). The file transfer and storage recommendation provided below can help ensure file integrity during these transfers.
+%For biomedical data, commercial research clouds such as Terra and Seven Bridges can facilitate ...
 
-The recommendations above detail practices for organizing, moving, and safeguarding data. Below, we discuss recommended tools that can facilitate data transfer and storage. 
+%The recommendations above detail practices for organizing, moving, and safeguarding data. Below, we discuss recommended tools that can facilitate data transfer and storage. 
 
 \subsection*{Tools for data transfer and backup} %Strategies and 
 
-%ADD A SENTENCE OR TWO AS A GOOD INTRO/TRANSITION
+% THIS SECTION SITLL NEEDS WORK
 
-%Throughout these processes, it’s important to , and ...
-%...it’s helpful to use programs that automate file transfer and storage.
 
 \subsubsection*{Data storage and transfer} 
-Bioinformatic files can take up a lot of space, and often need to be transferred from one computer to another. 
-It's becoming common practice for tools to work on compressed data (gzip, bzip2, BAM/CRAM, etc) in order to save space.
+When transferring files, there are a number of points that might introduce error: the file may be corrupted due to errors introduced during transfer, reading, processing, or writing the file, or the upload or download may fail, resulting in a truncated file. 
+Many sequencing data files provide MD5sums: data on the size of the file on the server, which you can use to check that you were able to obtain a file of exactly the same size, thus likely complete and uncorrupted. 
+If no MD5sum is provided, you can also check the number of lines and the size of a file at its source and destination to estimate whether a file was corrupted during transfer.  
+Note that as sequence data files are typically quite large, it's becoming common practice for tools to work on compressed data (gzip, bzip2, BAM/CRAM, etc) in order to save space.
 
-Every time a file is moved, there is a chance that the file could become corrupted. 
-Corruption occurs when unintended errors are introduced into a file during transfer, reading, writing, or processing of the file. 
-MD5sums can be used to check integrity of a file after transfer.
-If you do not have access to md5sums, you can also check the number of lines and the size of a file at its source and destination to estimate whether a file was corrupted during transfer.
+There are a number of command-line and graphical programs that can automate file transfer and check for issues with file completion and corruption for you.
+%Some programs automate file transfer and storage and check for issues with file completion and corruption. 
 
-Some programs automate file transfer and storage and check for issues with file completion and corruption. 
 Command-line tools (Rsync, Rclone) or GUI tools (cyberduck, filezilla, etc) can be used to 
 Rsync and Rclone are command line tools that provide transfer between computers or between computers and remote storage providers.
 Non-command line programs ..
 
-\subsubsection*{Backup and storage recommendations} 
+\subsubsection*{Backup and storage} 
 Many universities provide cloud storage space (e.g. through google drive, box, dropbox etc), and researchers can pay for individual storage on these services, or services attached to cloud computing (e.g. Amazon Web Services). 
 Full computer backups can be conducted to these storage locations (e.g. with rclone \cite{bailleul2016rclone}), or there are also a number of paid services that will conduct backups at regular intervals (e.g. Backblaze, Dropbox Pro). 
 There are also several free online repositories designed to help researchers store and share data and project materials. 
@@ -424,10 +415,7 @@ While OSF and other similar repositories (e.g. figshare) are suitable for use at
 %CAN WE ADD A NON-COMMAND LINE TOOL? I'm thinking a cyberduck/filezilla/sftp sort of thing would be useful.
 
 
-\section*{Project Organization: Reproducible workflows and documentation for yourself and others}
-% NTP: tbh, this section includes our rec's on "project organization" - does title need to reflect that? Maybe it was fine as it was? IDK
-% TER Does this still? I think we should remove project organization from the title...its confusing, esp with the data org and 
-% management that's already included above
+\subsection*{Reproducible workflows and documentation for yourself and others}
 As with experimental biology, it is essential to write down everything you do - that is, record the origin of every file (e.g. download URL) and all metadata, record the version of software and each parameter you used, record any manual filtering or data preprocessing steps, and keep track of the order in which you executed each program. 
 Without the ability to fully examine and reproduce your analysis, it will be impossible for you or your collaborators to assess whether the results are accurate, or even to understand how the heuristic decisions you took impact the conclusions made from an analysis. 
 
