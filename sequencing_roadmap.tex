@@ -166,6 +166,11 @@
 }
 
 
+%%% ADDING INLINE FIGURES -- added by taylor reiter, remove before submission
+\usepackage{graphicx}
+\graphicspath{ {./figures/} }
+%%% end add inline figures
+
 % Header and Footer with logo
 \usepackage{lastpage,fancyhdr,graphicx}
 \usepackage{epstopdf}
@@ -299,6 +304,34 @@ For cost-intensive sequencing data, there are a range of decisions about experim
 These considerations will be different for different types of sequence analysis. 
 While we have curated a series of domain-specific references that may be useful as go about designing your experiment \textbf{TABLE XX}, conducting discussions with experienced bioinformaticians and statisticians, \textbf{prior to beginning your experiments} if possible, is the best way to ensure you will have sufficient statistical power to detect effects.
 Given the resources invested in collecting samples for sequencing, it's important to build in a buffer to preserve your experimental design in the face of unexpected laboratory or technical issues. 
+
+\begin{tabular}{|c|c|}
+\hline
+\textbf{Sequencing type} & \textbf{Resources} \\
+\hline
+RNA-sequencing & \cite{conesa2016, schurch2016, ching2014} \\
+\hline
+Metagenomic sequencing & \cite{knight2012, quince2017, eisenhofer2019} \\
+\hline
+Amplicon sequencing & \cite{mclaren2019, murray2015, sinha2017 } \\
+\hline
+Microbial isolate sequencing & \cite{liao2015} \\
+\hline
+Eurkaryotic genome sequencing & \\
+\hline
+Whole-genome resequencing & \cite{fuentes2017} \\
+\hline
+Rad seq & \\
+\hline
+Chip seq & \\
+\hline
+ATAC seq & \\
+\hline
+single cell RNA-seq & \cite{bacher2016, haque2017} \\
+\hline
+? & \\
+\hline
+\end{tabular} 
 
 As your experiment progresses, keep track of as much information as possible -- dates and times of sample collection, storage, and extraction, sample names, aberrations that occurred during collection, kit lot used for extraction, and any other sample measurements you might be able to obtain (temperature, location, metabolite concentration, name of collector, etc). 
 This metadata serves multiple purposes. 
@@ -685,26 +718,58 @@ MultiQC finds and automatically parses log files from other tools and generates 
 MultiQC currently supports 78 tools that span all stages of bioinformatic analysis pipelines, including all-star tools like samtools, BBMap, and FastQC. 
 
 \begin{greybox}{\subsection*{Quick QC with bash/one-liners/etc}
-\textbf{MAKE ME INTO A TABLE}
+
+\begin{tabular}{|c|c|c|}
+\hline
+\textbf{command} & \textbf{function} & \textbf{example} \\
+\hline
+ls -lh & list files with information in a human-readable format & ls -lh *fastq.gz \\
+\hline
+head & print the first 6 lines of a file to standard out & head samples.csv \\
+\hline
+tail & print the last 6 lines of a file to standard out & tail samples.csv \\
+\hline
+less & show the contents of a file in a scrollable screen & less samples.csv \\
+\hline
+zless & show the contents of a gzipped file in a scrollable screen & zless sample1.fastq.gz \\
+\hline
+wc -l & count the number of lines in a file & wc -l ecoli.fasta \\
+\hline
+cat & print a file to standard out & cat samples.csv \\
+\hline
+grep & find matching text and print the line to standard out & grep ">" ecoli.fasta \\
+\hline
+cut & cut columns from a table. & cut -d"," -f1 samples.csv \\
+\hline
+\end{tabular} 
+
 Looking at data is the first step toward understanding it. 
 Bash commands like head, tail, and less, are useful to quickly explore the contents of a file. 
 Often by using these commands, the user can detect if the data is in the wrong format, if a file is mislabelled (i.e. the file name does not match the sample names recorded in the file), and whether obvious abnormalities are present. }
 \end{greybox}
 
-\begin{greybox}{\subsection*{FIGURE: Using FastQC to assess initial quality.}
-FastQC provides quality control measurements and visualizations for raw sequencing data, and is a near-universal first step in sequencing data analysis because of the insights it provides.
-FastQC measures and summarizes 10 quality metrics and provides recommendations for whether the sample is within an acceptable quality range. 
-The FastQC report is rich with information, both for prescribed and off-label interpretations. 
-For example, FastQC reports sequence length distribution, where the length of each read is plotted in a histogram. 
-For raw Illumina sequences, we expect a sharp peak where all reads are the same length; when there is variation in the length of sequences, we can infer that the reads have been trimmed in some way. 
-Another example is per sequence GC content. FastQC reports the percent content of GC nucleotides in the sequencing reads. 
-For single-species sequencing runs, we expect a smooth curve and a single peak. 
-If we observe multiple peaks, this may indicate that multiple species were sequenced in the sequencing run or that other abnormalities occurred during sequencing. 
-Many high-quality sequencing runs will fail FastQC metrics. 
-For example, we expect duplication levels to be high for RNA-sequencing or amplicon data. 
-Likewise, we expect multiple peaks in GC content for metagenomic data. 
-Insights gained using FastQC may not be definitive, but given the speed and computational tractability of the program, it is a rapid first-pass analysis to better understand the quality and content of the data that can be further tested by additional tools.}
-\end{greybox}
+
+\begin{figure}[]
+    %\centering
+    \includegraphics{fastqc}
+    \caption{FastQC provides quality control measurements and visualizations for raw sequencing data, and is a near-universal first step in sequencing data analysis because of the insights it provides.
+FastQC measures and summarizes 10 quality metrics and provides recommendations for whether the sample is within an acceptable quality range. In this figure, we show the per sequence GC content quality metric for \textbf{A} a metagenome with bacteria and archaea species. \textbf{B} \textit{Escherichia coli} isolate genome sequencing, \textbf{C} RAD-sequencing and \textbf{D} RNA-sequencing from \textit{Saccharomyces cerevisiae}. While the GC distribution shown in \textbf{A} would be concerning if the sample were from an isolate, it is acceptable and expected to see non-normal distributions for metagenomes.} 
+    \label{fig:fastqc}
+\end{figure}
+
+
+%FastQC provides quality control measurements and visualizations for raw sequencing data, and is a near-universal first step in sequencing data analysis because of the insights it provides.
+%FastQC measures and summarizes 10 quality metrics and provides recommendations for whether the sample is within an acceptable quality range. 
+%The FastQC report is rich with information, both for prescribed and off-label interpretations. 
+%For example, FastQC reports sequence length distribution, where the length of each read is plotted in a histogram. 
+%For raw Illumina sequences, we expect a sharp peak where all reads are the same length; when there is variation in the length of sequences, we can infer that the reads have been trimmed in some way. 
+%Another example is per sequence GC content. FastQC reports the percent content of GC nucleotides in the sequencing reads. 
+%For single-species sequencing runs, we expect a smooth curve and a single peak. 
+%If we observe multiple peaks, this may indicate that multiple species were sequenced in the sequencing run or that other abnormalities occurred during sequencing. 
+%Many high-quality sequencing runs will fail FastQC metrics. 
+%For example, we expect duplication levels to be high for RNA-sequencing or amplicon data. 
+%Likewise, we expect multiple peaks in GC content for metagenomic data. 
+%Insights gained using FastQC may not be definitive, but given the speed and computational tractability of the program, it is a rapid first-pass analysis to better understand the quality and content of the data that can be further tested by additional tools.}
 
 \subsubsection*{Handling common biases in sequencing data} % this title isn't right yet, just trying to concisely summarize the all caps
 
