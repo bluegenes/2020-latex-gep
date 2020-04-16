@@ -290,7 +290,7 @@ You can find relevant sequencing data either by starting from the ``data accessi
 These public repositories often store additional metadata critical for quality control or understanding of experimental design. However, each repository packages this information in a different way, and it can be challenging to find, format, and combine the metadata for a published project. In some cases, you may need to obtain it from the supplement of the original publication.
 
 The International Nucleotide Sequence Database Collaboration (INSDC), which includes the Sequence Read Archive (SRA), European Nucleotide Archive (ENA), and DataBank of Japan (DDBJ) is the largest repository for raw sequencing data. 
-Additional curated databases focus on processed data such as genome sequences and annotations (Ensembl), gene expression (e.g. Gene Expression Omnibus (GEO), the EMBL-EBI Expression Atlas, Genotype-Tissue Expression project (GTEx)), variation (e.g. dbSNP, dbVar), or disease-associated samples (e.g. Cancer Genome Atlas (TCGA)). 
+Additional curated databases focus on processed data instead, including genome sequences and annotations (Ensembl), gene expression (e.g. Gene Expression Omnibus (GEO), the EMBL-EBI Expression Atlas, Genotype-Tissue Expression project (GTEx)), variation (e.g. dbSNP, dbVar), or disease-associated genomes (e.g. Cancer Genome Atlas (TCGA)).
 Other databases such as \textbf{Wormbase}, \textbf{Saccharomyces Genome Database}, \textbf{FlyBase}, and \textbf{SoyBase} specialize in storing genetic information from the organisms \textit{Caenorhabditis elegans}, \textit{Saccharomyces cerevisiae}, \textit{Drosophila melanogaster}, and \textit{Glycine max}, respectively \cite{harris2020wormbase, cherry2012saccharomyces, st2014flybase, grant2010soybase}. 
 The SRA, ENA, and DDBJ no longer accept raw sequencing data from large consortia projects, so data from these efforts are often hosted in consortia-specific databases. 
 This includes sequencing data from the \textbf{Tara Ocean Foundation}, the \textbf{Human Microbiome Project} (HMP) and \textbf{HMP2}, the \textbf{1000 Genomes Project}, and the \textbf{Marine Microbial Eukaryote Transcriptome Sequencing Project} \cite{pesant2015open, turnbaugh2007human, integrative2014integrative, clarke20121000, keeling2014marine}. 
@@ -407,8 +407,6 @@ The file transfer and storage recommendation provided below can help ensure file
 
 \subsection*{Tools for data transfer and backup} %Strategies and 
 
-% THIS SECTION SITLL NEEDS WORK
-
 
 \subsubsection*{Data storage and transfer}
 
@@ -418,7 +416,7 @@ When you download these files, you can calculate the MD5sum size of the download
 If no MD5sum is provided, you can also check the number of lines and the size of a file at its source and destination to estimate whether a file was corrupted during transfer.
 
 There are several tools that automate file transfer and storage and check for issues with file integrity in a more systematic manner. 
-The two most useful command line program are Rsync and Rclone, which provide transfer between computers or between computers and remote storage providers. 
+The two most useful command line programs are Rsync and Rclone, which provide transfer between computers or between computers and remote storage providers. 
 These tools automatically use checksums to verify that files were transferred properly.
 Some GUI file transfer tools (e.g. cyberduck) also assess checksums when they are provided.
 %However, there are some command-line and graphical programs that can automate file transfer and check for issues with file completion and corruption for you.
