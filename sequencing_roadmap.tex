@@ -73,7 +73,8 @@
 % % % % % % % % % % % % % % % % % % % % % % % %
 
 \documentclass[10pt,letterpaper]{article}
-\usepackage[top=0.85in,left=2.75in,footskip=0.75in]{geometry}
+%\usepackage[top=0.85in,left=2.75in,footskip=0.75in]{geometry}
+\usepackage[top=0.85in,left=1.75in,footskip=0.75in]{geometry}
 
 % amsmath and amssymb packages, useful for mathematical formulas and symbols
 \usepackage{amsmath,amssymb}
@@ -289,13 +290,14 @@ You can find relevant sequencing data either by starting from the ``data accessi
 These public repositories often store additional metadata critical for quality control or understanding of experimental design. However, each repository packages this information in a different way, and it can be challenging to find, format, and combine the metadata for a published project. In some cases, you may need to obtain it from the supplement of the original publication.
 
 The International Nucleotide Sequence Database Collaboration (INSDC), which includes the Sequence Read Archive (SRA), European Nucleotide Archive (ENA), and DataBank of Japan (DDBJ) is the largest repository for raw sequencing data. 
-These repositories have stringent requirements for data they host, so many smaller databases exist that host additional information and different types of sequencing data.
-For example, \textbf{Wormbase}, \textbf{Saccharomyces Genome Database}, \textbf{FlyBase}, and \textbf{SoyBase} specialize in storing genetic information from the organisms \textit{Caenorhabditis elegans}, \textit{Saccharomyces cerevisiae}, \textit{Drosophila melanogaster}, and \textit{Glycine max}, respectively \cite{harris2020wormbase, cherry2012saccharomyces, st2014flybase, grant2010soybase}. 
+Additional curated databases focus on processed data such as genome sequences and annotations (Ensembl), gene expression (e.g. Gene Expression Omnibus (GEO), the EMBL-EBI Expression Atlas, Genotype-Tissue Expression project (GTEx)), variation (e.g. dbSNP, dbVar), or disease-associated samples (e.g. Cancer Genome Atlas (TCGA)). 
+Other databases such as \textbf{Wormbase}, \textbf{Saccharomyces Genome Database}, \textbf{FlyBase}, and \textbf{SoyBase} specialize in storing genetic information from the organisms \textit{Caenorhabditis elegans}, \textit{Saccharomyces cerevisiae}, \textit{Drosophila melanogaster}, and \textit{Glycine max}, respectively \cite{harris2020wormbase, cherry2012saccharomyces, st2014flybase, grant2010soybase}. 
 The SRA, ENA, and DDBJ no longer accept raw sequencing data from large consortia projects, so data from these efforts are often hosted in consortia-specific databases. 
 This includes sequencing data from the \textbf{Tara Ocean Foundation}, the \textbf{Human Microbiome Project} (HMP) and \textbf{HMP2}, the \textbf{1000 Genomes Project}, and the \textbf{Marine Microbial Eukaryote Transcriptome Sequencing Project} \cite{pesant2015open, turnbaugh2007human, integrative2014integrative, clarke20121000, keeling2014marine}. 
-Unlike the SRA and associated databases which are centralized and searchable, databases overseen by consortia often require domain-specific knowledge and have unique download and authorization protocols. 
+Unlike the SRA and associated databases which are centralized and searchable, databases overseen by consortia often require domain-specific knowledge and have unique download and authorization protocols.
 Finally, rather than focusing on certain data types or organisms, some repositories are designed to hold any data and metadata associated with a specific project or manuscript (e.g. Open Science Framework, Dryad, Zenodo \cite{foster2017open}).
 
+%These repositories have stringent requirements for data they host, so many smaller databases exist that host additional information and different types of sequencing data. 
 %% a note about metadata for SRA, etc: https://www.embopress.org/doi/10.15252/embr.201745118
 
 \subsubsection*{Generating your own data}
@@ -396,7 +398,9 @@ If you’re working with publicly-available data, you may be able to work on a c
 Databases such as the Sequence Read Archive (SRA) are now available on commercial cloud computing systems (Google, AWS; https://www.ncbi.nlm.nih.gov/sra/docs/sra-cloud/), and open source projects such as Galaxy enable import and work on SRA sequence files directly from a web browser (CITE galaxy, sra in cloud site). Ongoing projects such as the NIH Common Fund Data Ecosystem, aim to develop a data portal to make NIH Common Fund data, including biomedical sequencing data, more findable,
 accessible, interoperable, and reusable (FAIR). 
 
-In most cases, you'll still need to transfer some data - either downloading raw data or transferring important intermediate and results files for backup and sharing (or both). The file transfer and storage recommendation provided below can help ensure file integrity during these transfers.
+In most cases, you'll still need to transfer some data - either downloading raw data or transferring important intermediate and results files for backup and sharing (or both). 
+As sequence data files are typically quite large, it's becoming common practice for tools to work on compressed data (gzip, bzip2, BAM/CRAM, etc) in order to save space. 
+The file transfer and storage recommendation provided below can help ensure file integrity during these transfers.
 %For biomedical data, commercial research clouds such as Terra and Seven Bridges can facilitate ...
 
 %The recommendations above detail practices for organizing, moving, and safeguarding data. Below, we discuss recommended tools that can facilitate data transfer and storage. 
@@ -406,18 +410,18 @@ In most cases, you'll still need to transfer some data - either downloading raw 
 % THIS SECTION SITLL NEEDS WORK
 
 
-\subsubsection*{Data storage and transfer} 
-When transferring files, there are a number of points that might introduce error: the file may be corrupted due to errors introduced during transfer, reading, processing, or writing the file, or the upload or download may fail, resulting in a truncated file. 
-Many sequencing data files provide MD5sums: data on the size of the file on the server, which you can use to check that you were able to obtain a file of exactly the same size, thus likely complete and uncorrupted. 
-If no MD5sum is provided, you can also check the number of lines and the size of a file at its source and destination to estimate whether a file was corrupted during transfer.  
-Note that as sequence data files are typically quite large, it's becoming common practice for tools to work on compressed data (gzip, bzip2, BAM/CRAM, etc) in order to save space.
+\subsubsection*{Data storage and transfer}
 
-There are a number of command-line and graphical programs that can automate file transfer and check for issues with file completion and corruption for you.
-%Some programs automate file transfer and storage and check for issues with file completion and corruption. 
+Errors can be introduced during any portion of file transfer: uploads or download may fail, resulting in truncated files, or the file itself may be corrupted as either computer is reading, processing, or writing the file. 
+To ensure proper file transfers, many sequencing data files have corresponding MD5sum files, which provide a record of the exact size of that file.
+When you download these files, you can calculate the MD5sum size of the downloaded file, and then check that this value matches the value in the provided MD5sum file: files that are the exact same size are likely complete and uncorrupted. 
+If no MD5sum is provided, you can also check the number of lines and the size of a file at its source and destination to estimate whether a file was corrupted during transfer.
 
-Command-line tools (Rsync, Rclone) or GUI tools (cyberduck, filezilla, etc) can be used to 
-Rsync and Rclone are command line tools that provide transfer between computers or between computers and remote storage providers.
-Non-command line programs ..
+There are several tools that automate file transfer and storage and check for issues with file integrity in a more systematic manner. 
+The two most useful command line program are Rsync and Rclone, which provide transfer between computers or between computers and remote storage providers. 
+These tools automatically use checksums to verify that files were transferred properly.
+Some GUI file transfer tools (e.g. cyberduck) also assess checksums when they are provided.
+%However, there are some command-line and graphical programs that can automate file transfer and check for issues with file completion and corruption for you.
 
 \subsubsection*{Backup and storage} 
 Many universities provide cloud storage space (e.g. through google drive, box, dropbox etc), and researchers can pay for individual storage on these services, or services attached to cloud computing (e.g. Amazon Web Services). 
@@ -426,7 +430,6 @@ There are also several free online repositories designed to help researchers sto
 The Open Science Framework (OSF) \cite{foster2017open}, maintained and developed by the Center for Open Science, provides free storage of an unlimited number of files up to 5GB each in size, and allows the user to keep the data private until they are ready to share (make the project public). 
 OSF provides built-in version control and is supported by a data preservation fund that will keep the data available for 50+ years. 
 While OSF and other similar repositories (e.g. figshare) are suitable for use at any stage of a research project, repositories such as Zenodo and the Dryad Digital Repository (Dryad), are designed to make publication-ready data discoverable, citable, and reusable. 
-%There are a number of repositories appropriate for online storage and backup of sequence data.
 
 % Link out to data/project management info? e.g. Many of these considerations are addressed in a data carpentry lesson (https://datacarpentry.org/organization-genomics/). 
 
