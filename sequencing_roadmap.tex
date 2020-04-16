@@ -73,7 +73,8 @@
 % % % % % % % % % % % % % % % % % % % % % % % %
 
 \documentclass[10pt,letterpaper]{article}
-\usepackage[top=0.85in,left=2.75in,footskip=0.75in]{geometry}
+%\usepackage[top=0.85in,left=2.75in,footskip=0.75in]{geometry}
+\usepackage[top=0.85in,left=1.75in,footskip=0.75in]{geometry}
 
 % amsmath and amssymb packages, useful for mathematical formulas and symbols
 \usepackage{amsmath,amssymb}
@@ -166,6 +167,11 @@
 }
 
 
+%%% ADDING INLINE FIGURES -- added by taylor reiter, remove before submission
+\usepackage{graphicx}
+\graphicspath{ {./figures/} }
+%%% end add inline figures
+
 % Header and Footer with logo
 \usepackage{lastpage,fancyhdr,graphicx}
 \usepackage{epstopdf}
@@ -203,9 +209,6 @@
 
 Taylor Reiter 0000-0002-7388-421X\textsuperscript{1,2},
 %Name2 Surname\textsuperscript{1},
-%Name3 Surname\textsuperscript{1},
-%Name4 Surname\textsuperscript{1},
-%Name5 Surname\textsuperscript{1},
 C. Titus Brown 0000-0001-6001-2677\textsuperscript{1},
 N. Tessa Pierce 0000-0002-2942-5331\textsuperscript{1,*},
 \\
@@ -283,34 +286,18 @@ In others, particularly for biologists conducting novel experiments, these data 
 \subsubsection*{Accessing publicly-available data}
 
 Most journals now require data for all manuscripts to be made accessible, either at publication or after a short moratorium.
-You can find relevant sequencing data either by starting from the "data accessibility" sections of papers relevant to your research or by directly searching for your organism, environment, or treatment of choice in public data portals and repositories. 
-The International Nucleotide Sequence Database Collaboration, which includes the Sequence Read Archive (SRA), European Nucleotide Archive (ENA), and DataBank of Japan (DDBJ) is the largest repository for raw sequencing data. 
-However, these repositories have stringent requirements for data they host, so many smaller databases exist that host additional information. 
-For example, \textbf{Wormbase}, \textbf{Saccharomyces Genome Database}, \textbf{FlyBase}, and \textbf{SoyBase} specialize in storing genetic information from the organisms \textit{Caenorhabditis elegans}, \textit{Saccharomyces cerevisiae}, \textit{Drosophila melanogaster}, and \textit{Glycine max}, respectively \cite{harris2020wormbase, cherry2012saccharomyces, st2014flybase, grant2010soybase}. 
+You can find relevant sequencing data either by starting from the ``data accessibility" sections of papers relevant to your research or by directly searching for your organism, environment, or treatment of choice in public data portals and repositories. 
+These public repositories often store additional metadata critical for quality control or understanding of experimental design. However, each repository packages this information in a different way, and it can be challenging to find, format, and combine the metadata for a published project. In some cases, you may need to obtain it from the supplement of the original publication.
+
+The International Nucleotide Sequence Database Collaboration (INSDC), which includes the Sequence Read Archive (SRA), European Nucleotide Archive (ENA), and DataBank of Japan (DDBJ) is the largest repository for raw sequencing data. 
+Additional curated databases focus on processed data such as genome sequences and annotations (Ensembl), gene expression (e.g. Gene Expression Omnibus (GEO), the EMBL-EBI Expression Atlas, Genotype-Tissue Expression project (GTEx)), variation (e.g. dbSNP, dbVar), or disease-associated samples (e.g. Cancer Genome Atlas (TCGA)). 
+Other databases such as \textbf{Wormbase}, \textbf{Saccharomyces Genome Database}, \textbf{FlyBase}, and \textbf{SoyBase} specialize in storing genetic information from the organisms \textit{Caenorhabditis elegans}, \textit{Saccharomyces cerevisiae}, \textit{Drosophila melanogaster}, and \textit{Glycine max}, respectively \cite{harris2020wormbase, cherry2012saccharomyces, st2014flybase, grant2010soybase}. 
 The SRA, ENA, and DDBJ no longer accept raw sequencing data from large consortia projects, so data from these efforts are often hosted in consortia-specific databases. 
 This includes sequencing data from the \textbf{Tara Ocean Foundation}, the \textbf{Human Microbiome Project} (HMP) and \textbf{HMP2}, the \textbf{1000 Genomes Project}, and the \textbf{Marine Microbial Eukaryote Transcriptome Sequencing Project} \cite{pesant2015open, turnbaugh2007human, integrative2014integrative, clarke20121000, keeling2014marine}. 
-Unlike the SRA and associated databases which are centralized and searchable, databases overseen by consortia often require domain-specific knowledge and have unique download and authorization protocols. 
-Finally, more flexible repositories such as Dryad, Zenodo, and Open Science Framework are designed to hold all types of data and metadata associated with a specific project or manuscript (CITE?).
+Unlike the SRA and associated databases which are centralized and searchable, databases overseen by consortia often require domain-specific knowledge and have unique download and authorization protocols.
+Finally, rather than focusing on certain data types or organisms, some repositories are designed to hold any data and metadata associated with a specific project or manuscript (e.g. Open Science Framework, Dryad, Zenodo \cite{foster2017open}).
 
-Each repository packages metadata in a different way. This information is often useful for quality control or for experimental design, so it can be helpful to download it along with the sequencing data. Additionally metadata is often available in the supplement of the original publication.
-Finally, as both sequencing technology and analysis tools have changed over time, we recommend conducting your own quality control upon beginning to work with a new dataset (see section \textbf{QUALITY CONTROL}).  % maybe move this last sentence to QC section
-
-%Please note that data available in a public database is not guaranteed to be error-free or complete, so 
-%the metadata associated with that data may not be complete, and 
-
-%When you find relevant data in a public database,
-% -> data portal, type of data (raw reads, assemblies, gene expression, etc) If your organism of choice has a published reference genome or transcriptome, you can 
-
-%\begin{greybox}{\textbf{Data Portals}
-% do we need this section? NO, quick sentence above, make the rest a TABLE
-%\textbf{The Sequence Read Archive} (SRA) is a public database designed to hold raw sequencing data from a variety of sequencing instruments \cite{leinonen2010}. Since its inception in 2009, SRA has grown to hold nearly 20 Pb of data, and continues to grow. The SRA is part of the International Nucleotide Sequence Database Collaboration in conjunction with the \textbf{European Nucleotide Archive} (ENA) and the \textbf{DataBank of Japan} (DDBJ) \cite{leinonen2010european, tateno2002dna}. These organizations exchange information daily and offer different user interface to interact with the same data.
-%(https://www.ncbi.nlm.nih.gov/sra/docs/sragrowth/). 
-
-%There are a number of other data repositories where you can find appropriate data for your organism(s) of choice or that might be %appropriate for answering your research question. 
-%\textbf{CFDE} %https://commonfund.nih.gov/dataecosystem
-%\textbf{Dryad}}
-%\end{greybox}
-
+%These repositories have stringent requirements for data they host, so many smaller databases exist that host additional information and different types of sequencing data. 
 %% a note about metadata for SRA, etc: https://www.embopress.org/doi/10.15252/embr.201745118
 
 \subsubsection*{Generating your own data}
@@ -320,7 +307,34 @@ These considerations will be different for different types of sequence analysis.
 While we have curated a series of domain-specific references that may be useful as go about designing your experiment \textbf{TABLE XX}, conducting discussions with experienced bioinformaticians and statisticians, \textbf{prior to beginning your experiments} if possible, is the best way to ensure you will have sufficient statistical power to detect effects.
 Given the resources invested in collecting samples for sequencing, it's important to build in a buffer to preserve your experimental design in the face of unexpected laboratory or technical issues. 
 
-% I think this bit on metadata actually belongs here? (swiped from the data management section)
+\begin{tabular}{|c|c|}
+\hline
+\textbf{Sequencing type} & \textbf{Resources} \\
+\hline
+RNA-sequencing & \cite{conesa2016, schurch2016, ching2014} \\
+\hline
+Metagenomic sequencing & \cite{knight2012, quince2017, eisenhofer2019} \\
+\hline
+Amplicon sequencing & \cite{mclaren2019, murray2015, sinha2017 } \\
+\hline
+Microbial isolate sequencing & \cite{liao2015} \\
+\hline
+Eurkaryotic genome sequencing & \\
+\hline
+Whole-genome resequencing & \cite{fuentes2017} \\
+\hline
+Rad seq & \\
+\hline
+Chip seq & \\
+\hline
+ATAC seq & \\
+\hline
+single cell RNA-seq & \cite{bacher2016, haque2017} \\
+\hline
+? & \\
+\hline
+\end{tabular} 
+
 As your experiment progresses, keep track of as much information as possible -- dates and times of sample collection, storage, and extraction, sample names, aberrations that occurred during collection, kit lot used for extraction, and any other sample measurements you might be able to obtain (temperature, location, metabolite concentration, name of collector, etc). 
 This metadata serves multiple purposes. 
 First, it allows you to keep track of your samples and perform the experiments or comparisons you intended to perform. 
@@ -349,81 +363,73 @@ MAKE A TABLE, link to research proposal info (or payment info, I guess? Or just 
    }
  \end{greybox}
 
-\section*{Data Management and Organization} % "organization" is really in the next section, though...
-% SHOOT, as it WAS written, this had a lot of overlap with the guidelines in "reproducible workflows"
-% decided to make this section mostly about data, then the next section is really about project org
+\section*{Project Management and Organization}
 
+The data for sequence analysis - including raw sequence data, intermediate files, metadata, and results files - can quickly build up as you work. Developing a consistent organization scheme for your project at the start will save time and resources, enable good collaboration, and facilitate sharing when it comes to publication. 
+
+\subsection*{Wrangling Sequence data}
 % point of this section:
+%  Why data/project org?
 % - What is data? = BOTH seq data and metadata
 % - How to get it / move it
 % - How to organize it ( this is really in the next section
 % - How and where to back it up
+
+%Properly protecting your data and adopting a consistent organization scheme for your project will save time and resources, enable good collaboration, and facilitate sharing when it comes to publication.
+%The data for sequencing projects include raw sequencing data, metadata, intermediate files, and results files from an analysis. Each data type contains important information that may need to be accessed at some later point.
+
+%\subsection*{SOME CLEVER SUBSECTION NAME}
 %\subsection*{Wrangling Sequence Data} % is "wrangling" too close to data carpentry?
-Data refers to raw sequencing data, metadata, intermediate files, and results files from an analysis.
-Each data type contains important information that may need to be accessed at some later point.
-Properly protecting your data and adopting a consistent organization scheme for your project will save time and resources, enable good collaboration, and facilitate sharing when it comes to publication.
 
-\subsection*{SOME CLEVER SUBSECTION NAME}
+\subsubsection*{Storing data and metadata} %safeguard your data
 
-\subsubsection*{Keeping track of metadata} % What is data? = BOTH seq data and metadata
-Metadata accompany raw sequencing data and record experimental and sequencing information about the sample.
-Keeping metadata formatted in a way that is easy for a computer to interpret makes using the metadata easier for things like quality control or comparisons between samples.
-Standard guidelines for formatting data for scientific computing are given in \cite{wilson2017good}. 
+As soon as you get your data, it is critical to store a read-only (write-protected) copy of your raw sequence files and any accompanying metadata (including experimental design, sequencing, and sample information) to safeguard against any accidental changes or deletions.
+Ideally, keep one copy of the data in a location accessible to your computational workspace, and additional backups in different locations, such as \textit{both} a local backup disk and cloud storage.
+Any changes you wish to make to your raw data during analysis (e.g. quality control) should be documented and saved to new files, rather than modifying the raw data. 
+By ``keeping raw data raw", you'll be able to return to it anytime you need to change your workflow or develop a new analysis. 
 
-When using publicly available sequencing data, it can be challenging to find, format, and combine all metadata. 
-Some metadata is usually provided alongside raw sequencing data such as submitter’s sample name and library preparation. 
-However, experimental metadata is often recorded in the paper that published the data. 
-It is up to the researcher to determine how to unite public database information with publication information, and this usually varies by the publication. 
+When working with metadata, it may be necessary to reformat your files to facilitate computational analyses and comparisons between samples. In these cases, document the changes and store both the original files and the properly-formatted metadata as raw data. Standard guidelines for formatting data for scientific computing are given in \cite{wilson2017good}.
 
+%Keeping metadata formatted in a way that is easy for a computer to interpret makes using the metadata easier for things like quality control or comparisons between samples.
 
 \subsubsection*{Transferring Data (or not)} 
-Once the data are in hand/once you've identified your data, you'll need to get it onto a computer where it can be analyzed and manipulated. 
-Sometimes it's possible to work on a system where the data are already available, circumventing time and effort required for downloading and moving the data.
-This is mostly likely to be possible if you’re working with already published data. 
-For example, the Sequence Read Archive (SRA) is now available on two commercial cloud services, AWS and Google (SRA in the cloud: https://www.ncbi.nlm.nih.gov/sra/docs/sra-cloud/). 
-Several groups are also working towards making model system genomic data available on cloud ecosystems commonly used for research analysis (CFDE? Common Fund efforts?). 
-Other commercial clouds such as Terra and Seven Bridges may simplify your data transfer and analysis. 
-Outside of these cases, you’ll need to download or move your data.  
-As data analysis proceeds, you may also wish to back up important intermediate and end-stage files or share results with collaborators. 
+
+If you’re working with publicly-available data, you may be able to work on a compute system where the data are already available, circumventing time and effort required for downloading and moving the data.
+Databases such as the Sequence Read Archive (SRA) are now available on commercial cloud computing systems (Google, AWS; https://www.ncbi.nlm.nih.gov/sra/docs/sra-cloud/), and open source projects such as Galaxy enable import and work on SRA sequence files directly from a web browser (CITE galaxy, sra in cloud site). Ongoing projects such as the NIH Common Fund Data Ecosystem, aim to develop a data portal to make NIH Common Fund data, including biomedical sequencing data, more findable,
+accessible, interoperable, and reusable (FAIR). 
+
+In most cases, you'll still need to transfer some data - either downloading raw data or transferring important intermediate and results files for backup and sharing (or both). 
+As sequence data files are typically quite large, it's becoming common practice for tools to work on compressed data (gzip, bzip2, BAM/CRAM, etc) in order to save space. 
 The file transfer and storage recommendation provided below can help ensure file integrity during these transfers.
+%For biomedical data, commercial research clouds such as Terra and Seven Bridges can facilitate ...
 
-\subsubsection*{Safeguard your data} 
-For both data and metadata, it’s important to “keep raw data raw” - that is, to store a copy of your raw data so that you can return to it anytime you need to change your workflow or develop a new analysis. 
-Any changes you make to the raw data should be documented and saved to new files, rather than modifying the original data files. 
-Ideally, keep one copy of the data in a read-only (write-protected) location accessible to your computational workspace, and additional backups in different locations, such as \textit{both} a local backup disk and cloud storage. 
-
-
-The recommendations above detail practices for organizing, moving, and safeguarding data. Below, we discuss recommended tools that can facilitate data transfer and storage. 
+%The recommendations above detail practices for organizing, moving, and safeguarding data. Below, we discuss recommended tools that can facilitate data transfer and storage. 
 
 \subsection*{Tools for data transfer and backup} %Strategies and 
 
-%ADD A SENTENCE OR TWO AS A GOOD INTRO/TRANSITION
+% THIS SECTION SITLL NEEDS WORK
 
-%Throughout these processes, it’s important to , and ...
-%...it’s helpful to use programs that automate file transfer and storage.
 
-\subsubsection*{Data storage and transfer} 
-Bioinformatic files can take up a lot of space, and often need to be transferred from one computer to another. 
-It's becoming common practice for tools to work on compressed data (gzip, bzip2, BAM/CRAM, etc) in order to save space.
+\subsubsection*{Data storage and transfer}
 
-Every time a file is moved, there is a chance that the file could become corrupted. 
-Corruption occurs when unintended errors are introduced into a file during transfer, reading, writing, or processing of the file. 
-MD5sums can be used to check integrity of a file after transfer.
-If you do not have access to md5sums, you can also check the number of lines and the size of a file at its source and destination to estimate whether a file was corrupted during transfer.
+Errors can be introduced during any portion of file transfer: uploads or download may fail, resulting in truncated files, or the file itself may be corrupted as either computer is reading, processing, or writing the file. 
+To ensure proper file transfers, many sequencing data files have corresponding MD5sum files, which provide a record of the exact size of that file.
+When you download these files, you can calculate the MD5sum size of the downloaded file, and then check that this value matches the value in the provided MD5sum file: files that are the exact same size are likely complete and uncorrupted. 
+If no MD5sum is provided, you can also check the number of lines and the size of a file at its source and destination to estimate whether a file was corrupted during transfer.
 
-Some programs automate file transfer and storage and check for issues with file completion and corruption. 
-Command-line tools (Rsync, Rclone) or GUI tools (cyberduck, filezilla, etc) can be used to 
-Rsync and Rclone are command line tools that provide transfer between computers or between computers and remote storage providers.
-Non-command line programs ..
+There are several tools that automate file transfer and storage and check for issues with file integrity in a more systematic manner. 
+The two most useful command line program are Rsync and Rclone, which provide transfer between computers or between computers and remote storage providers. 
+These tools automatically use checksums to verify that files were transferred properly.
+Some GUI file transfer tools (e.g. cyberduck) also assess checksums when they are provided.
+%However, there are some command-line and graphical programs that can automate file transfer and check for issues with file completion and corruption for you.
 
-\subsubsection*{Backup and storage recommendations} 
+\subsubsection*{Backup and storage} 
 Many universities provide cloud storage space (e.g. through google drive, box, dropbox etc), and researchers can pay for individual storage on these services, or services attached to cloud computing (e.g. Amazon Web Services). 
 Full computer backups can be conducted to these storage locations (e.g. with rclone \cite{bailleul2016rclone}), or there are also a number of paid services that will conduct backups at regular intervals (e.g. Backblaze, Dropbox Pro). 
 There are also several free online repositories designed to help researchers store and share data and project materials. 
 The Open Science Framework (OSF) \cite{foster2017open}, maintained and developed by the Center for Open Science, provides free storage of an unlimited number of files up to 5GB each in size, and allows the user to keep the data private until they are ready to share (make the project public). 
 OSF provides built-in version control and is supported by a data preservation fund that will keep the data available for 50+ years. 
 While OSF and other similar repositories (e.g. figshare) are suitable for use at any stage of a research project, repositories such as Zenodo and the Dryad Digital Repository (Dryad), are designed to make publication-ready data discoverable, citable, and reusable. 
-%There are a number of repositories appropriate for online storage and backup of sequence data.
 
 % Link out to data/project management info? e.g. Many of these considerations are addressed in a data carpentry lesson (https://datacarpentry.org/organization-genomics/). 
 
@@ -445,10 +451,7 @@ While OSF and other similar repositories (e.g. figshare) are suitable for use at
 %CAN WE ADD A NON-COMMAND LINE TOOL? I'm thinking a cyberduck/filezilla/sftp sort of thing would be useful.
 
 
-\section*{Project Organization: Reproducible workflows and documentation for yourself and others}
-% NTP: tbh, this section includes our rec's on "project organization" - does title need to reflect that? Maybe it was fine as it was? IDK
-% TER Does this still? I think we should remove project organization from the title...its confusing, esp with the data org and 
-% management that's already included above
+\subsection*{Reproducible workflows and documentation for yourself and others}
 As with experimental biology, it is essential to write down everything you do - that is, record the origin of every file (e.g. download URL) and all metadata, record the version of software and each parameter you used, record any manual filtering or data preprocessing steps, and keep track of the order in which you executed each program. 
 Without the ability to fully examine and reproduce your analysis, it will be impossible for you or your collaborators to assess whether the results are accurate, or even to understand how the heuristic decisions you took impact the conclusions made from an analysis. 
 
@@ -683,6 +686,10 @@ You are the single most effective quality control tool that you have, so its imp
 While simply looking at your data is sometimes sufficient to catch issues, visualization and software tools (e.g. FastQC, see \textbf{GREYBOX XXX}) make quality control easier. 
 It is important to perform both general and targeted quality control, and to keep an eye out for common problems that often arise in sequencing data. 
 
+%% note on published data (from `accessing publicly-available data` section)
+As both sequencing technology and analysis tools have changed over time, we recommend conducting your own quality control upon beginning to work with a new dataset (see section \textbf{Quality  Control}).
+
+
 \subsubsection*{Critically assess your data}
 %\textbf{Look at your data} 
 Quality control can be as simple as looking at the first few and last few lines of input and output data files, or checking the size of those files. 
@@ -702,26 +709,58 @@ MultiQC finds and automatically parses log files from other tools and generates 
 MultiQC currently supports 78 tools that span all stages of bioinformatic analysis pipelines, including all-star tools like samtools, BBMap, and FastQC. 
 
 \begin{greybox}{\subsection*{Quick QC with bash/one-liners/etc}
-\textbf{MAKE ME INTO A TABLE}
+
+\begin{tabular}{|c|c|c|}
+\hline
+\textbf{command} & \textbf{function} & \textbf{example} \\
+\hline
+ls -lh & list files with information in a human-readable format & ls -lh *fastq.gz \\
+\hline
+head & print the first 6 lines of a file to standard out & head samples.csv \\
+\hline
+tail & print the last 6 lines of a file to standard out & tail samples.csv \\
+\hline
+less & show the contents of a file in a scrollable screen & less samples.csv \\
+\hline
+zless & show the contents of a gzipped file in a scrollable screen & zless sample1.fastq.gz \\
+\hline
+wc -l & count the number of lines in a file & wc -l ecoli.fasta \\
+\hline
+cat & print a file to standard out & cat samples.csv \\
+\hline
+grep & find matching text and print the line to standard out & grep ">" ecoli.fasta \\
+\hline
+cut & cut columns from a table. & cut -d"," -f1 samples.csv \\
+\hline
+\end{tabular} 
+
 Looking at data is the first step toward understanding it. 
 Bash commands like head, tail, and less, are useful to quickly explore the contents of a file. 
 Often by using these commands, the user can detect if the data is in the wrong format, if a file is mislabelled (i.e. the file name does not match the sample names recorded in the file), and whether obvious abnormalities are present. }
 \end{greybox}
 
-\begin{greybox}{\subsection*{FIGURE: Using FastQC to assess initial quality.}
-FastQC provides quality control measurements and visualizations for raw sequencing data, and is a near-universal first step in sequencing data analysis because of the insights it provides.
-FastQC measures and summarizes 10 quality metrics and provides recommendations for whether the sample is within an acceptable quality range. 
-The FastQC report is rich with information, both for prescribed and off-label interpretations. 
-For example, FastQC reports sequence length distribution, where the length of each read is plotted in a histogram. 
-For raw Illumina sequences, we expect a sharp peak where all reads are the same length; when there is variation in the length of sequences, we can infer that the reads have been trimmed in some way. 
-Another example is per sequence GC content. FastQC reports the percent content of GC nucleotides in the sequencing reads. 
-For single-species sequencing runs, we expect a smooth curve and a single peak. 
-If we observe multiple peaks, this may indicate that multiple species were sequenced in the sequencing run or that other abnormalities occurred during sequencing. 
-Many high-quality sequencing runs will fail FastQC metrics. 
-For example, we expect duplication levels to be high for RNA-sequencing or amplicon data. 
-Likewise, we expect multiple peaks in GC content for metagenomic data. 
-Insights gained using FastQC may not be definitive, but given the speed and computational tractability of the program, it is a rapid first-pass analysis to better understand the quality and content of the data that can be further tested by additional tools.}
-\end{greybox}
+
+\begin{figure}[]
+    %\centering
+    \includegraphics[scale=0.6]{fastqc}
+    \caption{FastQC provides quality control measurements and visualizations for raw sequencing data, and is a near-universal first step in sequencing data analysis because of the insights it provides.
+FastQC measures and summarizes 10 quality metrics and provides recommendations for whether the sample is within an acceptable quality range. In this figure, we show the per sequence GC content quality metric for \textbf{A} a metagenome with bacteria and archaea species. \textbf{B} \textit{Escherichia coli} isolate genome sequencing, \textbf{C} RAD-sequencing and \textbf{D} RNA-sequencing from \textit{Saccharomyces cerevisiae}. While the GC distribution shown in \textbf{A} would be concerning if the sample were from an isolate, it is acceptable and expected to see non-normal distributions for metagenomes.} 
+    \label{fig:fastqc}
+\end{figure}
+
+
+%FastQC provides quality control measurements and visualizations for raw sequencing data, and is a near-universal first step in sequencing data analysis because of the insights it provides.
+%FastQC measures and summarizes 10 quality metrics and provides recommendations for whether the sample is within an acceptable quality range. 
+%The FastQC report is rich with information, both for prescribed and off-label interpretations. 
+%For example, FastQC reports sequence length distribution, where the length of each read is plotted in a histogram. 
+%For raw Illumina sequences, we expect a sharp peak where all reads are the same length; when there is variation in the length of sequences, we can infer that the reads have been trimmed in some way. 
+%Another example is per sequence GC content. FastQC reports the percent content of GC nucleotides in the sequencing reads. 
+%For single-species sequencing runs, we expect a smooth curve and a single peak. 
+%If we observe multiple peaks, this may indicate that multiple species were sequenced in the sequencing run or that other abnormalities occurred during sequencing. 
+%Many high-quality sequencing runs will fail FastQC metrics. 
+%For example, we expect duplication levels to be high for RNA-sequencing or amplicon data. 
+%Likewise, we expect multiple peaks in GC content for metagenomic data. 
+%Insights gained using FastQC may not be definitive, but given the speed and computational tractability of the program, it is a rapid first-pass analysis to better understand the quality and content of the data that can be further tested by additional tools.}
 
 \subsubsection*{Handling common biases in sequencing data} % this title isn't right yet, just trying to concisely summarize the all caps
 
