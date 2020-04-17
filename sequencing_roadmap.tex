@@ -723,7 +723,7 @@ As both sequencing technology and analysis tools have changed over time, we reco
 
 \subsubsection*{Critically assess your data}
 %\textbf{Look at your data} 
-Quality control can be as simple as looking at the first few and last few lines of input and output data files, or checking the size of those files. 
+Quality control can be as simple as looking at the first few and last few lines of input and output data files, or checking the size of those files {\ref{tab:bash_commands}}. 
 To develop an intuition for what proper inputs and outputs look like for a given tool, it is often helpful to first run the test example or data that is packaged with the software. 
 Comparing these input and output file formats to your own data can help identify and address inconsistencies. 
 
@@ -739,8 +739,7 @@ MultiQC is a helpful tool to parse and interpret some log files \cite{ewels2016}
 MultiQC finds and automatically parses log files from other tools and generates a combined report and parsed data tables that include all samples. 
 MultiQC currently supports 78 tools that span all stages of bioinformatic analysis pipelines, including all-star tools like samtools, BBMap, and FastQC. 
 
-\begin{greybox}{\subsection*{Quick QC with bash/one-liners/etc}
-
+\begin{table}
 \begin{tabular}{|c|c|c|}
 \hline
 \textbf{command} & \textbf{function} & \textbf{example} \\
@@ -764,11 +763,8 @@ grep & find matching text and print the line to standard out & grep ">" ecoli.fa
 cut & cut columns from a table. & cut -d"," -f1 samples.csv \\
 \hline
 \end{tabular} 
-
-Looking at data is the first step toward understanding it. 
-Bash commands like head, tail, and less, are useful to quickly explore the contents of a file. 
-Often by using these commands, the user can detect if the data is in the wrong format, if a file is mislabelled (i.e. the file name does not match the sample names recorded in the file), and whether obvious abnormalities are present. }
-\end{greybox}
+\caption{\label{tab:bash_commands} Some bash commands are useful to quickly explore the contents of a file. By using these commands, the user can detect common formatting problems or other abnormalities.}
+\end{table}
 
 
 \begin{figure}[]
