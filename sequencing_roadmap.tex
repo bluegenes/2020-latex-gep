@@ -801,7 +801,6 @@ The exact biases in a specific data set or workflow will vary greatly between ex
 To determine what issues are most likely to plague your specific data set, it can be helpful to find recent publications using a similar experimental design, or to speak with experts at a sequencing core.
 
 
-% this section is: some common issues to look for while doing QC. maybe _not_ greybox? bc most greyboxes are specific tools?
 %\begin{greybox}{\subsection*{Finding and eliminating contaminant sequences} % 
 \subsubsection*{Handling common contaminant sequences}
 % maybe merge this section with the one above? (if can find right header)
@@ -880,9 +879,13 @@ Sketching algorithms also dramatically reduce the runtime for comparisons agains
 Sketching algorithms have been reviewed in-depth by Rowe \cite{rowe2019streaming}.
 
 \textbf{Read Quantification vs Mapping}
-%% had a thought - seems like we could briefly mentioning quantification vs read mapping here might be a good way to round out the "make big data less big" section
-\textbf{Anything else to mention?}
++ Read mapping is common in transcriptomics, and used to be a *de facto* step in RNA-seq analysis necessary to produce counts  
++ quasi mapping approximates mapping on a per-read basis (instead of on a per-base basis), which captures quantification information without needing to produce the whole alignment  
++ this saves a lot of time and storage space.   
 
+%% had a thought - seems like we could briefly mentioning quantification vs read mapping here might be a good way to round out the "make big data less big" section
+\textbf{Anything else to mention?}  
++ blast approximations?
 
 \subsection*{Assess required resources}
 % Use only the Resources you need / Calculating required resources
