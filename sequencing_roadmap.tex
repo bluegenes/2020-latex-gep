@@ -246,7 +246,7 @@ N. Tessa Pierce 0000-0002-2942-5331\textsuperscript{1,*},
 
 \end{flushleft}
 % Please keep the abstract below 300 words
-\section*{Abstract}
+\section*{Abstract} % currently ~200 words
 As both sequencing technologies and data have proliferated, the bottleneck of biological sequence analysis has shifted from data generation to analysis. 
 Fortunately, analysis tools and techniques have evolved to cope with this ever-increasing flood of data. 
 Reliable and user-friendly software management and workflow systems have emerged to facilitate interrogation of many thousands of samples. 
@@ -259,39 +259,59 @@ The guidelines and tools presented below are designed to apply to novel or publi
 %The majority of this manuscript will covers understanding how to conduct computational analyses on sequencing data, 
 % Except for data acquisition, the tools and guidelines presented below apply to either novel or publicly-available data.  
 
-% not sure where this sentence fits anymore.
-%Lorem ipsum dolor sit amet, %consectetur adipiscing elit. Curabitur eget porta erat. Morbi consectetur est vel gravida pretium. Suspendisse ut dui eu ante cursus gravida non sed sem. Nullam sapien tellus, commodo id velit id, eleifend volutpat quam. Phasellus mauris velit, dapibus finibus elementum vel, pulvinar non tellus. Nunc pellentesque pretium diam, quis maximus dolor faucibus id. Nunc convallis sodales ante, ut ullamcorper est egestas vitae. Nam sit amet enim ultrices, ultrices elit pulvinar, volutpat risus.
-
 % Please keep the Author Summary between 150 and 200 words
 % Use first person. PLOS ONE authors please skip this step. 
 % Author Summary not valid for PLOS ONE submissions.   
+
+{\section*{Author summary}
+In this paper, we present our guide for biological sequence data analysis, developed through our own teaching, training and analysis, as well as via robust discussion with the open source community. % let's ask for thoughts explicitly?
+Our main goal is to accelerate scientists conducting sequence analyses into organized workflow practices that benefit their own research while also facilitating open and reproducible science.
+%Our main goal is to accelerate biologists/bioinformaticians into organized workflow practices that benefit their own research while also facilitating open, reproducible analyses
+}
 
 \linenumbers
 
 \section*{Introduction}
 
-/textit{draft intro}
+Sequencing data are now widely available for species across the tree of life, and new sequencing data continues to be generated at a fantastic clip. %(cite sra growth?).
+The wealth of information present in sequencing data has the potential to revolutionize our understanding of the diversity and function of communities, building basic understanding from ecosystems to human health.
+However, sequence analysis remains both complex and computationally intensive, and the learning curve remains steep.
 
-paragraph 1ish
-- Lots of data! ANY SEQUENCING DATA.
-- sequencing data is easily accessible and easy to generate
-- because of this, there's lots of analysis questions we can interrogate!
-- but to get at these questions in a meaningful way, you need a principled approach/way to attack the data
-Audience: anyone interested in workign with sequence data who doesn't already know workflows or sequence analysis. 
- = ppl who are non-experts in working with sequencing data.
-...somehow emphasize how important/life-changing workflows are. Maybe start with something like this: Adopting workflow-based systems may be the single best step you can take to improve your analyses. % ok, this isn't entirely true - documentation is the best thing to do, but workflow systems help you keep better documentation and just make everything so much easier...
-p2ish
-- seqeunce analysis, bioinformatics have matured - consensus analysis approaches and some tools that allow you to take those approaches.
-- Workflows and conda are amazing, and will help you!
-- they have learning curves, but are worth it.
-- analogy: manual approach works well once, but learning to use power tools will make it work many times?
-p3ish
-Via these tips, we hope to accelerate biologists/bioinformaticians into open and reproducible workflow practices.
+The enormity of sequencing data requires a principled approach to management, analysis, and dissemination of results.
+As sequencing analysis has matured over the past decade, several papers have presented ``best" or ``good enough" practices for computational biological analyses (\cite{aruliah2012best}, \cite{wilson2014best}, \cite{shade2015roadmap}, \cite{wilson2017good}).
+These recommendations have both helped build consensus and fueled additional tool and workflow development.
+Since the latest paper in 2017 \cite{wilson2017good}, a number of important tools have greatly reduced the barrier to entry and opened the door to end-to-end reproducible analyses. % simple, shareable, etc
+Many of these changes owe their origin, at least in part, to the open science movement and the recognition of the importance of entry-level training, such as that provided by The Carpentries (cite).
+%consensus approaches and tools have emerged, 
+%researchers have settled on some consensus analysis approaches for data quality control, etc.
 
-- workflow tips and good approaches (e.g. making big data less big) to data analysis.
-- if getting started, here's how to make sure you get the most out of your data and time.
+The key advancements over the past few years have come in workflow scripting and software management. % and sharing? Role of github/open code?
+The combination of workflow languages (e.g. snakemake, nextflow, common workflow language) and package installations (e.g. conda) have revolutionized bioinformatic analysis development.
+These tools reduce the amount of computational knowledge required, and can even serve as a form of documentation for the analysis.
+%First, software installation via package managers (particularly conda (cite)) vastly decreased the time and effort required to try new software.
+%Second, workflow languages (e.g. snakemake, nextflow, common workflow language) have matured and seen widespread uptake.
+%These languages facilitate building, running, and documenting bioinformatic analyses.
 
-GOAL: 
+%have become standardized enough/simple enough to eclipse bash scripting. 
+%Adopting workflow-based systems may be the single best step you can take to improve your analyses (here's where to talk up workflows!)
+%bonus: these integrate with software installation! Also provide a bunch of other neat data-sciencey logging and benchmarking.
+Finally, new tools leveraging computational approximations have emerged a promising solution to coping with the enormity of sequencing data.
+
+
+In this paper, we build on our experiences training researchers as part of The Carpentries and other courses and workshops. 
+We present a roadmap for biological sequence analysis, beginning at data acquisition and providing specific recommendations for tools that ensure the integrity of your data along the way.
+We emphasize the importance of adopting a workflow-based approach to enhance documentation, automation and reproducibility of your science.
+Adopting these approaches will not only propel your own research, but will also facilitate sharing, discussion, peer review, etc. 
+Here, we present our best advice on how to get the most out of your sequencing data and time.
+
+%- seqeunce analysis, bioinformatics have matured - consensus analysis approaches and some tools that allow you to take those approaches.
+%- Workflows and conda are amazing, and will help you!
+%- they have learning curves, but are worth it.
+%- analogy: manual approach works well once, but learning to use power tools will make it work many times?
+%p3ish
+%Via these tips, we hope to accelerate biologists/bioinformaticians into open and reproducible workflow practices.
+%
+%- workflow tips and good approaches (e.g. making big data less big) to data analysis.
 
 
 \section*{Before you Begin}
