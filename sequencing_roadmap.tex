@@ -606,19 +606,28 @@ The conda package and environment manager combines these two functions, and work
 
 \begin{greybox}{\subsubsection*{Conda}
 
-The conda package manager (https://conda.io) has emerged as the leading solution for installing many scientific software packages and managing environments. 
-Conda simplifies installations by checking for a compatible version of each required dependency prior to installing the desired package (and installing those dependencies for you, if desired). 
-This works because software developers write a conda “recipe” for their package, specifying the required dependencies, including which versions (or ranges of versions) will work. 
-The utility of conda for scientific software has increased in large part due to the massive uptake by the scientific community, with many thousands of scientific packages available via the “bioconda” and “conda-forge” channels. 
+The conda package manager (https://conda.io) has emerged as the leading solution for installing many scientific software packages and managing environments, with many thousands of scientific packages available via the ``bioconda”, ``r", and``conda-forge” channels.
+Conda does not require root privileges for software installation, thus enabling use by researchers working on shared cluster systems. 
+Conda installations work across Linux, Mac, and Windows, though some packages are limited to certain operating systems.
 
-It is straightforward to build environments and record packages therein. 
-This can be used to rebuild the same environment later. Since conda handles installations of the proper dependencies for different underlying systems, you can have conda export the recipe for an environment and use it to rebuild the environment on a different computer system, such as moving from your personal computer to a high-performance cluster environment. 
-Conda does not require root privileges for software installation, thus enabling use by researchers working on shared cluster systems.
+To enable conda installation, software developers write a conda "recipe" for their package which specifies any required dependencies, including which versions (or ranges of versions) will work.
+During installation, conda checks for a compatible version of each dependency (and installs those dependencies for you, if desired). 
+Since each package has a recipe, conda can follow the recipe for each dependency to ensure all required software is installed.
+%in large part due to the massive uptake by the scientific community.
 
 However, conda installation has a major limitation. 
-When many packages are installed together, the time required to avoid version conflicts (“solve the environment”) can increase dramatically, as conda must check compatibility and install the correct version of each tool. 
-To circumvent high solve times while also avoiding version conflicts that may arise during system-wide software installation, we recommend using environments for your software and building many simple environments to accommodate different steps in your workflow. 
-By specifying the version of each package within these environments, you can enhance reproducibility by ensuring that the same software versions are used to analyse the data, both now and in the future. }
+When many packages are installed together, the time required to avoid version conflicts (``solve the environment”) can increase dramatically, as conda must check compatibility and install the correct version of each tool. 
+To circumvent high solve times while also avoiding version conflicts that may arise during system-wide software installation, we recommend using ``environments" for your software and building many simple environments to accommodate different steps in your workflow. 
+Small environments might consist of just a few programs typically run together, installed directly from the command line, or from an environment file (in YAML format) that contains the information for each desired package. 
+By specifying the version of each package in your environments, you can enhance reproducibility by ensuring that the same software versions are used to analyse the data, both now and in the future.
+Once you have a working environment, you can have conda export a corresponding environment YAML file that can be used to reinstall the environmetn on other systems (and stored for reproducibility). Many workflow systems can leverage conda environments to automatically install and run software within conda environments.
+
+%These can be specified in an environment `yml` file, or one can be exported from a working conda environment for reinstallation on other systems.
+
+%This can be used to rebuild the same environment later. Since conda handles installations of the proper dependencies for different underlying systems, you can have conda export the recipe for an environment and use it to rebuild the environment on a different computer system, such as moving from your personal computer to a high-performance cluster environment. 
+%It is straightforward to build environments and record packages therein. 
+
+}
 \end{greybox}
 
 
