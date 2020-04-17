@@ -304,9 +304,10 @@ Finally, rather than focusing on certain data types or organisms, some repositor
 If generating your own data, proper experimental design and planning are essential. 
 For cost-intensive sequencing data, there are a range of decisions about experimental design and sequencing (including sequencing type, sequencing depth per sample, and biological replication) that impact your ability to properly address your research question. 
 These considerations will be different for different types of sequence analysis. 
-While we have curated a series of domain-specific references that may be useful as go about designing your experiment \textbf{TABLE XX}, conducting discussions with experienced bioinformaticians and statisticians, \textbf{prior to beginning your experiments} if possible, is the best way to ensure you will have sufficient statistical power to detect effects.
+While we have curated a series of domain-specific references that may be useful as go about designing your experiment \ref{tab:seq_resources}, conducting discussions with experienced bioinformaticians and statisticians, \textbf{prior to beginning your experiments} if possible, is the best way to ensure you will have sufficient statistical power to detect effects.
 Given the resources invested in collecting samples for sequencing, it's important to build in a buffer to preserve your experimental design in the face of unexpected laboratory or technical issues. 
 
+\begin{table}
 \begin{tabular}{|c|c|}
 \hline
 \textbf{Sequencing type} & \textbf{Resources} \\
@@ -334,6 +335,8 @@ single cell RNA-seq & \cite{bacher2016, haque2017} \\
 ? & \\
 \hline
 \end{tabular} 
+\caption{\label{tab:seq_resources}}
+\end{table}
 
 As your experiment progresses, keep track of as much information as possible -- dates and times of sample collection, storage, and extraction, sample names, aberrations that occurred during collection, kit lot used for extraction, and any other sample measurements you might be able to obtain (temperature, location, metabolite concentration, name of collector, etc). 
 This metadata serves multiple purposes. 
@@ -347,21 +350,51 @@ Sequence analysis requires access to computing systems with adequate storage and
 For some smaller-scale datasets, local desktop or even laptop systems can be sufficient, especially if using tools that implement data-reduction strategies such as minhashing \cite{rowe2019streaming}. 
 However, larger projects require additional computing power, or may be restricted to certain operating systems (e.g. linux). 
 For these projects, solutions range from research-focused high performance computing systems (e.g. university HPC, XSEDE/Jetstream, add non-USA example) to research-integrated commercial analysis platforms (e.g. AWS, Seven Bridges, Google Cloud, Microsoft Azure). 
-Both research-only and  and commercial clusters provide avenues for research and educational proposals to enable access to their computing resources (\textbf{TABLE XX}). 
+Both research-only and  and commercial clusters provide avenues for research and educational proposals to enable access to their computing resources (\ref{tab:computational_resources}). 
 In preparing for data analysis, be sure to allocate sufficient computational resources and funding for storage and analysis, including large intermediate files and resources required for personnel training. 
 
+\begin{table}
+\begin{tabular}{|c|c|c|}
+\hline
+Cloud Provider & Standard Model & Limits \\
+\hline
+Amazon Web Services & Paid & \\
+\hline
+Bionimbus Protected Data Cloud & Research allocation & users with eRA commons account \\
+\hline
+Cyverse Atmosphere & Free with limits & storage and compute hours \\
+\hline
+EGI federated cloud & Access by contact & European partner countries \\
+\hline
+Galaxy & Free with storage limits & data storage limits \\
+\hline
+Google Cloud Platform & Paid & \\
+\hline
+Google Colab & Free & computational notebooks, no resource guaruntees \\
+\hline
+Microsoft Azure & Paid & \\
+\hline
+NSF XSEDE & Research allocation & USA researchers or collaborators \\
+\hline
+Open Science Data Cloud & Research allocation & \\
+\hline
+Wasabi & Paid & data storage solution only \\
+\hline
+\end{tabular} 
+\caption{\label{tab:computational_resources} \textbf{Research cloud resources} Cloud provider indicates the name of the cloud, standard model indicates the most common route toward using the cloud, and limitations indicates limitations in access or services provided by the cloud.}
+\end{table}
 
-\begin{greybox}{\textbf{Research Cloud resources}
- 
-MAKE A TABLE, link to research proposal info (or payment info, I guess? Or just say "paid")!
-   - Galaxy
-   - XSEDE + Jetstream (USA; Research; examples of applications)
-   - cyverse
-   - AWS (Worldwide, Paid)
-   - https://www.opensciencedatacloud.org/
-   - google cloud https://www.blog.google/products/google-cloud/google-cloud-offers-global-support-for-academic-research/
-   }
- \end{greybox}
+%\begin{greybox}{\textbf{Research Cloud resources}
+% 
+%MAKE A TABLE, link to research proposal info (or payment info, I guess? Or just say "paid")!
+%   - Galaxy
+%   - XSEDE + Jetstream (USA; Research; examples of applications)
+%   - cyverse
+%   - AWS (Worldwide, Paid)
+%   - https://www.opensciencedatacloud.org/
+%   - google cloud https://www.blog.google/products/google-cloud/google-cloud-offers-global-support-for-academic-research/
+%   }
+% \end{greybox}
 
 \section*{Project Management and Organization}
 
