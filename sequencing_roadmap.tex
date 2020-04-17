@@ -679,7 +679,7 @@ Since each package has a recipe, conda can follow the recipe for each dependency
 
 However, conda installation has a major limitation. 
 When many packages are installed together, the time required to avoid version conflicts (``solve the environment”) can increase dramatically, as conda must check compatibility and install the correct version of each tool. 
-To circumvent high solve times while also avoiding version conflicts that may arise during system-wide software installation, we recommend using ``environments" for your software and building many simple environments to accommodate different steps in your workflow. 
+To circumvent high solve times while also avoiding version conflicts that may arise during system-wide software installation, we recommend using separate ``environments" for your software and building many simple environments to accommodate different steps in your workflow. 
 Small environments might consist of just a few programs typically run together, installed directly from the command line, or from an environment file (in YAML format) that contains the information for each desired package. 
 By specifying the version of each package in your environments, you can enhance reproducibility by ensuring that the same software versions are used to analyse the data, both now and in the future.
 Once you have a working environment, you can have conda export a corresponding environment YAML file that can be used to reinstall the environmetn on other systems (and stored for reproducibility). Many workflow systems can leverage conda environments to automatically install and run software within conda environments.
