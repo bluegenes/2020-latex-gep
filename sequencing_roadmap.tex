@@ -248,13 +248,13 @@ N. Tessa Pierce 0000-0002-2942-5331\textsuperscript{1,*},
 % Please keep the abstract below 300 words
 \section*{Abstract}
 As both sequencing technologies and data have proliferated, the bottleneck of biological sequence analysis has shifted from data generation to analysis. 
-Fortunately, analysis tools and techniques have evolved to cope with this ever-increasing stream of data. 
-Reliable and (relatively) user-friendly software management and workflow systems have emerged to facilitate interrogation of many thousands of samples at once. 
-For fundamental steps such as quality control, standardized protocols are now available, meaning biologists can spend less time rewriting common analyses and more time examining the biological intricacies of their data. 
+Fortunately, analysis tools and techniques have evolved to cope with this ever-increasing flood of data. 
+Reliable and user-friendly software management and workflow systems have emerged to facilitate interrogation of many thousands of samples. 
+For fundamental steps such as quality control, standardized protocols are now available, meaning researchers can spend less time rewriting common analyses and more time examining the biological intricacies of their data. 
 In cases where the data are too large for even high-performance computing environments, a series of tools have emerged that are capable of using small, representative subsets of massive datasets to produce comparable results. 
-However, while adoption of these tools can both facilitate and expedite reproducible data analysis, knowledge of and training in these techniques is still lacking. 
+While adoption of these tools can both facilitate and expedite reproducible data analysis, knowledge of and training in these techniques is still lacking. 
 Here, we provide a series of tips, tools, and “good enough” practices for biologists venturing into the realm of biological sequence analysis.
-The guidelines and tools presented below are designed to apply for novel or publicly-available data and across the range of computational resource options available to researchers.
+The guidelines and tools presented below are designed to apply to novel or publicly-available sequencing data sets and across the range of computational resource options available to researchers.
 
 %The majority of this manuscript will covers understanding how to conduct computational analyses on sequencing data, 
 % Except for data acquisition, the tools and guidelines presented below apply to either novel or publicly-available data.  
@@ -297,9 +297,9 @@ GOAL:
 \section*{Before you Begin}
 
 As with all biological analyses, the most critical step of sequence analysis is obtaining high-quality data for your scientific question. 
-With vast amounts of sequencing data already available in public repositories, it is often possible to begin interrogating your research question by seeking out publicly available data. 
+With vast amounts of sequencing data already available in public repositories, it is often possible to begin investigating your research question by seeking out publicly available data. 
 In some cases, these data will be sufficient to conduct your entire analysis. 
-In others, particularly for biologists conducting novel experiments, these data can inform decisions about sequencing type, depth, and replication, and can help uncover potential pitfalls before they cost valuable time and resources.
+In others cases, particularly for biologists conducting novel experiments, these data can inform decisions about sequencing type, depth, and replication, and can help uncover potential pitfalls before they cost valuable time and resources.
 
 \subsubsection*{Accessing publicly-available data}
 
@@ -312,7 +312,7 @@ Additional curated databases focus on processed data instead, including genome s
 Other databases such as \textbf{Wormbase}, \textbf{Saccharomyces Genome Database}, \textbf{FlyBase}, and \textbf{SoyBase} specialize in storing genetic information from the organisms \textit{Caenorhabditis elegans}, \textit{Saccharomyces cerevisiae}, \textit{Drosophila melanogaster}, and \textit{Glycine max}, respectively \cite{harris2020wormbase, cherry2012saccharomyces, st2014flybase, grant2010soybase}. 
 The SRA, ENA, and DDBJ no longer accept raw sequencing data from large consortia projects, so data from these efforts are often hosted in consortia-specific databases. 
 This includes sequencing data from the \textbf{Tara Ocean Foundation}, the \textbf{Human Microbiome Project} (HMP) and \textbf{HMP2}, the \textbf{1000 Genomes Project}, and the \textbf{Marine Microbial Eukaryote Transcriptome Sequencing Project} \cite{pesant2015open, turnbaugh2007human, integrative2014integrative, clarke20121000, keeling2014marine}. 
-Unlike the SRA and associated databases which are centralized and searchable, databases overseen by consortia often require domain-specific knowledge and have unique download and authorization protocols.
+Unlike the SRA and associated databases which are centralized and searchable, databases overseen by consortia often require domain-specific knowledge and have unique download and authentication protocols.
 Finally, rather than focusing on certain data types or organisms, some repositories are designed to hold any data and metadata associated with a specific project or manuscript (e.g. Open Science Framework, Dryad, Zenodo \cite{foster2017open}).
 
 %These repositories have stringent requirements for data they host, so many smaller databases exist that host additional information and different types of sequencing data. 
@@ -322,7 +322,7 @@ Finally, rather than focusing on certain data types or organisms, some repositor
 If generating your own data, proper experimental design and planning are essential. 
 For cost-intensive sequencing data, there are a range of decisions about experimental design and sequencing (including sequencing type, sequencing depth per sample, and biological replication) that impact your ability to properly address your research question. 
 These considerations will be different for different types of sequence analysis. 
-While we have curated a series of domain-specific references that may be useful as go about designing your experiment \ref{tab:seq_resources}, conducting discussions with experienced bioinformaticians and statisticians, \textbf{prior to beginning your experiments} if possible, is the best way to ensure you will have sufficient statistical power to detect effects.
+While we have curated a series of domain-specific references that may be useful as go about designing your experiment (see \textbf{Table \ref{tab:seq_resources}}), conducting discussions with experienced bioinformaticians and statisticians, \textbf{prior to beginning your experiments} if possible, is the best way to ensure you will have sufficient statistical power to detect effects.
 Given the resources invested in collecting samples for sequencing, it's important to build in a buffer to preserve your experimental design in the face of unexpected laboratory or technical issues. 
 
 \begin{table}
@@ -360,7 +360,7 @@ As your experiment progresses, keep track of as much information as possible -- 
 This metadata serves multiple purposes. 
 First, it allows you to keep track of your samples and perform the experiments or comparisons you intended to perform. 
 Second, it allows you to control for batch effects that may arise from unintended batching during sampling or experimental procedures. 
-Third, recording more information may make the data you collect reusable for future applications and analysis, particularly for meta-analyses. 
+Third, recording more information may make the data you collect reusable for future applications and analysis by yourself and others, particularly for meta-analyses. 
 
 \subsubsection*{Securing Computational Resources}
 
@@ -368,7 +368,7 @@ Sequence analysis requires access to computing systems with adequate storage and
 For some smaller-scale datasets, local desktop or even laptop systems can be sufficient, especially if using tools that implement data-reduction strategies such as minhashing \cite{rowe2019streaming}. 
 However, larger projects require additional computing power, or may be restricted to certain operating systems (e.g. linux). 
 For these projects, solutions range from research-focused high performance computing systems (e.g. university HPC, XSEDE/Jetstream, add non-USA example) to research-integrated commercial analysis platforms (e.g. AWS, Seven Bridges, Google Cloud, Microsoft Azure). 
-Both research-only and  and commercial clusters provide avenues for research and educational proposals to enable access to their computing resources (\ref{tab:computational_resources}). 
+Both research-only and  and commercial clusters provide avenues for research and educational proposals to enable access to their computing resources (see \textbf{Table \ref{tab:computational_resources}}). 
 In preparing for data analysis, be sure to allocate sufficient computational resources and funding for storage and analysis, including large intermediate files and resources required for personnel training. 
 
 \begin{table}
@@ -530,14 +530,22 @@ All of these pieces of information contextualize your results and may be helpful
 Keeping information about these decisions in an intuitive and easily accessible place helps you find it when you need it. 
 Each main directory should include notes on the data or scripts contained within, so that a collaborator could look into the directory and understand what to find there (even if that “collaborator” is you, a few months from now!). 
 Code itself can be (or contain) documentation - you can add comments with the reasoning behind parameter choice or include a link to the seqanswers post that helped you decide how to shape your differential expression analysis. 
-Larger pieces of information can be kept in "README" or notes documents kept alongside your code and other documents. 
+Larger pieces of information can be kept in ``README" or notes documents kept alongside your code and other documents. 
+For example, a GitHub repository documenting the reanalysis of the Marine Microbioal Eukaryote Transcriptome Sequencing Project uses a README alongside the code to document the workflow and digital object identifiers for data products (https://github.com/dib-lab/dib-MMETSP) \cite{johnson2019}.   
  %and liberal use of comments makes the purpose of specific lines of code explicitly clear.
 
 \subsubsection*{Add visual representations} 
 Visual representations illustrate the connections in a workflow. 
 At the highest level, flowcharts that detail relationships between steps of a workflow can help provide big-picture clarification, especially when the pipeline is complicated. 
 For individual steps, a graphical representation of the output can show the status of the project or provide insight on additional analyses that should be added. 
-Whenever possible, adding visualizations can help improve the readability and reproducibility of your project.
+Whenever possible, adding visualizations can help improve the readability and reproducibility of your project. \textbf{Figure \ref{fig:sgc_workflow}} illustrates a workflow visualization \cite{brown2019exploring}. 
+
+\begin{figure}
+\includegraphics[width=0.9\textwidth]{figures/hu_dag.png}
+\caption{A directed acyclic graph that illustrates connections between all steps of a sequencing data analysis workflow. Each box represents a step in the workflow, while lines connect sequential steps.}
+\label{fig:sgc_workflow}
+\end{figure}
+
 
 \subsubsection*{Version Control} 
 As your project develops, version control allows you to keep track of changes over time. 
@@ -622,14 +630,18 @@ Although code written by the user is similar to what may be written in a coordin
 This added layer of organization means one can easily rerun sections of a workflow, scale a workflow to new samples, parallelize non-dependent steps, coordinate software in step-dependent manner, and many other useful things. 
 
 Workflow systems are available as both scripting and graphical user interface systems. 
-Snakemake, Nextflow, and Common Workflow Language allow the user to fully script a workflow, while websites like Galaxy and Seven Bridges Genomics offer online portals in which users build workflows. 
+Snakemake, Nextflow, Common Workflow Language, and Workflow Definition Language allow the user to fully script a workflow, while websites like Galaxy and Seven Bridges Genomics offer online portals in which users build workflows. 
 Many common protocols are available online. 
 These protocols can be very helpful as a starting point for your analysis, and can be modified to fit your particular experimental design. 
 [Add online resources: snakemake-workflows, nf-core etc] % add resources 
-
 % snakemake workflows: https://github.com/snakemake-workflows
 % nextflow-core: https://github.com/nf-core
 % awesome nextflow: https://github.com/nextflow-io/awesome-nextflow
+
+Many research groups have used workflow software to build user-friendly pipelines that do not require learning or working with the underlying workflow software.
+These tools allow users to take advantage of the benefits of workflow software without needing to invest in curating and writing their own pipeline.  
+Some examples include the ATLAS metagenome assembly and binning pipeline (https://github.com/metagenome-atlas/atlas) \cite{kieser2019atlas}, the Sunbeam metagenome analysis pipeline (https://github.com/sunbeam-labs/sunbeam) \cite{clarke2019sunbeam}, the Elvers \textit{de novo} transcriptome and differential expression pipeline (https://github.com/dib-lab/elvers), the dammit eukaryotic transcriptome pipeline (https://github.com/dib-lab/dammit). 
+
 
 \subsubsection*{Wrangling Scientific Software} 
 Research software is written by many different groups of people using different languages (e.g. python, R, perl, bash, C++, rust, etc.). 
@@ -640,8 +652,8 @@ As a result, it is critical to take an organized approach to installing, managin
 There are a number of ways to test out or run software without needing to worry about installation. 
 Some software packages are available as web-based tools and through a series of data upload and parameter specifications, allow the user to interact with a tool that is running on a back-end server. 
 This approach is ideal for testing a tool prior to installation to determine whether it produces an appropriate or useful output on your data. 
-Many groups also provide pre-built software “containers” that package the software and all dependencies (often even a full system os) together such that it can be run uniformly regardless of differences in the underlying computing system. 
-These are often called “images” as they are a representation of all the software installed on a system at a time, aka a “snapshot”, or “image” of the system. 
+Many groups also provide pre-built software ``containers” that package the software and all dependencies (often even a full system os) together such that it can be run uniformly regardless of differences in the underlying computing system. 
+These are often called ``images” as they are a representation of all the software installed on a system at a time, aka a ``snapshot”, or ``image” of the system. 
 Container software such as Docker and Singularity can be used to run these images directly on your machine, while platforms such as kubernetes facilitate execution on cluster systems.
 
 %\textbf{Software Installation} 
@@ -667,7 +679,7 @@ Since each package has a recipe, conda can follow the recipe for each dependency
 
 However, conda installation has a major limitation. 
 When many packages are installed together, the time required to avoid version conflicts (``solve the environment”) can increase dramatically, as conda must check compatibility and install the correct version of each tool. 
-To circumvent high solve times while also avoiding version conflicts that may arise during system-wide software installation, we recommend using ``environments" for your software and building many simple environments to accommodate different steps in your workflow. 
+To circumvent high solve times while also avoiding version conflicts that may arise during system-wide software installation, we recommend using separate ``environments" for your software and building many simple environments to accommodate different steps in your workflow. 
 Small environments might consist of just a few programs typically run together, installed directly from the command line, or from an environment file (in YAML format) that contains the information for each desired package. 
 By specifying the version of each package in your environments, you can enhance reproducibility by ensuring that the same software versions are used to analyse the data, both now and in the future.
 Once you have a working environment, you can have conda export a corresponding environment YAML file that can be used to reinstall the environmetn on other systems (and stored for reproducibility). Many workflow systems can leverage conda environments to automatically install and run software within conda environments.
@@ -740,7 +752,7 @@ Errors in sequencing data can be introduced at every stage, from sample generati
 Sample labels can be mixed up during sample collection, nucleotide extraction may produce chemically contaminated or low concentration samples, sequencing platforms introduce erroneous base pairs, and analysis tools may output incomplete or mis-specified results. 
 Assessing data at every analysis step can reveal these errors early. 
 You are the single most effective quality control tool that you have, so its important to interrogate your data to search for problems. 
-While simply looking at your data is sometimes sufficient to catch issues, visualization and software tools (e.g. FastQC, see \textbf{GREYBOX XXX}) make quality control easier. 
+While simply looking at your data is sometimes sufficient to catch issues, visualization and software tools (e.g. FastQC, see \textbf{Figure \ref{fig:fastqc}}) make quality control easier. 
 It is important to perform both general and targeted quality control, and to keep an eye out for common problems that often arise in sequencing data. 
 
 %% note on published data (from `accessing publicly-available data` section)
@@ -755,7 +767,7 @@ Comparing these input and output file formats to your own data can help identify
 
 Visualization is another powerful way to pick out unusual or unexpected patterns. 
 Although large abnormalities may be clear from looking at files, others may be small and difficult to find. 
-Visualizing raw sequencing data with FASTQC \textbf{SEE BOX FASTQC} and processed sequencing data with tools like the Integrative Genome Browser and plotting tabular results files using python or R can make aberrant or inconsistent results easier to track down.
+Visualizing raw sequencing data with FastQC (\textbf{Figure \ref{fig:fastqc}}) and processed sequencing data with tools like the Integrative Genome Browser and plotting tabular results files using python or R can make aberrant or inconsistent results easier to track down.
 
 Many tools or operating systems generate log files or messages while running. 
 These files contain information about the quantity, quality, and results from the run, or error messages about why a run failed. 
@@ -793,12 +805,11 @@ cut & cut columns from a table. & cut -d``," -f1 samples.csv \\
 \end{table}
 
 
-\begin{figure}[]
-    %\centering
-    \includegraphics[scale=0.6]{fastqc}
-    \caption{FastQC provides quality control measurements and visualizations for raw sequencing data, and is a near-universal first step in sequencing data analysis because of the insights it provides.
+\begin{figure}
+\includegraphics[width=.9\textwidth]{figures/fastqc.png}
+\caption{FastQC provides quality control measurements and visualizations for raw sequencing data, and is a near-universal first step in sequencing data analysis because of the insights it provides.
 FastQC measures and summarizes 10 quality metrics and provides recommendations for whether the sample is within an acceptable quality range. In this figure, we show the per sequence GC content quality metric for \textbf{A} a metagenome with bacteria and archaea species. \textbf{B} \textit{Escherichia coli} isolate genome sequencing, \textbf{C} RAD-sequencing and \textbf{D} RNA-sequencing from \textit{Saccharomyces cerevisiae}. While the GC distribution shown in \textbf{A} would be concerning if the sample were from an isolate, it is acceptable and expected to see non-normal distributions for metagenomes.} 
-    \label{fig:fastqc}
+\label{fig:fastqc}
 \end{figure}
 
 
