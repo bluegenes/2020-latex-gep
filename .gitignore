@@ -1,4 +1,4 @@
-*.pdf
+seq*.pdf
 *.aux
 *.bbl
 *.blg
