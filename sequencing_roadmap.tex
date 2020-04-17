@@ -904,12 +904,13 @@ For example, sketching algorithms can be used to estimate all-by-all sample simi
 Sketching algorithms also dramatically reduce the runtime for comparisons against databases (e.g. all of GenBank), allowing users to quickly compare their data against large public databases. 
 Sketching algorithms have been reviewed in-depth by Rowe \cite{rowe2019streaming}.
 
-\textbf{Read Quantification vs Mapping}
-+ Read mapping is common in transcriptomics, and used to be a *de facto* step in RNA-seq analysis necessary to produce counts  
-+ quasi mapping approximates mapping on a per-read basis (instead of on a per-base basis), which captures quantification information without needing to produce the whole alignment  
-+ this saves a lot of time and storage space.   
+\textbf{Read quasi-mapping vs alignment} RNA-seq analysis approaches like differential expression or transcript clustering rely on transcript or gene counts.
+Many tools can be used to generate these counts by quantifying the number of reads that overlap with each transcript or gene.
+Many tools produce this information. 
+For example, tools like STAR and HISAT2 produce alignments that can be post-processed to generate per-transcript read counts.
+However, these tools generate information-rich output, specifying per-base alignments for each read.
+Quasi-mapping produces the minimum information necessary for read quantification, thereby reducing the time and resources needed to generate and store read count information (CITE: RAPMAP). 
 
-%% had a thought - seems like we could briefly mentioning quantification vs read mapping here might be a good way to round out the "make big data less big" section
 \textbf{Anything else to mention?}  
 + blast approximations?
 
