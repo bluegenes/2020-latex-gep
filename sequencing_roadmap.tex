@@ -304,9 +304,10 @@ Finally, rather than focusing on certain data types or organisms, some repositor
 If generating your own data, proper experimental design and planning are essential. 
 For cost-intensive sequencing data, there are a range of decisions about experimental design and sequencing (including sequencing type, sequencing depth per sample, and biological replication) that impact your ability to properly address your research question. 
 These considerations will be different for different types of sequence analysis. 
-While we have curated a series of domain-specific references that may be useful as go about designing your experiment \textbf{TABLE XX}, conducting discussions with experienced bioinformaticians and statisticians, \textbf{prior to beginning your experiments} if possible, is the best way to ensure you will have sufficient statistical power to detect effects.
+While we have curated a series of domain-specific references that may be useful as go about designing your experiment \ref{tab:seq_resources}, conducting discussions with experienced bioinformaticians and statisticians, \textbf{prior to beginning your experiments} if possible, is the best way to ensure you will have sufficient statistical power to detect effects.
 Given the resources invested in collecting samples for sequencing, it's important to build in a buffer to preserve your experimental design in the face of unexpected laboratory or technical issues. 
 
+\begin{table}
 \begin{tabular}{|c|c|}
 \hline
 \textbf{Sequencing type} & \textbf{Resources} \\
@@ -334,6 +335,8 @@ single cell RNA-seq & \cite{bacher2016, haque2017} \\
 ? & \\
 \hline
 \end{tabular} 
+\caption{\label{tab:seq_resources} References for experimental design and considerations for common sequencing chemistries.}
+\end{table}
 
 As your experiment progresses, keep track of as much information as possible -- dates and times of sample collection, storage, and extraction, sample names, aberrations that occurred during collection, kit lot used for extraction, and any other sample measurements you might be able to obtain (temperature, location, metabolite concentration, name of collector, etc). 
 This metadata serves multiple purposes. 
@@ -347,21 +350,51 @@ Sequence analysis requires access to computing systems with adequate storage and
 For some smaller-scale datasets, local desktop or even laptop systems can be sufficient, especially if using tools that implement data-reduction strategies such as minhashing \cite{rowe2019streaming}. 
 However, larger projects require additional computing power, or may be restricted to certain operating systems (e.g. linux). 
 For these projects, solutions range from research-focused high performance computing systems (e.g. university HPC, XSEDE/Jetstream, add non-USA example) to research-integrated commercial analysis platforms (e.g. AWS, Seven Bridges, Google Cloud, Microsoft Azure). 
-Both research-only and  and commercial clusters provide avenues for research and educational proposals to enable access to their computing resources (\textbf{TABLE XX}). 
+Both research-only and  and commercial clusters provide avenues for research and educational proposals to enable access to their computing resources (\ref{tab:computational_resources}). 
 In preparing for data analysis, be sure to allocate sufficient computational resources and funding for storage and analysis, including large intermediate files and resources required for personnel training. 
 
+\begin{table}
+\begin{tabular}{|c|c|c|}
+\hline
+Cloud Provider & Standard Model & Limits \\
+\hline
+Amazon Web Services & Paid & \\
+\hline
+Bionimbus Protected Data Cloud & Research allocation & users with eRA commons account \\
+\hline
+Cyverse Atmosphere & Free with limits & storage and compute hours \\
+\hline
+EGI federated cloud & Access by contact & European partner countries \\
+\hline
+Galaxy & Free with storage limits & data storage limits \\
+\hline
+Google Cloud Platform & Paid & \\
+\hline
+Google Colab & Free & computational notebooks, no resource guaruntees \\
+\hline
+Microsoft Azure & Paid & \\
+\hline
+NSF XSEDE & Research allocation & USA researchers or collaborators \\
+\hline
+Open Science Data Cloud & Research allocation & \\
+\hline
+Wasabi & Paid & data storage solution only \\
+\hline
+\end{tabular} 
+\caption{\label{tab:computational_resources} \textbf{Research cloud resources} Cloud provider indicates the name of the cloud, standard model indicates the most common route toward using the cloud, and limitations indicates limitations in access or services provided by the cloud.}
+\end{table}
 
-\begin{greybox}{\textbf{Research Cloud resources}
- 
-MAKE A TABLE, link to research proposal info (or payment info, I guess? Or just say "paid")!
-   - Galaxy
-   - XSEDE + Jetstream (USA; Research; examples of applications)
-   - cyverse
-   - AWS (Worldwide, Paid)
-   - https://www.opensciencedatacloud.org/
-   - google cloud https://www.blog.google/products/google-cloud/google-cloud-offers-global-support-for-academic-research/
-   }
- \end{greybox}
+%\begin{greybox}{\textbf{Research Cloud resources}
+% 
+%MAKE A TABLE, link to research proposal info (or payment info, I guess? Or just say "paid")!
+%   - Galaxy
+%   - XSEDE + Jetstream (USA; Research; examples of applications)
+%   - cyverse
+%   - AWS (Worldwide, Paid)
+%   - https://www.opensciencedatacloud.org/
+%   - google cloud https://www.blog.google/products/google-cloud/google-cloud-offers-global-support-for-academic-research/
+%   }
+% \end{greybox}
 
 \section*{Project Management and Organization}
 
@@ -660,9 +693,9 @@ Shiny apps can contain user-specifiable parameters, allowing a user to control v
 For example, if a Shiny app contained RNA-seq differential expression data, it might allow the user to specify which gene counts it should plot. 
 Shiny apps allow collaborators who may or may not know R to change R visualisations to fit their interests.   
  
- \textbf{Other tools} Whole Tale, plotly for single interactive visualizations (R, python...), ...
- 
-
+ \textbf{Other tools} There are many other tools that aid in reproducibility or sharing of results. 
+Some tools, such as Whole Tale, aim to package the entire research object by capturing data, code and software environments in one executable package (CITATION). 
+Other tools such as Vega-lite and plotly produce single interactive visualizations that can be shared with collaborators or integrated into websites (CITATIONS).
 }
 \end{greybox}
 
@@ -699,7 +732,7 @@ As both sequencing technology and analysis tools have changed over time, we reco
 
 \subsubsection*{Critically assess your data}
 %\textbf{Look at your data} 
-Quality control can be as simple as looking at the first few and last few lines of input and output data files, or checking the size of those files. 
+Quality control can be as simple as looking at the first few and last few lines of input and output data files, or checking the size of those files {\ref{tab:bash_commands}}. 
 To develop an intuition for what proper inputs and outputs look like for a given tool, it is often helpful to first run the test example or data that is packaged with the software. 
 Comparing these input and output file formats to your own data can help identify and address inconsistencies. 
 
@@ -715,8 +748,7 @@ MultiQC is a helpful tool to parse and interpret some log files \cite{ewels2016}
 MultiQC finds and automatically parses log files from other tools and generates a combined report and parsed data tables that include all samples. 
 MultiQC currently supports 78 tools that span all stages of bioinformatic analysis pipelines, including all-star tools like samtools, BBMap, and FastQC. 
 
-\begin{greybox}{\subsection*{Quick QC with bash/one-liners/etc}
-
+\begin{table}
 \begin{tabular}{|c|c|c|}
 \hline
 \textbf{command} & \textbf{function} & \textbf{example} \\
@@ -735,16 +767,13 @@ wc -l & count the number of lines in a file & wc -l ecoli.fasta \\
 \hline
 cat & print a file to standard out & cat samples.csv \\
 \hline
-grep & find matching text and print the line to standard out & grep ">" ecoli.fasta \\
+grep & find matching text and print the line to standard out & grep ``\textgreater" ecoli.fasta \\
 \hline
-cut & cut columns from a table. & cut -d"," -f1 samples.csv \\
+cut & cut columns from a table. & cut -d``," -f1 samples.csv \\
 \hline
 \end{tabular} 
-
-Looking at data is the first step toward understanding it. 
-Bash commands like head, tail, and less, are useful to quickly explore the contents of a file. 
-Often by using these commands, the user can detect if the data is in the wrong format, if a file is mislabelled (i.e. the file name does not match the sample names recorded in the file), and whether obvious abnormalities are present. }
-\end{greybox}
+\caption{\label{tab:bash_commands} Some bash commands are useful to quickly explore the contents of a file. By using these commands, the user can detect common formatting problems or other abnormalities.}
+\end{table}
 
 
 \begin{figure}[]
@@ -781,7 +810,6 @@ The exact biases in a specific data set or workflow will vary greatly between ex
 To determine what issues are most likely to plague your specific data set, it can be helpful to find recent publications using a similar experimental design, or to speak with experts at a sequencing core.
 
 
-% this section is: some common issues to look for while doing QC. maybe _not_ greybox? bc most greyboxes are specific tools?
 %\begin{greybox}{\subsection*{Finding and eliminating contaminant sequences} % 
 \subsubsection*{Handling common contaminant sequences}
 % maybe merge this section with the one above? (if can find right header)
@@ -860,9 +888,13 @@ Sketching algorithms also dramatically reduce the runtime for comparisons agains
 Sketching algorithms have been reviewed in-depth by Rowe \cite{rowe2019streaming}.
 
 \textbf{Read Quantification vs Mapping}
-%% had a thought - seems like we could briefly mentioning quantification vs read mapping here might be a good way to round out the "make big data less big" section
-\textbf{Anything else to mention?}
++ Read mapping is common in transcriptomics, and used to be a *de facto* step in RNA-seq analysis necessary to produce counts  
++ quasi mapping approximates mapping on a per-read basis (instead of on a per-base basis), which captures quantification information without needing to produce the whole alignment  
++ this saves a lot of time and storage space.   
 
+%% had a thought - seems like we could briefly mentioning quantification vs read mapping here might be a good way to round out the "make big data less big" section
+\textbf{Anything else to mention?}  
++ blast approximations?
 
 \subsection*{Assess required resources}
 % Use only the Resources you need / Calculating required resources
