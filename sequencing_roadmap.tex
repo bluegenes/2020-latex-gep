@@ -305,8 +305,337 @@ Here, we present our best advice on how to get the most out of your sequencing d
 %
 %- workflow tips and good approaches (e.g. making big data less big) to data analysis.
 
+\section*{Workflows and Automation} % title needs to convey that Bioinformatics == Workflows (bioinfo is made up of workflows, whether you use workflow software or not)
 
-\section*{Before you Begin}
+A pipeline, or a workflow, is made up of each of the steps needed to complete an analysis.
+While a workflow can be manually executed step-by-step, this is both time-consuming and has the potential to introduce unintended errors. 
+Automating a workflow using scripting or workflow languages can instead ensure that the entire data analysis is documented and repeatable from start to finish. 
+
+Workflow automation can be conducted by scripting the ordered execution of each step in a traditional scripting language such as bash. 
+However, a number of more tailored workflow systems have emerged that have significant advantages over traditional command-line scripting. 
+There is a learning curve associated with using these systems, but the benefits far outweigh the cost of learning to use them. 
+
+% Workflow systems can be used both in local computing environments or on cloud systems, can be combined with versioned software installation via containers or environments, and keep track of file changes to ensure the entire data analysis is both automated and repeatable from start to finish. Many workflows can also detect whether new data was added or upstream programs were re-executed, and ensure the entire workflow is run on the new data. These systems explicitly keep a record of script dependency and order, which can simplify documentation. Other benefits include the ability to use virtual environments or containers via Conda or Docker to automatically and reproducibly handle software installation for each step (cite  https://www.nature.com/articles/d41586-019-02619-z), the ability to work across systems, and the ability to parallelize workflow steps where possible. 
+
+Workflow systems make bioinformatics pipelines repeatable, transferable, and better documented. 
+Although code written by the user is similar to what may be written in a coordinated set of bash or python scripts, workflow systems take care of behind-the-scenes checks and scaffolding that ensure the entire workflow is accurately encoded and run completely and efficiently. 
+This added layer of organization means one can easily rerun sections of a workflow, scale a workflow to new samples, parallelize non-dependent steps, coordinate software in step-dependent manner, and many other useful things. 
+
+Workflow systems are available as both scripting and graphical user interface systems. 
+Snakemake, Nextflow, Common Workflow Language, and Workflow Definition Language allow the user to fully script a workflow, while websites like Galaxy and Seven Bridges Genomics offer online portals in which users build workflows. 
+Many common protocols are available online. 
+These protocols can be very helpful as a starting point for your analysis, and can be modified to fit your particular experimental design. 
+[Add online resources: snakemake-workflows, nf-core etc] % add resources 
+% snakemake workflows: https://github.com/snakemake-workflows
+% nextflow-core: https://github.com/nf-core
+% awesome nextflow: https://github.com/nextflow-io/awesome-nextflow
+
+Many research groups have used workflow software to build user-friendly pipelines that do not require learning or working with the underlying workflow software.
+These tools allow users to take advantage of the benefits of workflow software without needing to invest in curating and writing their own pipeline.  
+Some examples include the ATLAS metagenome assembly and binning pipeline (https://github.com/metagenome-atlas/atlas) \cite{kieser2019atlas}, the Sunbeam metagenome analysis pipeline (https://github.com/sunbeam-labs/sunbeam) \cite{clarke2019sunbeam}, the Elvers \textit{de novo} transcriptome and differential expression pipeline (https://github.com/dib-lab/elvers), the dammit eukaryotic transcriptome pipeline (https://github.com/dib-lab/dammit). 
+
+
+\subsubsection*{Wrangling Scientific Software} 
+Research software is written by many different groups of people using different languages (e.g. python, R, perl, bash, C++, rust, etc.). 
+Each program has a number of other programs it depends upon to function (``dependencies"), and as software changes over time to meet research needs, the results may change, even when run with identical parameters. 
+As a result, it is critical to take an organized approach to installing, managing, and keeping track of software and software versions. 
+
+%\textbf{Circumventing Installation} 
+There are a number of ways to test out or run software without needing to worry about installation. 
+Some software packages are available as web-based tools and through a series of data upload and parameter specifications, allow the user to interact with a tool that is running on a back-end server. 
+This approach is ideal for testing a tool prior to installation to determine whether it produces an appropriate or useful output on your data. 
+Many groups also provide pre-built software ``containers” that package the software and all dependencies (often even a full system os) together such that it can be run uniformly regardless of differences in the underlying computing system. 
+These are often called ``images” as they are a representation of all the software installed on a system at a time, aka a ``snapshot”, or ``image” of the system. 
+Container software such as Docker and Singularity can be used to run these images directly on your machine, while platforms such as kubernetes facilitate execution on cluster systems.
+
+%\textbf{Software Installation} 
+In many cases, it is preferable or necessary to install the software you need on your local machine or cloud environment. 
+If working on a managed cluster computing environment, you may be able to coordinate with your cluster staff to get your desired software installed. 
+However, system-wide installation is often reserved for software that many groups use, so it’s useful to learn to install your own software. 
+There are many tools that can be used to install software, and some are operating-system specific. 
+Most programming languages provide their own package managers (e.g. pip for python, or the install.packages() function in R). 
+However, managing package installations that will work across operating systems and across programming languages can be difficult. 
+Virtual environments can aid in this, and can help isolate specific versions of software that are used for specific analyses. 
+The conda package and environment manager combines these two functions, and works across operating systems and programming languages (see \textbf{BOX XXX}). 
+
+\begin{greybox}{\subsubsection*{Conda}
+
+The conda package manager (https://conda.io) has emerged as the leading solution for installing many scientific software packages and managing environments, with many thousands of scientific packages available via the ``bioconda”, ``r", and``conda-forge” channels.
+Conda does not require root privileges for software installation, thus enabling use by researchers working on shared cluster systems. 
+Conda installations work across Linux, Mac, and Windows, though some packages are limited to certain operating systems.
+
+To enable conda installation, software developers write a conda ``recipe" for their package which specifies any required dependencies, including which versions (or ranges of versions) will work.
+During installation, conda checks for a compatible version of each dependency (and installs those dependencies for you, if desired). 
+Since each package has a recipe, conda can follow the recipe for each dependency to ensure all required software is installed.
+%in large part due to the massive uptake by the scientific community.
+
+However, conda installation has a major limitation. 
+When many packages are installed together, the time required to avoid version conflicts (``solve the environment”) can increase dramatically, as conda must check compatibility and install the correct version of each tool. 
+To circumvent high solve times while also avoiding version conflicts that may arise during system-wide software installation, we recommend using separate ``environments" for your software and building many simple environments to accommodate different steps in your workflow. 
+Small environments might consist of just a few programs typically run together, installed directly from the command line, or from an environment file (in YAML format) that contains the information for each desired package. 
+By specifying the version of each package in your environments, you can enhance reproducibility by ensuring that the same software versions are used to analyse the data, both now and in the future.
+Once you have a working environment, you can have conda export a corresponding environment YAML file that can be used to reinstall the environmetn on other systems (and stored for reproducibility). Many workflow systems can leverage conda environments to automatically install and run software within conda environments.
+
+%These can be specified in an environment `yml` file, or one can be exported from a working conda environment for reinstallation on other systems.
+
+%This can be used to rebuild the same environment later. Since conda handles installations of the proper dependencies for different underlying systems, you can have conda export the recipe for an environment and use it to rebuild the environment on a different computer system, such as moving from your personal computer to a high-performance cluster environment. 
+%It is straightforward to build environments and record packages therein. 
+
+}
+\end{greybox}
+
+
+\section*{Strategies to get the most out of your workflows}
+
+\subsection*{Developing steps that go into your workflow}
+
+\subsubsection*{Computational Notebooks} 
+
+Computational notebooks are documents that allow users to combine narrative, code, and code output (e.g. visualizations) in a single location, enabling the user to conduct analysis and visually assess the results in a single file.
+Jupyter notebooks and Rmarkdown are the two most popular notebook platforms (see \textbf{Figure \ref{fig:nb_figure}}) \cite{kluyver2016jupyter, allaire2018rmarkdown}. 
+These notebooks are particularly useful for data exploration and developing visualizations as well as sharing these analyses among collaborators. 
+When written as fully contained documents, they are easily updatable with new data and are fully repeatable. 
+
+\begin{figure}
+\includegraphics[width=0.99\textwidth]{figures/nb_figure.png}
+\caption{Examples of computational notebooks. Computational notebooks allow the user to mix text, code, and results in one document. \textbf{A} shows a raw RMarkdown document viewed in the RStudio integrated development environment, while \textbf{B} shows a rendered HTML file produced by knitting the RMarkdown. \textbf{C} shows a Jupyter Notebook, where code, text, and results are rendered inline as each code chunk is executed. The second grey chunk is a raw markdown chunk with text that will be rendered inline when executed. Computational notebooks facilitate sharing by packaging narrative, code, and visualizations together.} 
+\label{fig:nb_figure}
+\end{figure}
+
+ 
+\subsubsection*{Version Control} 
+
+Writing tools such as Google Docs, Overleaf, and Microsoft Word have built-in version control systems to track changes in a document over time. 
+However, these tools are usually limited to manuscripts, particularly as built-in text formatting can cause code to break in unexpected and difficult-to-debug ways, such that the record does not faithfully represent what was actually run by the researcher. 
+Furthermore, these systems only support linear version control, making it difficult for multiple people to work asynchronously on the same project. 
+% are there non-writing version control systems that we should mention?
+
+For data-intensive biology projects that combine scripting, analysis, computational notebooks, and manuscript writing, version control systems such as Git or Mercurial can be used to properly keep track of all changes over time, even across multiple users, scripting languages, and including visualizations. 
+In particular, Git has emerged as the dominant version control system for biological code, particularly when combined with online repositories such as Github, GitLab, or Bitbucket, which store online version histories for all tracked files.
+In addition to acting as an additional backup location, the online services support drag-and-drop file addition and full control over the repository using the web interface, which greatly lowers the barrier to getting started with version control systems. 
+While these systems do not work well with Google Docs or Microsoft Word, they can greatly simplify asynchronous collaborative manuscript writing when combined with services such as Overleaf and Manubot (CITE). 
+Git version control is primarily designed to handle small text files, but version control also exists for data sets, since intermediate data files can change with tool versions or parameters. 
+Many of the databases suggested for storing raw data also provide version control for data sets, including the Open Science Framework. 
+Other services are compatible with git version control, e.g. Git Large File Storage (LFS) and Data Version Control (DVC).
+
+These version control systems can also facilitate code availability and reproducibility for publication. 
+For example, to ensure the correct version of the code is preserved, you can create a “release,” a snapshot of the current code and files in a GitHub repository. 
+You can then generate a DOI for that release using Zenodo and make it available to reviewers and beyond (see "sharing" section, below).
+
+%First, not all documents are supported for version control, meaning documents like computational notebooks cannot be tracked overtime. Second, built-in spell checkers can make erroneous corrections to code, such as auto-capitalizing the first letter of a command.
+
+%\begin{greybox}{git version control
+%? do we even need this? probably not. will leave here in case we think of something to put in there.
+%no - let's not talk about git code at all -- emphasize how easy the web interface is, and point people there
+%until they feel the need to do things on the command line
+%}
+%\end{greybox}
+
+\subsubsection*{Build your workflow using subsampled data}
+%You can begin this before generating your own data (if you're sequencing) by using similar publicly-available data to test a potential workflow. Once you have your data (public or freshly generated), the best test data can be directly created from your full dataset.
+
+It is rare to find a workflow that will analyze your data from start to finish without testing, troubleshooting, and iteration.
+To facilitate workflow design and save resources, you'll want to test each step with a small dataset prior to running your full analysis. 
+After installing a program, if the program comes with test data, run it and check results against the expected results, to verify that it is working on your system. 
+After that, subsample your own data and check you can run the program on this subsampled data. 
+For example, if working with FASTQ data, you can subsample the first million lines of your data (first 250k reads) by running:
+
+ \begin{lstlisting}
+ head -n 1000000 FASTQ_FILE.fq > test_fastq.fq 
+\end{lstlisting}
+
+While there are many more sophisticated ways to subsample reads, this technique should be sufficient for testing each step of a workflow prior to running your full dataset. 
+Note, some programs will fail with too few reads or too few results, so be sure to examine that possibility if running into errors at this stage, either in the literature, program manual, or by running larger subsets of data.
+% add sentence here to reiterate concept of testing on public data!
+
+
+\subsection*{Reproducible workflows and documentation for yourself and others}
+
+As with experimental biology, it is essential to write down everything you do - that is, record the origin of every file (e.g. download URL) and all metadata, record the version of software and each parameter you used, record any manual filtering or data preprocessing steps, and keep track of the order in which you executed each program. 
+Without the ability to fully examine and reproduce your analysis, it will be impossible for you or your collaborators to assess whether the results are accurate, or even to understand how the heuristic decisions you took impact the conclusions made from an analysis. 
+
+Computational project management is a learned skill that will take time to implement. There are a myriad of ways to document your computational work, and you'll need to experiment with the ways that work for you. 
+For some portions of your project, you may want to document your work using a narrative approach, using written language to detail what steps you took and to communicate how the steps relate to one another. 
+For other portions, it may be more useful to keep short, bulleted notes with your code or intersperse your commands with helpful diagrams. 
+What is most important is to develop a clear documentation strategy and stick with it tenaciously. 
+While the preferred tools discussed below will certainly change over time, these principles apply broadly and will help you design clear, well-documented, and reproducible analyses.
+% Here are a few principles that apply broadly and may help you get started.
+
+% current thinking: keep these principles short and general. Then put specific tools that will help with these below.
+\subsubsection*{Use consistent and descriptive names}  
+Consistent, descriptive names keep your project organized and interpretable for yourself and collaborators. 
+This applies to your files, your scripts, your variables, your workflows, your manuscripts, and even your projects, each of which should have a unique and descriptive identifier. 
+Since the number of files in data-intensive biology can quickly get out of hand, consistent file naming is especially important. 
+For example, you can implement a numbering scheme for your files, where the first file in your analysis starts with "00", the next with "01", etc. 
+You can also append the tool name to output to make it clear where the file came from. 
+Additionally, using a standardized yet flexible folder structure from the outset of your project facilitates file organization, even as a project becomes increasingly complex. 
+Keeping independent portions of your analysis in descriptive folders can help keep your project workspace clean and organized.
+Within your files, using consistent and descriptive variable names will help build a readable codebase.
+
+\subsubsection*{Store metadata information with your workflow} 
+Biological analyses often span hundreds of steps and involve many small decisions: What parameters for each step? 
+Why did you use a certain reference file for annotation as compared with other available files? 
+How did you finally manage to get around the program or installation error? 
+All of these pieces of information contextualize your results and may be helpful when writing your manuscript. 
+Keeping information about these decisions in an intuitive and easily accessible place helps you find it when you need it. 
+Each main directory should include notes on the data or scripts contained within, so that a collaborator could look into the directory and understand what to find there (especially since that collaborator is likely to be you, a few months from now!).
+Code itself can be (or contain) documentation - you can add comments with the reasoning behind parameter choice or include a link to the seqanswers post that helped you decide how to shape your differential expression analysis. 
+Larger pieces of information can be kept in ``README" or notes documents kept alongside your code and other documents. 
+For example, a GitHub repository documenting the reanalysis of the Marine Microbial Eukaryote Transcriptome Sequencing Project uses a README alongside the code to document the workflow and digital object identifiers for data products (https://github.com/dib-lab/dib-MMETSP) \cite{johnson2019}.   
+ %and liberal use of comments makes the purpose of specific lines of code explicitly clear.
+
+\subsubsection*{Add visual representations} 
+Visual representations illustrate the connections in a workflow. 
+At the highest level, flowcharts that detail relationships between steps of a workflow can help provide big-picture clarification, especially when the pipeline is complicated. 
+For individual steps, a graphical representation of the output can show the status of the project or provide insight on additional analyses that should be added. 
+Whenever possible, adding visualizations can help improve the readability and reproducibility of your project. \textbf{Figure \ref{fig:sgc_workflow}} illustrates a workflow visualization \cite{brown2019exploring}. 
+
+\begin{figure}
+\includegraphics[width=0.9\textwidth]{figures/hu_dag.png}
+\caption{A directed acyclic graph that illustrates connections between all steps of a sequencing data analysis workflow. Each box represents a step in the workflow, while lines connect sequential steps.}
+\label{fig:sgc_workflow}
+\end{figure}
+
+
+\subsubsection*{Version Control} 
+As your project develops, version control allows you to keep track of changes over time. 
+You may already do this in some ways, perhaps with frequent hard drive backups or by manually saving different versions of the same file  - e.g. by appending the date to a script name or appending "version\_1" or "version\_FINAL" to a manuscript draft. 
+For computational workflows that will inevitably undergo multiple changes in parameters, data, visualizations, and analysis, it is essential to keep track of which analysis produced which output files, so that the final analysis is reproducible. 
+However, version control can also save time and effort at every step. 
+If a key piece of a workflow inexplicably stops working, good version control can allow you to rewind in time and identify differences from when the pipeline worked to when it stopped working. 
+If multiple people are working on the same project, version control can both avoid conflict and ensure that no productivity is lost. 
+
+%In order to keep track of changes over time, it's important to build a method for saving new versions of code and documentation over time. . 
+
+ \subsubsection*{Automate as Much as Possible} 
+One of the best ways to ensure the coding portion of your workflow is documented is to use scripting or workflow software to automate as much as possible. 
+Automation can not only provide baseline documentation, but also simplify testing parameters and programs for the best results on your data. 
+
+Each of the recommendations above details key ideas for recording sufficient information about the data, tools, parameters, and decisions used to obtain the results at the end of your workflow. 
+Below we present some tools that greatly facilitate these practices.
+ 
+%However you run the analysis, it is key that you record both the tools and parameters used to obtain the results at the end of your workflow. One of the best ways to do this is to automate as much as possible: execute each step as an automated script and/or run each using workflow software. By keeping all steps within an automated workflow, you'll not only save time when you need to run the analysis on your full data later, but you'll also ensure that your analysis is both clearly documented and reproducible. Automation will also simplify testing parameters and programs for the best results on your data.
+
+%Using at least one of these approaches is necessary but may not be sufficient; different types of documentation are often helpful for different stages of a workflow, or to communicate your results to different audiences. For example, it may be appropriate to use a narrative approach to detail your workflow for the methods section of a paper, whereas a specific script that details the exact commands used to produce a set of results might live among output files. 
+
+%\subsection*{Make big data less big} % heh. working title 
+\subsection*{Explore tools that leverage computational approximations}
+
+%\subsubsection*{Use computational approximations where possible}
+ 
+ Many bioinformatics workflows take a long time and significant computational resources to run, and interpretable results are often only produced by the last few steps. 
+This means that time-to-insight from sequencing data is often very high. 
+ 
+%\subsubsection*{Generating quick insights with sketching algorithms}
+%\textbf{Generating quick insights with sketching algorithms}
+
+% one general paragraph re: approx, quantification,etc, one on sketching. maybe sketching first
+Understanding the basic structure of data, the relationship between samples, and the approximate composition of each sample is very helpful at the beginning of data analysis, and can often drive analysis decisions in different directions than those originally intended. 
+Although most bioinformatics workflows generate these types of insights, there are a few tools that do so rapidly, allowing the user to generate quick hypotheses that can be further tested by more extensive, fine-grained analyses. 
+
+\textbf{Sketching} Sketching algorithms work with compressed approximate representations of sequencing data and thereby reduce runtimes and computational resources. 
+These approximate representations retain enough information about the original sequence to recapitulate the main findings from many exact but computationally intensive workflows. 
+Most sketching algorithms estimate sequence similarity in some way, allowing the user to gain insights from these comparisons.
+For example, sketching algorithms can be used to estimate all-by-all sample similarity which can be visualized as a Principle Component Analysis or a multidimensional scaling plot, or can be used to build a phylogenetic tree with accurate topology. 
+Sketching algorithms also dramatically reduce the runtime for comparisons against databases (e.g. all of GenBank), allowing users to quickly compare their data against large public databases. 
+Sketching algorithms have been reviewed in-depth by Rowe \cite{rowe2019streaming}.
+
+\textbf{Read quasi-mapping vs alignment} RNA-seq analysis approaches like differential expression or transcript clustering rely on transcript or gene counts.
+Many tools can be used to generate these counts by quantifying the number of reads that overlap with each transcript or gene.
+Many tools produce this information. 
+For example, tools like STAR and HISAT2 produce alignments that can be post-processed to generate per-transcript read counts.
+However, these tools generate information-rich output, specifying per-base alignments for each read.
+Quasi-mapping produces the minimum information necessary for read quantification, thereby reducing the time and resources needed to generate and store read count information (CITE: RAPMAP). 
+
+\textbf{Anything else to mention?}  
++ blast approximations?
+
+\subsection*{Assess required resources}
+% Use only the Resources you need / Calculating required resources
+%\textbf{What resources do you actually need to use?} 
+
+%It is difficult to assess the computational resources required to run different bioinformatic tools. 
+Bioinformatic tools vary in the resources they require: some analysis steps are compute-intensive, other steps are memory intensive, and still others will have large intermediate storage needs. 
+Tools will also vary in their ability to properly parallelize computation across multiple compute nodes. 
+To minimize required computational resources for your analysis, it is worth assessing the resources required at each step.
+
+Workflow software such as snakemake and nextflow provide avenues for specifying the resource needs of each individual step.
+
+Some tools publish required resources for test and sample data either in a publication or in software manuals or readmes. 
+However if this information is not available, it's nearly impossible to estimate the amount of resources needed without running the tool. 
+Monitoring resource usage (including RAM, CPUs, disk input and output, network usage, and time) while running the test data from a tool or on a subset of your data can give you a starting estimate for resource usage that you can scale up to accommodate the size of your actual data. 
+Commands like "time" and "top" can help you monitor usage, while most workflow managers have built-in commands to report resource usage. 
+Over time, you will develop an intuition for resource usage as you use more tools.
+
+
+\subsubsection*{Sharing Your Reproducible Analyses} 
+Sharing your workflow is a useful way to communicate every step you took in a data analysis pipeline. 
+Your collaborators, peer reviewers, and scientists seeking to use a similar method as your own will all benefit from open and accessible code. 
+Sticking to a clear documentation strategy, using a version control system, and packaging your code in notebooks or as a workflow prepare them to be easily shared with others. 
+However, sharing code in this way can still be burdensome for others to interact with given the need for software installation and differences in user operating systems. 
+Tools like Binder, Whole Tale, and Shiny apps can reduce the time to reproduction by other scientists by constructing controlled environments identical to those in which the original computation was performed. 
+These tools substantially reduce overhead associated with interacting with someones code base and data, and in doing so, make it fast and easy to rerun portions of the analysis, check accuracy, or even tweak the analysis to produce new results. 
+These tools are also great for teaching, as they provide consistent learner interfaces and environments. 
+
+%TODO: first paragraph here should convey why sharing is important/great. We should assume not all folks reading this are on board with open everything (though we can try to convince them its the best way).
+
+%Sharing can be very useful to share your workflow with collaborators (or peer reviewers!) so they can assess your steps... something about these tools making it very simple to run the code and check accuracy... Also great for teaching! So learning these will help on multiple fronts. 
+
+%(poached from the version control section): You can also set use binder (mybinder.org) to make a running (containerized) version of this code (and visualizations) available,. [[See box for snakemake example. (same python/ bash/ graph as above? w/ conda installation) ** orrr link to example in workflow article? https://www.nature.com/articles/d41586-019-02619-z]]
+
+\begin{greybox}{
+ \textbf{Binder (mybinder.org)} Binder is a tool that makes a GitHub repository executable in a specified environment \cite{Jupyter2018}. 
+It uses package management by R, pip, or conda to build a docker container with the software required to run the analyses contained in a GitHub repository. 
+This is especially useful for computational notebooks. 
+The binder can then be shared with collaborators (or students in a classroom setting), where the analysis or visualizations can be reproduced using your provided code. 
+Binder instances are not static and can be modified by collaborators during a binder session. 
+The underlying code will not be changed unless changes are committed into the original GitHub repository, preserving the reproducibility of the original analysis.
+ 
+ \textbf{Shiny Apps} Shiny is a tool that allows you to build interactive web pages using R code. 
+It allows you to package data that is manipulated  by R code in real-time in a web page, producing analysis and visualizations of a data set. 
+Shiny apps can contain user-specifiable parameters, allowing a user to control visualizations or analyses. 
+For example, if a Shiny app contained RNA-seq differential expression data, it might allow the user to specify which gene counts it should plot. 
+Shiny apps allow collaborators who may or may not know R to change R visualisations to fit their interests.   
+ 
+ \textbf{Other tools} There are many other tools that aid in reproducibility or sharing of results. 
+Some tools, such as Whole Tale, aim to package the entire research object by capturing data, code and software environments in one executable package (CITATION). 
+Other tools such as Vega-lite and plotly produce single interactive visualizations that can be shared with collaborators or integrated into websites (CITATIONS).
+}
+\end{greybox}
+
+
+\section*{Strategies to get the most out of your data}
+
+%\section*{Use your data and resources wisely}
+% to make quality control fit in this section, intro needs to have:
+% 1. your time and compute resources are valuable. Here are tips to ensure you're spending them wisely
+% 2. errors and mistakes happen. Here's how to ensure you find them EARLY, before they can waste lots of time/resources
+% 3. big data are BIG! But some tools can make it smaller and get nearly identical answers. Try them!
+
+Your time and resources are valuable, and sequencing data analysis has the potential to use a lot of both. 
+Conducting thorough quality control and workflow testing mitigates inefficiencies by helping you catch errors before they impact your full workflow or interpretation. 
+Further, adopting analysis methods that subsample or approximate the data while retaining key biological characteristics can reduce time to insights and resource usage.
+Below we discuss some tips to ensure that you're spending your time and resources wisely. 
+
+\subsection*{Project Management and Organization}
+
+The data for sequence analysis - including raw sequence data, intermediate files, metadata, and results files - can quickly build up as you work. Developing a consistent organization scheme for your project at the start will save time and resources, enable good collaboration, and facilitate sharing when it comes to publication. 
+
+%\subsection*{Wrangling Sequence data}
+% point of this section:
+%  Why data/project org?
+% - What is data? = BOTH seq data and metadata
+% - How to get it / move it
+% - How to organize it ( this is really in the next section
+% - How and where to back it up
+
+%Properly protecting your data and adopting a consistent organization scheme for your project will save time and resources, enable good collaboration, and facilitate sharing when it comes to publication.
+%The data for sequencing projects include raw sequencing data, metadata, intermediate files, and results files from an analysis. Each data type contains important information that may need to be accessed at some later point.
+
+%\subsection*{SOME CLEVER SUBSECTION NAME}
+%\subsection*{Wrangling Sequence Data} % is "wrangling" too close to data carpentry?
+
+\subsection*{Ensure you have quality data}
 
 As with all biological analyses, the most critical step of sequence analysis is obtaining high-quality data for your scientific question. 
 With vast amounts of sequencing data already available in public repositories, it is often possible to begin investigating your research question by seeking out publicly available data. 
@@ -426,23 +755,6 @@ Wasabi & Paid & data storage solution only \\
 %   }
 % \end{greybox}
 
-\section*{Project Management and Organization}
-
-The data for sequence analysis - including raw sequence data, intermediate files, metadata, and results files - can quickly build up as you work. Developing a consistent organization scheme for your project at the start will save time and resources, enable good collaboration, and facilitate sharing when it comes to publication. 
-
-\subsection*{Wrangling Sequence data}
-% point of this section:
-%  Why data/project org?
-% - What is data? = BOTH seq data and metadata
-% - How to get it / move it
-% - How to organize it ( this is really in the next section
-% - How and where to back it up
-
-%Properly protecting your data and adopting a consistent organization scheme for your project will save time and resources, enable good collaboration, and facilitate sharing when it comes to publication.
-%The data for sequencing projects include raw sequencing data, metadata, intermediate files, and results files from an analysis. Each data type contains important information that may need to be accessed at some later point.
-
-%\subsection*{SOME CLEVER SUBSECTION NAME}
-%\subsection*{Wrangling Sequence Data} % is "wrangling" too close to data carpentry?
 
 \subsubsection*{Storing data and metadata} %safeguard your data
 
@@ -512,243 +824,10 @@ While OSF and other similar repositories (e.g. figshare) are suitable for use at
 %CAN WE ADD A NON-COMMAND LINE TOOL? I'm thinking a cyberduck/filezilla/sftp sort of thing would be useful.
 
 
-\subsection*{Reproducible workflows and documentation for yourself and others}
-As with experimental biology, it is essential to write down everything you do - that is, record the origin of every file (e.g. download URL) and all metadata, record the version of software and each parameter you used, record any manual filtering or data preprocessing steps, and keep track of the order in which you executed each program. 
-Without the ability to fully examine and reproduce your analysis, it will be impossible for you or your collaborators to assess whether the results are accurate, or even to understand how the heuristic decisions you took impact the conclusions made from an analysis. 
 
-Computational project management is a learned skill that will take time to implement. There are a myriad of ways to document your computational work, and you'll need to experiment with the ways that work for you. 
-For some portions of your project, you may want to document your work using a narrative approach, using written language to detail what steps you took and to communicate how the steps relate to one another. 
-For other portions, it may be more useful to keep short, bulleted notes with your code or intersperse your commands with helpful diagrams. 
-What is most important is to develop a clear documentation strategy and stick with it tenaciously. 
-While the preferred tools discussed below will certainly change over time, these principles apply broadly and will help you design clear, well-documented, and reproducible analyses.
-% Here are a few principles that apply broadly and may help you get started.
-
-% current thinking: keep these principles short and general. Then put specific tools that will help with these below.
-\subsubsection*{Use consistent and descriptive names}  
-Consistent, descriptive names keep your project organized and interpretable for yourself and collaborators. 
-This applies to your files, your scripts, your variables, your workflows, your manuscripts, and even your projects, each of which should have a unique and descriptive identifier. 
-Since the number of files in data-intensive biology can quickly get out of hand, consistent file naming is especially important. 
-For example, you can implement a numbering scheme for your files, where the first file in your analysis starts with "00", the next with "01", etc. 
-You can also append the tool name to output to make it clear where the file came from. 
-Additionally, using a standardized yet flexibile folder structure from the outset of your project facilitates file organization, even as a project becomes increasingly complex. 
-Keeping independent portions of your analysis in descriptive folders can help keep your project workspace clean and organized.
-Within your files, using consistent and descriptive variable names will help build a readable codebase.
-
-\subsubsection*{Store metadata information with your workflow} 
-Biological analyses often span hundreds of steps and involve many small decisions: What parameters for each step? 
-Why did you use a certain reference file for annotation as compared with other available files? 
-How did you finally manage to get around the program or installation error? 
-All of these pieces of information contextualize your results and may be helpful when writing your manuscript. 
-Keeping information about these decisions in an intuitive and easily accessible place helps you find it when you need it. 
-Each main directory should include notes on the data or scripts contained within, so that a collaborator could look into the directory and understand what to find there (even if that “collaborator” is you, a few months from now!). 
-Code itself can be (or contain) documentation - you can add comments with the reasoning behind parameter choice or include a link to the seqanswers post that helped you decide how to shape your differential expression analysis. 
-Larger pieces of information can be kept in ``README" or notes documents kept alongside your code and other documents. 
-For example, a GitHub repository documenting the reanalysis of the Marine Microbioal Eukaryote Transcriptome Sequencing Project uses a README alongside the code to document the workflow and digital object identifiers for data products (https://github.com/dib-lab/dib-MMETSP) \cite{johnson2019}.   
- %and liberal use of comments makes the purpose of specific lines of code explicitly clear.
-
-\subsubsection*{Add visual representations} 
-Visual representations illustrate the connections in a workflow. 
-At the highest level, flowcharts that detail relationships between steps of a workflow can help provide big-picture clarification, especially when the pipeline is complicated. 
-For individual steps, a graphical representation of the output can show the status of the project or provide insight on additional analyses that should be added. 
-Whenever possible, adding visualizations can help improve the readability and reproducibility of your project. \textbf{Figure \ref{fig:sgc_workflow}} illustrates a workflow visualization \cite{brown2019exploring}. 
-
-\begin{figure}
-\includegraphics[width=0.9\textwidth]{figures/hu_dag.png}
-\caption{A directed acyclic graph that illustrates connections between all steps of a sequencing data analysis workflow. Each box represents a step in the workflow, while lines connect sequential steps.}
-\label{fig:sgc_workflow}
-\end{figure}
+%\subsection*{Tools to facilitate documentation and reproducibility}
 
 
-\subsubsection*{Version Control} 
-As your project develops, version control allows you to keep track of changes over time. 
-You may already do this in some ways, perhaps with frequent hard drive backups or by manually saving different versions of the same file  - e.g. by appending the date to a script name or appending "version\_1" or "version\_FINAL" to a manuscript draft. 
-For computational workflows that will inevitably undergo multiple changes in parameters, data, visualizations, and analysis, it is essential to keep track of which analysis produced which output files, so that the final analysis is reproducible. 
-However, version control can also save time and effort at every step. 
-If a key piece of a workflow inexplicably stops working, good version control can allow you to rewind in time and identify differences from when the pipeline worked to when it stopped working. 
-If multiple people are working on the same project, version control can both avoid conflict and ensure that no productivity is lost. 
-
-%In order to keep track of changes over time, it’s important to build a method for saving new versions of code and documentation over time. . 
-
- \subsubsection*{Automate as Much as Possible} 
-One of the best ways to ensure the coding portion of your workflow is documented is to use scripting or workflow software to automate as much as possible. 
-Automation can not only provide baseline documentation, but also simplify testing parameters and programs for the best results on your data. 
-
-Each of the recommendations above details key ideas for recording sufficient information about the data, tools, parameters, and decisions used to obtain the results at the end of your workflow. 
-Below we present some tools that greatly facilitate these practices.
- 
-%However you run the analysis, it is key that you record both the tools and parameters used to obtain the results at the end of your workflow. One of the best ways to do this is to automate as much as possible: execute each step as an automated script and/or run each using workflow software. By keeping all steps within an automated workflow, you’ll not only save time when you need to run the analysis on your full data later, but you’ll also ensure that your analysis is both clearly documented and reproducible. Automation will also simplify testing parameters and programs for the best results on your data.
-
-%Using at least one of these approaches is necessary but may not be sufficient; different types of documentation are often helpful for different stages of a workflow, or to communicate your results to different audiences. For example, it may be appropriate to use a narrative approach to detail your workflow for the methods section of a paper, whereas a specific script that details the exact commands used to produce a set of results might live among output files. 
-
-\subsection*{Tools to facilitate documentation and reproducibility}
-
-\subsubsection*{Computational Notebooks} 
-
-Computational notebooks are documents that allow users to combine narrative, code, and code output (e.g. visualizations) in a single location, enabling the user to conduct analysis and visually assess the results in a single file.
-Jupyter notebooks and Rmarkdown are the two most popular notebook platforms (see \textbf{Figure \ref{fig:nb_figure}}) \cite{kluyver2016jupyter, allaire2018rmarkdown}. 
-These notebooks are particularly useful for data exploration and developing visualizations as well as sharing these analyses among collaborators. 
-When written as fully contained documents, they are easily updatable with new data and are fully repeatable. 
-
-\begin{figure}
-\includegraphics[width=0.99\textwidth]{figures/nb_figure.png}
-\caption{Examples of computational notebooks. Computational notebooks allow the user to mix text, code, and results in one document. \textbf{A} shows a raw RMarkdown document viewed in the RStudio integrated development environment, while \textbf{B} shows a rendered HTML file produced by knitting the RMarkdown. \textbf{C} shows a Jupyter Notebook, where code, text, and results are rendered inline as each code chunk is executed. The second grey chunk is a raw markdown chunk with text that will be rendered inline when executed. Computational notebooks facilitate sharing by packaging narrative, code, and visualizations together.} 
-\label{fig:nb_figure}
-\end{figure}
-
- 
-\subsubsection*{Version Control} 
-
-Writing tools such as Google Docs, Overleaf, and Microsoft Word have built-in version control systems to track changes in a document over time. 
-However, these tools are usually limited to manuscripts, particularly as built-in text formatting can cause code to break in unexpected and difficult-to-debug ways, such that the record does not faithfully represent what was actually run by the researcher. 
-Furthermore, these systems only support linear version control, making it difficult for multiple people to work asynchronously on the same project. 
-% are there non-writing version control systems that we should mention?
-
-For data-intensive biology projects that combine scripting, analysis, computational notebooks, and manuscript writing, version control systems such as Git or Mercurial can be used to properly keep track of all changes over time, even across multiple users, scripting languages, and including visualizations. 
-In particular, Git has emerged as the dominant version control system for biological code, particularly when combined with online repositories such as Github, GitLab, or Bitbucket, which store online version histories for all tracked files.
-In addition to acting as an additional backup location, the online services support drag-and-drop file addition and full control over the repository using the web interface, which greatly lowers the barrier to getting started with version control systems. 
-While these systems do not work well with Google Docs or Microsoft Word, they can greatly simplify asynchronous collaborative manuscript writing when combined with services such as Overleaf and Manubot (CITE). 
-Git version control is primarily designed to handle small text files, but version control also exists for data sets, since intermediate data files can change with tool versions or parameters. 
-Many of the databases suggested for storing raw data also provide version control for data sets, including the Open Science Framework. 
-Other services are compatible with git version control, e.g. Git Large File Storage (LFS) and Data Version Control (DVC).
-
-These version control systems can also facilitate code availability and reproducibility for publication. 
-For example, to ensure the correct version of the code is preserved, you can create a “release,” a snapshot of the current code and files in a GitHub repository. 
-You can then generate a DOI for that release using Zenodo and make it available to reviewers and beyond (see "sharing" section, below).
-
-%First, not all documents are supported for version control, meaning documents like computational notebooks cannot be tracked overtime. Second, built-in spell checkers can make erroneous corrections to code, such as auto-capitalizing the first letter of a command.
-
-%\begin{greybox}{git version control
-%? do we even need this? probably not. will leave here in case we think of something to put in there.
-%no - let's not talk about git code at all -- emphasize how easy the web interface is, and point people there
-%until they feel the need to do things on the command line
-%}
-%\end{greybox}
-
-\subsubsection*{Automation and Workflows}
-A pipeline, or a workflow, is made up of each of the steps needed to complete an analysis.
-While a workflow can be manually executed step-by-step, this is both time-consuming and has the potential to introduce unintended errors. 
-Automating a workflow using scripting or workflow languages can instead ensure that the entire data analysis is documented and repeatable from start to finish. 
-
-Workflow automation can be conducted by scripting the ordered execution of each step in a traditional scripting language such as bash. 
-However, a number of more tailored workflow systems have emerged that have significant advantages over traditional command-line scripting. 
-There is a learning curve associated with using these systems, but the benefits far outweigh the cost of learning to use them. 
-
-
-% Workflow systems can be used both in local computing environments or on cloud systems, can be combined with versioned software installation via containers or environments, and keep track of file changes to ensure the entire data analysis is both automated and repeatable from start to finish. Many workflows can also detect whether new data was added or upstream programs were re-executed, and ensure the entire workflow is run on the new data. These systems explicitly keep a record of script dependency and order, which can simplify documentation. Other benefits include the ability to use virtual environments or containers via Conda or Docker to automatically and reproducibly handle software installation for each step (cite  https://www.nature.com/articles/d41586-019-02619-z), the ability to work across systems, and the ability to parallelize workflow steps where possible. 
-
-Workflow systems make bioinformatics pipelines repeatable, transferable, and better documented. 
-Although code written by the user is similar to what may be written in a coordinated set of bash or python scripts, workflow systems take care of behind-the-scenes checks and scaffolding that ensure the entire workflow is accurately encoded and run completely and efficiently. 
-This added layer of organization means one can easily rerun sections of a workflow, scale a workflow to new samples, parallelize non-dependent steps, coordinate software in step-dependent manner, and many other useful things. 
-
-Workflow systems are available as both scripting and graphical user interface systems. 
-Snakemake, Nextflow, Common Workflow Language, and Workflow Definition Language allow the user to fully script a workflow, while websites like Galaxy and Seven Bridges Genomics offer online portals in which users build workflows. 
-Many common protocols are available online. 
-These protocols can be very helpful as a starting point for your analysis, and can be modified to fit your particular experimental design. 
-[Add online resources: snakemake-workflows, nf-core etc] % add resources 
-% snakemake workflows: https://github.com/snakemake-workflows
-% nextflow-core: https://github.com/nf-core
-% awesome nextflow: https://github.com/nextflow-io/awesome-nextflow
-
-Many research groups have used workflow software to build user-friendly pipelines that do not require learning or working with the underlying workflow software.
-These tools allow users to take advantage of the benefits of workflow software without needing to invest in curating and writing their own pipeline.  
-Some examples include the ATLAS metagenome assembly and binning pipeline (https://github.com/metagenome-atlas/atlas) \cite{kieser2019atlas}, the Sunbeam metagenome analysis pipeline (https://github.com/sunbeam-labs/sunbeam) \cite{clarke2019sunbeam}, the Elvers \textit{de novo} transcriptome and differential expression pipeline (https://github.com/dib-lab/elvers), the dammit eukaryotic transcriptome pipeline (https://github.com/dib-lab/dammit). 
-
-
-\subsubsection*{Wrangling Scientific Software} 
-Research software is written by many different groups of people using different languages (e.g. python, R, perl, bash, C++, rust, etc.). 
-Each program has a number of other programs it depends upon to function (``dependencies"), and as software changes over time to meet research needs, the results may change, even when run with identical parameters. 
-As a result, it is critical to take an organized approach to installing, managing, and keeping track of software and software versions. 
-
-%\textbf{Circumventing Installation} 
-There are a number of ways to test out or run software without needing to worry about installation. 
-Some software packages are available as web-based tools and through a series of data upload and parameter specifications, allow the user to interact with a tool that is running on a back-end server. 
-This approach is ideal for testing a tool prior to installation to determine whether it produces an appropriate or useful output on your data. 
-Many groups also provide pre-built software ``containers” that package the software and all dependencies (often even a full system os) together such that it can be run uniformly regardless of differences in the underlying computing system. 
-These are often called ``images” as they are a representation of all the software installed on a system at a time, aka a ``snapshot”, or ``image” of the system. 
-Container software such as Docker and Singularity can be used to run these images directly on your machine, while platforms such as kubernetes facilitate execution on cluster systems.
-
-%\textbf{Software Installation} 
-In many cases, it is preferable or necessary to install the software you need on your local machine or cloud environment. 
-If working on a managed cluster computing environment, you may be able to coordinate with your cluster staff to get your desired software installed. 
-However, system-wide installation is often reserved for software that many groups use, so it’s useful to learn to install your own software. 
-There are many tools that can be used to install software, and some are operating-system specific. 
-Most programming languages provide their own package managers (e.g. pip for python, or the install.packages() function in R). 
-However, managing package installations that will work across operating systems and across programming languages can be difficult. 
-Virtual environments can aid in this, and can help isolate specific versions of software that are used for specific analyses. 
-The conda package and environment manager combines these two functions, and works across operating systems and programming languages (see \textbf{BOX XXX}). 
-
-\begin{greybox}{\subsubsection*{Conda}
-
-The conda package manager (https://conda.io) has emerged as the leading solution for installing many scientific software packages and managing environments, with many thousands of scientific packages available via the ``bioconda”, ``r", and``conda-forge” channels.
-Conda does not require root privileges for software installation, thus enabling use by researchers working on shared cluster systems. 
-Conda installations work across Linux, Mac, and Windows, though some packages are limited to certain operating systems.
-
-To enable conda installation, software developers write a conda ``recipe" for their package which specifies any required dependencies, including which versions (or ranges of versions) will work.
-During installation, conda checks for a compatible version of each dependency (and installs those dependencies for you, if desired). 
-Since each package has a recipe, conda can follow the recipe for each dependency to ensure all required software is installed.
-%in large part due to the massive uptake by the scientific community.
-
-However, conda installation has a major limitation. 
-When many packages are installed together, the time required to avoid version conflicts (``solve the environment”) can increase dramatically, as conda must check compatibility and install the correct version of each tool. 
-To circumvent high solve times while also avoiding version conflicts that may arise during system-wide software installation, we recommend using separate ``environments" for your software and building many simple environments to accommodate different steps in your workflow. 
-Small environments might consist of just a few programs typically run together, installed directly from the command line, or from an environment file (in YAML format) that contains the information for each desired package. 
-By specifying the version of each package in your environments, you can enhance reproducibility by ensuring that the same software versions are used to analyse the data, both now and in the future.
-Once you have a working environment, you can have conda export a corresponding environment YAML file that can be used to reinstall the environmetn on other systems (and stored for reproducibility). Many workflow systems can leverage conda environments to automatically install and run software within conda environments.
-
-%These can be specified in an environment `yml` file, or one can be exported from a working conda environment for reinstallation on other systems.
-
-%This can be used to rebuild the same environment later. Since conda handles installations of the proper dependencies for different underlying systems, you can have conda export the recipe for an environment and use it to rebuild the environment on a different computer system, such as moving from your personal computer to a high-performance cluster environment. 
-%It is straightforward to build environments and record packages therein. 
-
-}
-\end{greybox}
-
-
-\subsubsection*{Sharing Your Reproducible Analyses} 
-Sharing your workflow is a useful way to communicate every step you took in a data analysis pipeline. 
-Your collaborators, peer reviewers, and scientists seeking to use a similar method as your own will all benefit from open and accessible code. 
-Sticking to a clear documentation strategy, using a version control system, and packaging your code in notebooks or as a workflow prepare them to be easily shared with others. 
-However, sharing code in this way can still be burdensome for others to interact with given the need for software installation and differences in user operating systems. 
-Tools like Binder, Whole Tale, and Shiny apps can reduce the time to reproduction by other scientists by constructing controlled environments identical to those in which the original computation was performed. 
-These tools substantially reduce overhead associated with interacting with someones code base and data, and in doing so, make it fast and easy to rerun portions of the analysis, check accuracy, or even tweak the analysis to produce new results. 
-These tools are also great for teaching, as they provide consistent learner interfaces and environments. 
-
-%TODO: first paragraph here should convey why sharing is important/great. We should assume not all folks reading this are on board with open everything (though we can try to convince them its the best way).
-
-%Sharing can be very useful to share your workflow with collaborators (or peer reviewers!) so they can assess your steps... something about these tools making it very simple to run the code and check accuracy... Also great for teaching! So learning these will help on multiple fronts. 
-
-%(poached from the version control section): You can also set use binder (mybinder.org) to make a running (containerized) version of this code (and visualizations) available,. [[See box for snakemake example. (same python/ bash/ graph as above? w/ conda installation) ** orrr link to example in workflow article? https://www.nature.com/articles/d41586-019-02619-z]]
-
-\begin{greybox}{
- \textbf{Binder (mybinder.org)} Binder is a tool that makes a GitHub repository executable in a specified environment \cite{Jupyter2018}. 
-It uses package management by R, pip, or conda to build a docker container with the software required to run the analyses contained in a GitHub repository. 
-This is especially useful for computational notebooks. 
-The binder can then be shared with collaborators (or students in a classroom setting), where the analysis or visualizations can be reproduced using your provided code. 
-Binder instances are not static and can be modified by collaborators during a binder session. 
-The underlying code will not be changed unless changes are committed into the original GitHub repository, preserving the reproducibility of the original analysis.
- 
- \textbf{Shiny Apps} Shiny is a tool that allows you to build interactive web pages using R code. 
-It allows you to package data that is manipulated  by R code in real-time in a web page, producing analysis and visualizations of a data set. 
-Shiny apps can contain user-specifiable parameters, allowing a user to control visualizations or analyses. 
-For example, if a Shiny app contained RNA-seq differential expression data, it might allow the user to specify which gene counts it should plot. 
-Shiny apps allow collaborators who may or may not know R to change R visualisations to fit their interests.   
- 
- \textbf{Other tools} There are many other tools that aid in reproducibility or sharing of results. 
-Some tools, such as Whole Tale, aim to package the entire research object by capturing data, code and software environments in one executable package (CITATION). 
-Other tools such as Vega-lite and plotly produce single interactive visualizations that can be shared with collaborators or integrated into websites (CITATIONS).
-}
-\end{greybox}
-
-\section*{Use your data and resources wisely}
-% to make quality control fit in this section, intro needs to have:
-% 1. your time and compute resources are valuable. Here are tips to ensure you're spending them wisely
-% 2. errors and mistakes happen. Here's how to ensure you find them EARLY, before they can waste lots of time/resources
-% 3. big data are BIG! But some tools can make it smaller and get nearly identical answers. Try them!
-
-Your time and resources are valuable, and sequencing data analysis has the potential to use a lot of both. 
-Conducting thorough quality control and workflow testing mitigates inefficiencies by helping you catch errors before they impact your full workflow or interpretation. 
-Further, adopting analysis methods that subsample or approximate the data while retaining key biological characteristics can reduce time to insights and resource usage.
-Below we discuss some tips to ensure that you're spending your time and resources wisely. 
 
 \subsection*{Quality control your data} %purpose and strategies
 
@@ -886,72 +965,6 @@ When no reference is available, tetranucleotide clustering of scaffolds or conti
 
 Because sequencing data and applications are so diverse, there is no one-size-fits-all solution for quality control. 
 Therefore, it is important to think critically about your expectations, and what patterns you expect to see given your data and your biological problem. 
-
-\subsection*{Make big data less big} % heh. working title 
-
-\subsubsection*{Build your workflow using subsampled data}
-%You can begin this before generating your own data (if you're sequencing) by using similar publicly-available data to test a potential workflow. Once you have your data (public or freshly generated), the best test data can be directly created from your full dataset.
-
-It is rare to find a workflow that will analyze your data from start to finish without testing, troubleshooting, and iteration.
-To facilitate workflow design and save resources, you'll want to test each step with a small dataset prior to running your full analysis. 
-After installing a program, if the program comes with test data, run it and check results against the expected results, to verify that it is working on your system. 
-After that, subsample your own data and check you can run the program on this subsampled data. 
-For example, if working with FASTQ data, you can subsample the first million lines of your data (first 250k reads) by running:
-
- \begin{lstlisting}
- head -n 1000000 FASTQ_FILE.fq > test_fastq.fq 
-\end{lstlisting}
-
-While there are many more sophisticated ways to subsample reads, this technique should be sufficient for testing each step of a workflow prior to running your full dataset. 
-Note, some programs will fail with too few reads or too few results, so be sure to examine that possibility if running into errors at this stage, either in the literature, program manual, or by running larger subsets of data.
-% add sentence here to reiterate concept of testing on public data!
-
-
-\subsubsection*{Use computational approximations where possible}
- 
- Many bioinformatics workflows take a long time and significant computational resources to run, and interpretable results are often only produced by the last few steps. 
-This means that time-to-insight from sequencing data is often very high. 
- 
-%\subsubsection*{Generating quick insights with sketching algorithms}
-%\textbf{Generating quick insights with sketching algorithms}
-
-% one general paragraph re: approx, quantification,etc, one on sketching. maybe sketching first
-Understanding the basic structure of data, the relationship between samples, and the approximate composition of each sample is very helpful at the beginning of data analysis, and can often drive analysis decisions in different directions than those originally intended. 
-Although most bioinformatics workflows generate these types of insights, there are a few tools that do so rapidly, allowing the user to generate quick hypotheses that can be further tested by more extensive, fine-grained analyses. 
-
-\textbf{Sketching} Sketching algorithms work with compressed approximate representations of sequencing data and thereby reduce runtimes and computational resources. 
-These approximate representations retain enough information about the original sequence to recapitulate the main findings from many exact but computationally intensive workflows. 
-Most sketching algorithms estimate sequence similarity in some way, allowing the user to gain insights from these comparisons.
-For example, sketching algorithms can be used to estimate all-by-all sample similarity which can be visualized as a Principle Component Analysis or a multidimensional scaling plot, or can be used to build a phylogenetic tree with accurate topology. 
-Sketching algorithms also dramatically reduce the runtime for comparisons against databases (e.g. all of GenBank), allowing users to quickly compare their data against large public databases. 
-Sketching algorithms have been reviewed in-depth by Rowe \cite{rowe2019streaming}.
-
-\textbf{Read quasi-mapping vs alignment} RNA-seq analysis approaches like differential expression or transcript clustering rely on transcript or gene counts.
-Many tools can be used to generate these counts by quantifying the number of reads that overlap with each transcript or gene.
-Many tools produce this information. 
-For example, tools like STAR and HISAT2 produce alignments that can be post-processed to generate per-transcript read counts.
-However, these tools generate information-rich output, specifying per-base alignments for each read.
-Quasi-mapping produces the minimum information necessary for read quantification, thereby reducing the time and resources needed to generate and store read count information (CITE: RAPMAP). 
-
-\textbf{Anything else to mention?}  
-+ blast approximations?
-
-\subsection*{Assess required resources}
-% Use only the Resources you need / Calculating required resources
-%\textbf{What resources do you actually need to use?} 
-
-%It is difficult to assess the computational resources required to run different bioinformatic tools. 
-Bioinformatic tools vary in the resources they require: some analysis steps are compute-intensive, other steps are memory intensive, and still others will have large intermediate storage needs. 
-Tools will also vary in their ability to properly parallelize computation across multiple compute nodes. 
-To minimize required computational resources for your analysis, it is worth assessing the resources required at each step.
-
-Workflow software such as snakemake and nextflow provide avenues for specifying the resource needs of each individual step.
-
-Some tools publish required resources for test and sample data either in a publication or in software manuals or readmes. 
-However if this information is not available, its nearly impossible to estimate the amount of resources needed without running the tool. 
-Monitoring resource usage (including RAM, CPUs, disk input and output, network usage, and time) while running the test data from a tool or on a subset of your data can give you a starting estimate for resource usage that you can scale up to accommodate the size of your actual data. 
-Commands like "time" and "top" can help you monitor usage, while most workflow managers have built-in commands to report resource usage. 
-Over time, you will develop a intuition for resource usage as you use more tools.
 
 
 \section*{Troubleshooting: how to help yourself and when to get help}
