@@ -305,37 +305,107 @@ Here, we present our best advice on how to get the most out of your sequencing d
 %
 %- workflow tips and good approaches (e.g. making big data less big) to data analysis.
 
-\section*{Workflows and Automation} % title needs to convey that Bioinformatics == Workflows (bioinfo is made up of workflows, whether you use workflow software or not)
+\section*{Workflows and Software Management} % title needs to convey that Bioinformatics == Workflows (bioinfo is made up of workflows, whether you use workflow software or not)
 
+\subsection*{Workflows and automation}
 A pipeline, or a workflow, is made up of each of the steps needed to complete an analysis.
+Workflows are the workhorses of modern bioinformatics -- most analyses require researchers to combine computational steps that involve multiple tools and often multiple programming languages.
+When multiple steps are combined together to execute a single analysis, this can generically be referred to as workflow.
 While a workflow can be manually executed step-by-step, this is both time-consuming and has the potential to introduce unintended errors. 
-Automating a workflow using scripting or workflow languages can instead ensure that the entire data analysis is documented and repeatable from start to finish. 
+Automating a workflow using workflow languages can instead ensure that the entire data analysis is documented and repeatable from start to finish. 
 
-Workflow automation can be conducted by scripting the ordered execution of each step in a traditional scripting language such as bash. 
-However, a number of more tailored workflow systems have emerged that have significant advantages over traditional command-line scripting. 
-There is a learning curve associated with using these systems, but the benefits far outweigh the cost of learning to use them. 
+A number of tailored workflow systems have emerged that empower researchers to execute scalable workflows. 
+Within these systems, the users specify steps using a system-specific syntax. 
+The system then represents these steps as a directed graph in which each node is a step in the workflow, and edges connect sequential steps. 
+This back-end organization, paired with additional scaffolding, makes workflows encoded in workflow systems automated, scalable, and transferable across systems.
+These traits are highly desirable in bioinformatic workflows where many steps commonly produce thousands of intermediate files.
 
-% Workflow systems can be used both in local computing environments or on cloud systems, can be combined with versioned software installation via containers or environments, and keep track of file changes to ensure the entire data analysis is both automated and repeatable from start to finish. Many workflows can also detect whether new data was added or upstream programs were re-executed, and ensure the entire workflow is run on the new data. These systems explicitly keep a record of script dependency and order, which can simplify documentation. Other benefits include the ability to use virtual environments or containers via Conda or Docker to automatically and reproducibly handle software installation for each step (cite  https://www.nature.com/articles/d41586-019-02619-z), the ability to work across systems, and the ability to parallelize workflow steps where possible. 
+\subsubsection*{Why are workflows now useful? what has changed? (aka why were people not using them before)}
+ 
+The need for workflow management systems has increased with the plummeting cost of sequencing and availability of public data.
+However, while workflows are ubiquitous in bioinformatics and scientific computing in general, workflow systems designed by bioinformaticians for bioinformatic tasks are relatively new. 
+Prior to the development of robust workflow systems, common tools for scripting a workflow included make, pydoit, or bash scripting. 
+These systems required the user to implement substantial scaffolding around core commands on a per-workflow basis. 
+Workflow systems have alleviated this overhead and simplified the process of scripting a workflow.
 
-Workflow systems make bioinformatics pipelines repeatable, transferable, and better documented. 
-Although code written by the user is similar to what may be written in a coordinated set of bash or python scripts, workflow systems take care of behind-the-scenes checks and scaffolding that ensure the entire workflow is accurately encoded and run completely and efficiently. 
-This added layer of organization means one can easily rerun sections of a workflow, scale a workflow to new samples, parallelize non-dependent steps, coordinate software in step-dependent manner, and many other useful things. 
+Advances in workflow systems have led to wide-spread community adoption in part attributable to the open science movement. 
+A critical mass of workflow system-specific code has accumulated such that many routine tasks are already encoded and available for others to use.
+At the same time, consensus approaches for routine tasks have emerged, further encouraging reuse of existing code.
 
-Workflow systems are available as both scripting and graphical user interface systems. 
-Snakemake, Nextflow, Common Workflow Language, and Workflow Definition Language allow the user to fully script a workflow, while websites like Galaxy and Seven Bridges Genomics offer online portals in which users build workflows. 
-Many common protocols are available online. 
-These protocols can be very helpful as a starting point for your analysis, and can be modified to fit your particular experimental design. 
-[Add online resources: snakemake-workflows, nf-core etc] % add resources 
-% snakemake workflows: https://github.com/snakemake-workflows
-% nextflow-core: https://github.com/nf-core
-% awesome nextflow: https://github.com/nextflow-io/awesome-nextflow
+\subsubsection*{How will your life be changed with workflows?}
+
+Workflow systems have revolutionized computing in data intensive biology.
+Pipelines written in a workflow system are better documented, repeatable, transferable, and scalable. 
+Because workflow systems generate directed graphs to execute a workflow, relationships between steps need to be precisely and completely specified for a workflow to execute properly.
+This leads to two beneficial side effects. 
+First, workflows are more likely to be fully enclosed without undocumented steps that are executed by hand. 
+Second, workflows become self-documented; the directed graph produced by workflow systems can be exported and visualized, producing a graphical representation of the relationships between all steps in a pipeline (see \textbf{Figure \ref{fig:sgc_workflow}}).
+When a workflow is specified in this way, each step is executed in the proper order and will be rerun if a failure occurs. 
+This frees the user from manually keeping track of execution and monitoring of each step.
+Fully-contained workflows (when paired with software management, SEE NEXT SECTION) scripted in a workflow system instill confidence that the code will still execute the same set of commands with little investment by the user in weeks, months, or years from the time of writing.
+Similarly, the standard syntax used to specify each step in the workflow lends itself to easy reuse in future project. 
+This is in part enabled by cross-system compatibility of most workflow systems, which allows users to develop a workflow e.g. locally, and scale it on a cluster or a cloud computer.
+
+Workflow systems contain powerful built-in features for workflow management that are available to users without the need to write additional code.
+The workflow system coordinates execution of the full workflow, including parallelization of non-independent steps. 
+When a step fails, and it optionally continues with independent steps.
+When these processes finish, the workflow system keeps track of finished files and removes files if there was a problem in execution.
+In addition to coordinating runtime behavior, workflow systems can self-monitor and document resource usage, as well as compile reports that document the results of a workflow. 
+The minimal overhead associated with implementing these features once a workflow is specified in workflow system syntax greatly empowers the user.
+
+\subsubsection*{Getting the benefits without having to learn a scriptable workflow system}
+
+While the benefits of encoding a workflow in a workflow system are immense, the learning curve associated with implementing complete workflows in a new syntax can be daunting. 
+It is possible to obtain the benefits of workflow systems without learning a workflow software.
 
 Many research groups have used workflow software to build user-friendly pipelines that do not require learning or working with the underlying workflow software.
-These tools allow users to take advantage of the benefits of workflow software without needing to invest in curating and writing their own pipeline.  
-Some examples include the ATLAS metagenome assembly and binning pipeline (https://github.com/metagenome-atlas/atlas) \cite{kieser2019atlas}, the Sunbeam metagenome analysis pipeline (https://github.com/sunbeam-labs/sunbeam) \cite{clarke2019sunbeam}, the Elvers \textit{de novo} transcriptome and differential expression pipeline (https://github.com/dib-lab/elvers), the dammit eukaryotic transcriptome pipeline (https://github.com/dib-lab/dammit). 
+These tools allow users to take advantage of the benefits of workflow software without needing to invest in curating and writing their own pipeline. 
+These tools are specified in an underlying workflow language, but the user interacts with a command-line script and configuration file that coordinate and execute the workflow. 
+Often times, workflow parameters are exposed to the user, allowing the user to control certain behaviors such as parallelization or "dry-runs" when executing the command-line script.
+Some examples include the ATLAS metagenome assembly and binning pipeline (https://github.com/metagenome-atlas/atlas) \cite{kieser2019atlas}, the Sunbeam metagenome analysis pipeline (https://github.com/sunbeam-labs/sunbeam) \cite{clarke2019sunbeam}, the Elvers \textit{de novo} transcriptome and differential expression pipeline (https://github.com/dib-lab/elvers), the dammit eukaryotic transcriptome pipeline (https://github.com/dib-lab/dammit), and the nf-core RNA-seq pipeline (https://github.com/nf-core/rnaseq/). 
+
+Workflow systems are also available as graphical user interface systems.
+Websites like Galaxy, Cavatica, and EMBL-EBI MGnify offer online portals in which users build workflows around publicly-available or user-uploaded data (CITATIONS).
+
+\subsubsection*{How to learn to use workflows systems?}
+
+There are many scriptable workflow systems that offer similar benefits for data intensive biology. 
+Given the plethora of choices and the steep learning curve associated with integrating a workflow system into daily workflow management, it can be difficult to decide which workflow system to adopt. 
+While there are many workflow softwares to choose from, each software has it own strengths, meaning each software will meet an individuals computing goals differently (see \textbf{Table \ref{tab:workflows}}).
+Our lab has adopted Snakemake given its integration with Python and its flexibility to execute code with different languages (e.g. bash and R) and software management tools (see section XXX).
+Software like Nextflow and Common Workflow Language scale better to pipelines with hundreds of thousands of steps and support containerization more rigidly, making them ideal for production-level pipelines (CITATIONS). 
+There are also language-specific workflow managers, such as ROpenSci's Drake for R (CITATION). 
+Further, workflow systems are not necessarily exclusive entities; Snakemake can export pipelines in Common Workflow Language, allowing the same workflow to be fully compatible with two separate workflow systems. 
+
+\begin{table}
+\begin{tabular}{|c|c|c|}
+\hline
+Workflow System & Documentation & Example Workflow \\
+\hline
+Snakemake & https://snakemake.readthedocs.io/ & https://github.com/snakemake-workflows/chipseq \\
+\hline
+Nextflow & https://www.nextflow.io/ & https://github.com/nf-core/sarek \\
+\hline
+common workflow language & https://www.commonwl.org/ & https://github.com/EBI-Metagenomics/pipeline-v5 \\
+\hline
+workflow definition language & https://openwdl.org/ & https://github.com/gatk-workflows/gatk4-data-processing \\
+\hline
+\end{tabular} 
+\caption{\label{tab:workflows} Popular bioinformatics workflow systems, documentation, and example workflows.}
+\end{table}
+
+Independent of computational needs, selecting a workflow system with a strong local or online community can facilitate the adoption process. 
+These communities can provide support for new users, and have likely generated many open and accessible workflows that can be modified to analyze new data. 
+
+\subsubsection*{Alternatives to workflow systems}
+Workflow systems are not the only option for construction and executing a workflow.
+Workflow automation can be conducted by scripting the ordered execution of each step in a traditional scripting language such as bash.
+While command line scripting is an effective solution to coordinate and execute a workflow, workflows automated in this way do not take advantage of the built-in infrastructure in workflow systems.
+In our experience, it is more difficult to identify partially-completed workflow steps that produced truncated files, to rerun specific steps in a workflow, and to add additional files to a workflow when using bash scripting over workflow systems.
+These shortcomings are magnified when executing workflows on large-scale sequencing commendium.
 
 
-\subsubsection*{Wrangling Scientific Software} 
+\subsection*{Wrangling Scientific Software} 
 Research software is written by many different groups of people using different languages (e.g. python, R, perl, bash, C++, rust, etc.). 
 Each program has a number of other programs it depends upon to function (``dependencies"), and as software changes over time to meet research needs, the results may change, even when run with identical parameters. 
 As a result, it is critical to take an organized approach to installing, managing, and keeping track of software and software versions. 
