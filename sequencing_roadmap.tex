@@ -474,12 +474,14 @@ When written as fully contained documents, they are easily updatable with new da
  
 \subsubsection*{Version Control} 
 
-Writing tools such as Google Docs, Overleaf, and Microsoft Word have built-in version control systems to track changes in a document over time. 
-However, these tools are usually limited to manuscripts, particularly as built-in text formatting can cause code to break in unexpected and difficult-to-debug ways, such that the record does not faithfully represent what was actually run by the researcher. 
-Furthermore, these systems only support linear version control, making it difficult for multiple people to work asynchronously on the same project. 
-% are there non-writing version control systems that we should mention?
+As your project develops, version control allows you to keep track of changes over time. 
+You may already do this in some ways, perhaps with frequent hard drive backups or by manually saving different versions of the same file  - e.g. by appending the date to a script name or appending "version\_1" or "version\_FINAL" to a manuscript draft. 
+For computational workflows that will inevitably undergo multiple changes in parameters, data, visualizations, and analysis, it is essential to keep track of which analysis produced which output files, so that the final analysis is reproducible. 
+However, version control can also save time and effort at every step. 
+If a key piece of a workflow inexplicably stops working, good version control can allow you to rewind in time and identify differences from when the pipeline worked to when it stopped working. 
+If multiple people are working on the same project, version control can both avoid conflict and ensure that no productivity is lost. 
 
-For data-intensive biology projects that combine scripting, analysis, computational notebooks, and manuscript writing, version control systems such as Git or Mercurial can be used to properly keep track of all changes over time, even across multiple users, scripting languages, and including visualizations. 
+Version control systems such as Git or Mercurial can be used to properly keep track of all changes over time, even across multiple users, scripting languages, and including visualizations. 
 In particular, Git has emerged as the dominant version control system for biological code, particularly when combined with online repositories such as Github, GitLab, or Bitbucket, which store online version histories for all tracked files.
 In addition to acting as an additional backup location, the online services support drag-and-drop file addition and full control over the repository using the web interface, which greatly lowers the barrier to getting started with version control systems. 
 While these systems do not work well with Google Docs or Microsoft Word, they can greatly simplify asynchronous collaborative manuscript writing when combined with services such as Overleaf and Manubot (CITE). 
@@ -490,8 +492,6 @@ Other services are compatible with git version control, e.g. Git Large File Stor
 These version control systems can also facilitate code availability and reproducibility for publication. 
 For example, to ensure the correct version of the code is preserved, you can create a “release,” a snapshot of the current code and files in a GitHub repository. 
 You can then generate a DOI for that release using Zenodo and make it available to reviewers and beyond (see "sharing" section, below).
-
-%First, not all documents are supported for version control, meaning documents like computational notebooks cannot be tracked overtime. Second, built-in spell checkers can make erroneous corrections to code, such as auto-capitalizing the first letter of a command.
 
 %\begin{greybox}{git version control
 %? do we even need this? probably not. will leave here in case we think of something to put in there.
@@ -518,7 +518,7 @@ Note, some programs will fail with too few reads or too few results, so be sure 
 % add sentence here to reiterate concept of testing on public data!
 
 
-\subsection*{Reproducible workflows and documentation for yourself and others}
+\subsection*{Documenting reproducible workflows for yourself and others}
 
 As with experimental biology, it is essential to write down everything you do - that is, record the origin of every file (e.g. download URL) and all metadata, record the version of software and each parameter you used, record any manual filtering or data preprocessing steps, and keep track of the order in which you executed each program. 
 Without the ability to fully examine and reproduce your analysis, it will be impossible for you or your collaborators to assess whether the results are accurate, or even to understand how the heuristic decisions you took impact the conclusions made from an analysis. 
@@ -564,28 +564,6 @@ Whenever possible, adding visualizations can help improve the readability and re
 \caption{A directed acyclic graph that illustrates connections between all steps of a sequencing data analysis workflow. Each box represents a step in the workflow, while lines connect sequential steps.}
 \label{fig:sgc_workflow}
 \end{figure}
-
-
-\subsubsection*{Version Control} 
-As your project develops, version control allows you to keep track of changes over time. 
-You may already do this in some ways, perhaps with frequent hard drive backups or by manually saving different versions of the same file  - e.g. by appending the date to a script name or appending "version\_1" or "version\_FINAL" to a manuscript draft. 
-For computational workflows that will inevitably undergo multiple changes in parameters, data, visualizations, and analysis, it is essential to keep track of which analysis produced which output files, so that the final analysis is reproducible. 
-However, version control can also save time and effort at every step. 
-If a key piece of a workflow inexplicably stops working, good version control can allow you to rewind in time and identify differences from when the pipeline worked to when it stopped working. 
-If multiple people are working on the same project, version control can both avoid conflict and ensure that no productivity is lost. 
-
-%In order to keep track of changes over time, it's important to build a method for saving new versions of code and documentation over time. . 
-
- \subsubsection*{Automate as Much as Possible} 
-One of the best ways to ensure the coding portion of your workflow is documented is to use scripting or workflow software to automate as much as possible. 
-Automation can not only provide baseline documentation, but also simplify testing parameters and programs for the best results on your data. 
-
-Each of the recommendations above details key ideas for recording sufficient information about the data, tools, parameters, and decisions used to obtain the results at the end of your workflow. 
-Below we present some tools that greatly facilitate these practices.
- 
-%However you run the analysis, it is key that you record both the tools and parameters used to obtain the results at the end of your workflow. One of the best ways to do this is to automate as much as possible: execute each step as an automated script and/or run each using workflow software. By keeping all steps within an automated workflow, you'll not only save time when you need to run the analysis on your full data later, but you'll also ensure that your analysis is both clearly documented and reproducible. Automation will also simplify testing parameters and programs for the best results on your data.
-
-%Using at least one of these approaches is necessary but may not be sufficient; different types of documentation are often helpful for different stages of a workflow, or to communicate your results to different audiences. For example, it may be appropriate to use a narrative approach to detail your workflow for the methods section of a paper, whereas a specific script that details the exact commands used to produce a set of results might live among output files. 
 
 %\subsection*{Make big data less big} % heh. working title 
 \subsection*{Explore tools that leverage computational approximations}
@@ -675,38 +653,16 @@ Other tools such as Vega-lite and plotly produce single interactive visualizatio
 
 \section*{Strategies to get the most out of your data}
 
-%\section*{Use your data and resources wisely}
-% to make quality control fit in this section, intro needs to have:
-% 1. your time and compute resources are valuable. Here are tips to ensure you're spending them wisely
-% 2. errors and mistakes happen. Here's how to ensure you find them EARLY, before they can waste lots of time/resources
-% 3. big data are BIG! But some tools can make it smaller and get nearly identical answers. Try them!
-
 Your time and resources are valuable, and sequencing data analysis has the potential to use a lot of both. 
+Leveraging publicly available data or using good experimental design sets an analysis up for success.
 Conducting thorough quality control and workflow testing mitigates inefficiencies by helping you catch errors before they impact your full workflow or interpretation. 
-Further, adopting analysis methods that subsample or approximate the data while retaining key biological characteristics can reduce time to insights and resource usage.
 Below we discuss some tips to ensure that you're spending your time and resources wisely. 
 
-\subsection*{Project Management and Organization}
-
-The data for sequence analysis - including raw sequence data, intermediate files, metadata, and results files - can quickly build up as you work. Developing a consistent organization scheme for your project at the start will save time and resources, enable good collaboration, and facilitate sharing when it comes to publication. 
-
-%\subsection*{Wrangling Sequence data}
-% point of this section:
-%  Why data/project org?
-% - What is data? = BOTH seq data and metadata
-% - How to get it / move it
-% - How to organize it ( this is really in the next section
-% - How and where to back it up
-
-%Properly protecting your data and adopting a consistent organization scheme for your project will save time and resources, enable good collaboration, and facilitate sharing when it comes to publication.
-%The data for sequencing projects include raw sequencing data, metadata, intermediate files, and results files from an analysis. Each data type contains important information that may need to be accessed at some later point.
-
-%\subsection*{SOME CLEVER SUBSECTION NAME}
 %\subsection*{Wrangling Sequence Data} % is "wrangling" too close to data carpentry?
 
 \subsection*{Ensure you have quality data}
 
-As with all biological analyses, the most critical step of sequence analysis is obtaining high-quality data for your scientific question. 
+As with all biological analyses, a critical step of sequence analysis is obtaining high-quality data for your scientific question. 
 With vast amounts of sequencing data already available in public repositories, it is often possible to begin investigating your research question by seeking out publicly available data. 
 In some cases, these data will be sufficient to conduct your entire analysis. 
 In others cases, particularly for biologists conducting novel experiments, these data can inform decisions about sequencing type, depth, and replication, and can help uncover potential pitfalls before they cost valuable time and resources.
@@ -715,17 +671,14 @@ In others cases, particularly for biologists conducting novel experiments, these
 
 Most journals now require data for all manuscripts to be made accessible, either at publication or after a short moratorium.
 You can find relevant sequencing data either by starting from the ``data accessibility" sections of papers relevant to your research or by directly searching for your organism, environment, or treatment of choice in public data portals and repositories. 
-These public repositories often store additional metadata critical for quality control or understanding of experimental design. However, each repository packages this information in a different way, and it can be challenging to find, format, and combine the metadata for a published project. In some cases, you may need to obtain it from the supplement of the original publication.
 
 The International Nucleotide Sequence Database Collaboration (INSDC), which includes the Sequence Read Archive (SRA), European Nucleotide Archive (ENA), and DataBank of Japan (DDBJ) is the largest repository for raw sequencing data. 
-Additional curated databases focus on processed data instead, including genome sequences and annotations (Ensembl), gene expression (e.g. Gene Expression Omnibus (GEO), the EMBL-EBI Expression Atlas, Genotype-Tissue Expression project (GTEx)), variation (e.g. dbSNP, dbVar), or disease-associated genomes (e.g. Cancer Genome Atlas (TCGA)).
-Other databases such as \textbf{Wormbase}, \textbf{Saccharomyces Genome Database}, \textbf{FlyBase}, and \textbf{SoyBase} specialize in storing genetic information from the organisms \textit{Caenorhabditis elegans}, \textit{Saccharomyces cerevisiae}, \textit{Drosophila melanogaster}, and \textit{Glycine max}, respectively \cite{harris2020wormbase, cherry2012saccharomyces, st2014flybase, grant2010soybase}. 
-The SRA, ENA, and DDBJ no longer accept raw sequencing data from large consortia projects, so data from these efforts are often hosted in consortia-specific databases. 
-This includes sequencing data from the \textbf{Tara Ocean Foundation}, the \textbf{Human Microbiome Project} (HMP) and \textbf{HMP2}, the \textbf{1000 Genomes Project}, and the \textbf{Marine Microbial Eukaryote Transcriptome Sequencing Project} \cite{pesant2015open, turnbaugh2007human, integrative2014integrative, clarke20121000, keeling2014marine}. 
+Additional curated databases focus on processed data instead, such as gene expression in the Gene Expression Omnibus (GEO).  
+Organism-specific databases such as \textbf{Wormbase} (\textit{Caenorhabditis elegas}) specialize on curating and integrating sequencing and other data associated with a model organism \cite{harris2020wormbase}. 
+The SRA, ENA, and DDBJ no longer accept raw sequencing data from large consortia projects, so data from these efforts are often hosted in consortia-specific databases such as those hosted by the Tara Ocean Foundation \cite{pesant2015open}.
 Unlike the SRA and associated databases which are centralized and searchable, databases overseen by consortia often require domain-specific knowledge and have unique download and authentication protocols.
 Finally, rather than focusing on certain data types or organisms, some repositories are designed to hold any data and metadata associated with a specific project or manuscript (e.g. Open Science Framework, Dryad, Zenodo \cite{foster2017open}).
 
-%These repositories have stringent requirements for data they host, so many smaller databases exist that host additional information and different types of sequencing data. 
 %% a note about metadata for SRA, etc: https://www.embopress.org/doi/10.15252/embr.201745118
 
 \subsubsection*{Generating your own data}
@@ -843,27 +796,11 @@ Databases such as the Sequence Read Archive (SRA) are now available on commercia
 accessible, interoperable, and reusable (FAIR). 
 
 In most cases, you'll still need to transfer some data - either downloading raw data or transferring important intermediate and results files for backup and sharing (or both). 
-As sequence data files are typically quite large, it's becoming common practice for tools to work on compressed data (gzip, bzip2, BAM/CRAM, etc) in order to save space. 
-The file transfer and storage recommendation provided below can help ensure file integrity during these transfers.
-%For biomedical data, commercial research clouds such as Terra and Seven Bridges can facilitate ...
-
-%The recommendations above detail practices for organizing, moving, and safeguarding data. Below, we discuss recommended tools that can facilitate data transfer and storage. 
-
-\subsection*{Tools for data transfer and backup} %Strategies and 
-
-
-\subsubsection*{Data storage and transfer}
-
-Errors can be introduced during any portion of file transfer: uploads or download may fail, resulting in truncated files, or the file itself may be corrupted as either computer is reading, processing, or writing the file. 
-To ensure proper file transfers, many sequencing data files have corresponding MD5sum files, which provide a record of the exact size of that file.
-When you download these files, you can calculate the MD5sum size of the downloaded file, and then check that this value matches the value in the provided MD5sum file: files that are the exact same size are likely complete and uncorrupted (\textbf{Figure \ref{fig:checksum}}). 
-If no MD5sum is provided, you can also check the number of lines and the size of a file at its source and destination to estimate whether a file was corrupted during transfer.
-
-There are several tools that automate file transfer and storage and check for issues with file integrity in a more systematic manner. 
-The two most useful command line programs are Rsync and Rclone, which provide transfer between computers or between computers and remote storage providers. 
+Checksums can be used to to check file integrity and ensure proper transfer (see \textbf{Figure \ref{fig:checksum}}).
+File compression (gzip, bzip2, BAM/CRAM, etc.) can improve transfer speed and save space.
+Tools like Rsync and Rclone automate file transfer between computers or between computers and remote storage providers \cite{bailleul2016rclone}. 
 These tools automatically use checksums to verify that files were transferred properly.
 Some GUI file transfer tools (e.g. cyberduck) also assess checksums when they are provided.
-%However, there are some command-line and graphical programs that can automate file transfer and check for issues with file completion and corruption for you.
 
 \begin{figure}
 \centering
@@ -876,7 +813,6 @@ For publicly-available files, a checksum value is often provided, so that you ca
  } 
 \label{fig:checksum}
 \end{figure}
-
 
 \subsubsection*{Backup and storage} 
 Many universities provide cloud storage space (e.g. through google drive, box, dropbox etc), and researchers can pay for individual storage on these services, or services attached to cloud computing (e.g. Amazon Web Services). 
@@ -891,22 +827,6 @@ While OSF and other similar repositories (e.g. figshare) are suitable for use at
 %\subsubsection*{Compression for easier storage and transfer}
 %Compression reduces the space needed to store files by encoding strings of characters in smaller representations. This not only saves storage space but also decreases the time required for data transfer. Many bioinformatic programs now work on either compressed and uncompressed data, meaning there is often no reason to fully uncompress data once compressed. Two types of compression are common in bioinformatics workflows: single file (e.g. data) compression, and archive compression. The most commonly-used single-file compression tool is gzip, which is often applied to fastq and fasta sequencing files (file suffix: `.gz`). Bzip2, which is gaining popularity as a gzip alternative, is more space efficient than gzip, but takes more time to compress files (though less time to decompress). The two most common archive compression, which combine many files into a single archive file, are tar (“tape archive”) and zip compression. These two types of compression can be combined for maximal compression: each file can be compressed before the archive file is generated, or the archive file itself can be compressed with gzip or bzip2. (best practice = the former?)
 
-%%\subsubsection*{File corruption and md5sums}
-%Files can become corrupted (ex. truncated) any time they are transferred. To chek whether a file has been corrupted during transfer, you can use MD5 checksums. MD5 checksums (or MD5sums) are random hexadecimal strings known as hashes that are generated based on the contents of a file. Because these hashes are random, even a one-character change in the file will generate a completely new hash. These hashes can be used to check the integrity of the file. Most sequencing centers generate md5sums for each file they sequence, and public databases like the Sequence Read Archive (SRA) and the European Nucleotide Archive (ENA) require submission of md5sums alongside sequencing data. 
-
-%If you do not have access to md5sums, you can also check the number of lines and the size of a file at its source and destination to estimate whether a file was corrupted during transfer.
-
-%\subsubsection*{Data Transfer with Rsync and Rclone}
-%It’s helpful to use programs that automate file transfer and storage and check for issues with file completion and corruption. Rsync and Rclone are command line tools for this....
-
-%Rsync stands for “remote sync.” It is a command line tool that allows the user to sync files between two computers. More practically, it can be used to transfer many large files between local and remote computers (i.e. transferring files from a laptop to a cluster, or from a sequencing center to a cluster). Rsync has built-in md5sum checks to ensure files are not corrupted during the transfer process, and when multiple files are transferred, it restarts transfer from the last file if the network connection is interrupted. 
-
-%While rsync works to transfer files from one computer to another, Rclone provides similar functionality for transfer between a computer and a cloud storage provider \cite{bailleul2016rclone}. Currently, 45 cloud storage platforms are supported by Rclone. Because many universities provide free unlimited cloud storage with one or more cloud providers, Rclone can be a good option for backing up and sharing sequencing data and intermediate analysis files. Each cloud is different, so make sure to investigate maximum file sizes and permissions when using this strategy.
-
-%CAN WE ADD A NON-COMMAND LINE TOOL? I'm thinking a cyberduck/filezilla/sftp sort of thing would be useful.
-
-
-
 %\subsection*{Tools to facilitate documentation and reproducibility}
 
 
@@ -919,16 +839,14 @@ While OSF and other similar repositories (e.g. figshare) are suitable for use at
 % - Use visualization and tools to make this simpler! Hey, checkout out fastqc/etc in this greybox!
 % - Here are some common errors and contaminants - make sure to look for them and other data-specific pitfalls
  
-The adage, "garbage in, garbage out" describes most sequencing data analysis: the quality of the input data determines the quality of the output results. 
+The adage, ``garbage in, garbage out" describes most sequencing data analysis: the quality of the input data determines the quality of the output results. 
 Errors in sequencing data can be introduced at every stage, from sample generation to analysis. 
-Sample labels can be mixed up during sample collection, nucleotide extraction may produce chemically contaminated or low concentration samples, sequencing platforms introduce erroneous base pairs, and analysis tools may output incomplete or mis-specified results. 
 Assessing data at every analysis step can reveal these errors early. 
 You are the single most effective quality control tool that you have, so its important to interrogate your data to search for problems. 
 While simply looking at your data is sometimes sufficient to catch issues, visualization and software tools (e.g. FastQC, see \textbf{Figure \ref{fig:fastqc}}) make quality control easier. 
-It is important to perform both general and targeted quality control, and to keep an eye out for common problems that often arise in sequencing data. 
 
 %% note on published data (from `accessing publicly-available data` section)
-As both sequencing technology and analysis tools have changed over time, we recommend conducting your own quality control upon beginning to work with a new dataset (see section \textbf{Quality  Control}).
+%As both sequencing technology and analysis tools have changed over time, we recommend conducting your own quality control upon beginning to work with a new dataset (see section \textbf{Quality  Control}).
 
 
 \subsubsection*{Critically assess your data}
@@ -1003,47 +921,12 @@ FastQC measures and summarizes 10 quality metrics and provides recommendations f
 There are many known biases in sequencing data. 
 These biases originate from experimental design, methodology, sequencing chemistry, or workflows, and are helpful to target specifically with quality control measures. 
 For example, PCR duplicates can cause problems in libraries that underwent an amplification step, and often need to be removed prior to downstream analysis. 
-Nucleotide extraction kits have their own microbiomes (CITATION), so it may be important to check for specific contaminant sequences. 
+Contamination can arise during sample collection, nucleotide extraction, library prepartion, or through sequencing spike-ins like PhiX, and could change data interpretation if not removed (CITE TARDIGRADE PNAS PAPERS).
 Libraries sequenced with high concentrations of free adapters or with low concentration samples may have increased barcode hopping, leading to contamination between samples (CITATION). 
 Stringent trimming of RNA-sequencing data may reduce isoform discovery (CITE MCMANNES). 
 The exact biases in a specific data set or workflow will vary greatly between experiments. 
 To determine what issues are most likely to plague your specific data set, it can be helpful to find recent publications using a similar experimental design, or to speak with experts at a sequencing core.
 
-
-%\begin{greybox}{\subsection*{Finding and eliminating contaminant sequences} % 
-\subsubsection*{Handling common contaminant sequences}
-% maybe merge this section with the one above? (if can find right header)
-Contamination in sequencing data can come from many sources. 
-Many contaminants leave a detectable signal in sequencing data, allowing them to be removed, or in the worst cases, for libraries to be regenerated and resequenced. 
-Below we discuss strategies for identifying and removing common sources of contamination.
-
-\textbf{Checking adapter and barcode sequences}
-All sequencing libraries have helper sequences like adapters and barcodes that allow the sequencer to keep track of and capture biological nucleotides. 
-Typically, each sequencing library is sequenced with a single specific chemistry, meaning adapters and barcodes leave consistent traces within a sample. 
-Sometimes, contaminant sequences will have different barcodes or adapters than the rest of the sequences, and these can be detected both by looking at the sequences and bioinformatically using a tool like BBMap or FastQC (among many others). 
-
-\textbf{Removing PhiX}
-PhiX is a common contaminant in Illumina sequencing data. Its used as a quality control spike-in in some sequencing runs. 
-Many sequencing facilities remove PhiX before distributing sequencing data to their customers, but PhiX can still lurk in publicly available data or be inadvertently retained in new sequencing data. 
-When working with new sequencing data, it’s a good idea to check for the presence of PhiX. 
-This can be done using a tool like BLAST, aligning reads to the PhiX genome, or using k-mer baiting to pull reads that have k-mers in common with PhiX. 
-
-\textbf{Removing human and host sequence}
-Human DNA is a common contaminant given its ubiquity. 
-Likewise, for microbiome experiments, DNA originating from the host organism can comprise a large portion of sequencing reads.
-In both cases, it is often helpful to understand the proportion of reads attributable to human or host DNA. 
-Both mapping and k-mer baiting are effective at removing these contaminants when a reference genome is available. 
-When no reference genome is available, tetranucleotide frequency clustering and domain-specific marker gene annotation can help identify contaminant sequences (CITE or give ex).
-
-\textbf{Ensuring correct species presence }
-Often times, we have preconceived ideas of what species should be in our sequencing samples. 
-For example, when sequencing a single genome, we expect only one species to be present. 
-We recommend two general approaches for contaminant discovery: database looks up and marker-gene identification. 
-Tools like sourmash, kraken, centrifuge, and MEGAN can be used to estimate the proportion of reads that match sequences in existing databases. 
-Complementarily, marker-gene approaches like GraftM can quickly estimate the taxonomic composition of a sample based on single marker genes like 16s or 18s rRNA. 
-These approaches can be applied to assembled sequences or reads. 
-When no reference is available, tetranucleotide clustering of scaffolds or contiguous sequences can highlight contaminants (CITATION).%}
-%\end{greybox}
 
 Because sequencing data and applications are so diverse, there is no one-size-fits-all solution for quality control. 
 Therefore, it is important to think critically about your expectations, and what patterns you expect to see given your data and your biological problem. 
