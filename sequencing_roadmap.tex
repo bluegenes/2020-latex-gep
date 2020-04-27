@@ -377,6 +377,7 @@ There are also language-specific workflow managers, such as ROpenSci's Drake for
 Further, workflow systems are not necessarily exclusive entities; Snakemake can export pipelines in Common Workflow Language, allowing the same workflow to be fully compatible with two separate workflow systems. 
 
 \begin{table}
+\resizebox{\textwidth}{!}{
 \begin{tabular}{|c|c|c|}
 \hline
 Workflow System & Documentation & Example Workflow \\
@@ -389,7 +390,7 @@ common workflow language & https://www.commonwl.org/ & https://github.com/EBI-Me
 \hline
 workflow definition language & https://openwdl.org/ & https://github.com/gatk-workflows/gatk4-data-processing \\
 \hline
-\end{tabular} 
+\end{tabular}}
 \caption{\label{tab:workflows} Popular bioinformatics workflow systems, documentation, and example workflows.}
 \end{table}
 
@@ -725,6 +726,7 @@ Both research-only and  and commercial clusters provide avenues for research and
 In preparing for data analysis, be sure to allocate sufficient computational resources and funding for storage and analysis, including large intermediate files and resources required for personnel training. 
 
 \begin{table}
+\resizebox{\textwidth}{!}{
 \begin{tabular}{|c|c|c|}
 \hline
 Cloud Provider & Standard Model & Limits \\
@@ -751,7 +753,7 @@ Open Science Data Cloud & Research allocation & \\
 \hline
 Wasabi & Paid & data storage solution only \\
 \hline
-\end{tabular} 
+\end{tabular}}
 \caption{\label{tab:computational_resources} \textbf{Research cloud resources} Cloud provider indicates the name of the cloud, standard model indicates the most common route toward using the cloud, and limitations indicates limitations in access or services provided by the cloud.}
 \end{table}
 
@@ -858,6 +860,7 @@ MultiQC finds and automatically parses log files from other tools and generates 
 MultiQC currently supports 78 tools that span all stages of bioinformatic analysis pipelines, including all-star tools like samtools, BBMap, and FastQC. 
 
 \begin{table}
+\resizebox{\textwidth}{!}{
 \begin{tabular}{|c|c|c|}
 \hline
 \textbf{command} & \textbf{function} & \textbf{example} \\
@@ -880,7 +883,7 @@ grep & find matching text and print the line to standard out & grep ``\textgreat
 \hline
 cut & cut columns from a table. & cut -d``," -f1 samples.csv \\
 \hline
-\end{tabular} 
+\end{tabular}}
 \caption{\label{tab:bash_commands} Some bash commands are useful to quickly explore the contents of a file. By using these commands, the user can detect common formatting problems or other abnormalities.}
 \end{table}
 
