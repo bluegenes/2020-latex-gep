@@ -509,11 +509,15 @@ Version control systems such as Git or Mercurial can be used to properly keep tr
 In particular, Git has emerged as the dominant version control system for biological code, particularly when combined with online repositories such as Github, GitLab, or Bitbucket, which store online version histories for all tracked files.
 In addition to acting as an additional backup location, the online services support drag-and-drop file addition and full control over the repository using the web interface, which greatly lowers the barrier to getting started with version control systems. 
 While these systems do not work well with Google Docs or Microsoft Word, they can greatly simplify asynchronous collaborative manuscript writing when combined with services such as Overleaf and Manubot (CITE). 
-Git version control is primarily designed to handle small text files, but version control also exists for data sets, since intermediate data files can change with tool versions or parameters. 
-Many of the databases suggested for storing raw data also provide version control for data sets, including the Open Science Framework. 
+
+Git version control is primarily designed to handle small text files, but version control also exists for data sets.
+Data version control can be used to store a read-only copy of raw sequencing files and accompanying metadata, or to keep track of difference in intermediate files that change with tool paramters or versions. 
+The Open Science Framework (OSF) \cite{foster2017open}, maintained and developed by the Center for Open Science, provides free storage of an unlimited number of files up to 5GB each in size, and allows the user to keep the data private until they are ready to share (make the project public). 
+OSF provides built-in version control and is supported by a data preservation fund that will keep the data available for 50+ years. 
+While OSF and other similar repositories (e.g. figshare) are suitable for use at any stage of a research project, repositories such as Zenodo and the Dryad Digital Repository (Dryad), are designed to make publication-ready data discoverable, citable, and reusable. 
 Other services are compatible with git version control, e.g. Git Large File Storage (LFS) and Data Version Control (DVC).
 
-These version control systems can also facilitate code availability and reproducibility for publication. 
+These version control systems can also facilitate code and data availability and reproducibility for publication. 
 For example, to ensure the correct version of the code is preserved, you can create a “release,” a snapshot of the current code and files in a GitHub repository. 
 You can then generate a DOI for that release using Zenodo and make it available to reviewers and beyond (see "sharing" section, below).
 
@@ -548,7 +552,7 @@ Additionally, using a standardized yet flexible folder structure from the outset
 Keeping independent portions of your analysis in descriptive folders can help keep your project workspace clean and organized.
 Within your files, using consistent and descriptive variable names will help build a readable codebase.
 
-\subsubsection*{Store metadata information with your workflow} 
+\subsubsection*{Store metadata about your workflow with your workflow} 
 Biological analyses often span hundreds of steps and involve many small decisions: What parameters for each step? 
 Why did you use a certain reference file for annotation as compared with other available files? 
 How did you finally manage to get around the program or installation error? 
@@ -558,7 +562,6 @@ Each main directory should include notes on the data or scripts contained within
 Code itself can be (or contain) documentation - you can add comments with the reasoning behind parameter choice or include a link to the seqanswers post that helped you decide how to shape your differential expression analysis. 
 Larger pieces of information can be kept in ``README" or notes documents kept alongside your code and other documents. 
 For example, a GitHub repository documenting the reanalysis of the Marine Microbial Eukaryote Transcriptome Sequencing Project uses a README alongside the code to document the workflow and digital object identifiers for data products (https://github.com/dib-lab/dib-MMETSP) \cite{johnson2019}.   
- %and liberal use of comments makes the purpose of specific lines of code explicitly clear.
 
 \subsubsection*{Add visual representations} 
 Visual representations illustrate the connections in a workflow. 
@@ -582,8 +585,6 @@ These tools substantially reduce overhead associated with interacting with someo
 These tools are also great for teaching, as they provide consistent learner interfaces and environments. 
 
 %TODO: first paragraph here should convey why sharing is important/great. We should assume not all folks reading this are on board with open everything (though we can try to convince them its the best way).
-
-%Sharing can be very useful to share your workflow with collaborators (or peer reviewers!) so they can assess your steps... something about these tools making it very simple to run the code and check accuracy... Also great for teaching! So learning these will help on multiple fronts. 
 
 %(poached from the version control section): You can also set use binder (mybinder.org) to make a running (containerized) version of this code (and visualizations) available,. [[See box for snakemake example. (same python/ bash/ graph as above? w/ conda installation) ** orrr link to example in workflow article? https://www.nature.com/articles/d41586-019-02619-z]]
 
@@ -613,15 +614,10 @@ Other tools such as Vega-lite and plotly produce single interactive visualizatio
 \subsubsection*{Assess required resources}
 
 Bioinformatic tools vary in the resources they require: some analysis steps are compute-intensive, other steps are memory intensive, and still others will have large intermediate storage needs. 
-Tools will also vary in their ability to properly parallelize computation across multiple compute nodes. 
-To minimize required computational resources for your analysis, it is worth assessing the resources required at each step.
-
-Some tools publish required resources for test and sample data either in a publication or in software manuals or readmes. 
-However if this information is not available, it's nearly impossible to estimate the amount of resources needed without running the tool. 
-Monitoring resource usage (including RAM, CPUs, disk input and output, network usage, and time) while running the test data from a tool or on a subset of your data can give you a starting estimate for resource usage that you can scale up to accommodate the size of your actual data. 
-Most workflow systems have built-in commands to report resource usage, while commands like ``time" and ``top" can show resource usage outisde of workflows.
-Over time, you will develop an intuition for resource usage as you use more tools.
-
+While it can be difficult to estimate resources required for each tool, workflow systems provide built-in tools to monitor resource usage for each step. 
+This reporting can be used while running a workflow on a single or a few samples to estimate required resources. 
+These resources can then be specified to run the workflow on all samples.
+ 
 \subsubsection*{Scale workflows with tools that leverage computational approximations}
 %\subsubsection*{Leverage computational approximations}
 %\subsubsection*{Use computational approximations where possible}
@@ -764,18 +760,6 @@ Wasabi & Paid & data storage solution only \\
 \caption{\label{tab:computational_resources} \textbf{Research cloud resources} Cloud provider indicates the name of the cloud, standard model indicates the most common route toward using the cloud, and limitations indicates limitations in access or services provided by the cloud.}
 \end{table}
 
-%\begin{greybox}{\textbf{Research Cloud resources}
-% 
-%MAKE A TABLE, link to research proposal info (or payment info, I guess? Or just say "paid")!
-%   - Galaxy
-%   - XSEDE + Jetstream (USA; Research; examples of applications)
-%   - cyverse
-%   - AWS (Worldwide, Paid)
-%   - https://www.opensciencedatacloud.org/
-%   - google cloud https://www.blog.google/products/google-cloud/google-cloud-offers-global-support-for-academic-research/
-%   }
-% \end{greybox}
-
 
 \subsubsection*{Storing data and metadata} %safeguard your data
 
@@ -817,9 +801,6 @@ For publicly-available files, a checksum value is often provided, so that you ca
 Many universities provide cloud storage space (e.g. through google drive, box, dropbox etc), and researchers can pay for individual storage on these services, or services attached to cloud computing (e.g. Amazon Web Services). 
 Full computer backups can be conducted to these storage locations (e.g. with rclone \cite{bailleul2016rclone}), or there are also a number of paid services that will conduct backups at regular intervals (e.g. Backblaze, Dropbox Pro). 
 There are also several free online repositories designed to help researchers store and share data and project materials. 
-The Open Science Framework (OSF) \cite{foster2017open}, maintained and developed by the Center for Open Science, provides free storage of an unlimited number of files up to 5GB each in size, and allows the user to keep the data private until they are ready to share (make the project public). 
-OSF provides built-in version control and is supported by a data preservation fund that will keep the data available for 50+ years. 
-While OSF and other similar repositories (e.g. figshare) are suitable for use at any stage of a research project, repositories such as Zenodo and the Dryad Digital Repository (Dryad), are designed to make publication-ready data discoverable, citable, and reusable. 
 
 % Link out to data/project management info? e.g. Many of these considerations are addressed in a data carpentry lesson (https://datacarpentry.org/organization-genomics/). 
 
