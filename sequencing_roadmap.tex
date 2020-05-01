@@ -647,14 +647,7 @@ Quasi-mapping produces the minimum information necessary for read quantification
 
 \section*{Practical considerations for workflow-enabled biology}
 
-Your time and resources are valuable, and sequencing data analysis has the potential to use a lot of both. 
-Leveraging publicly available data or using good experimental design sets an analysis up for success.
-Conducting thorough quality control and workflow testing mitigates inefficiencies by helping you catch errors before they impact your full workflow or interpretation. 
-Below we discuss some tips to ensure that you're spending your time and resources wisely. 
-
-%\subsection*{Wrangling Sequence Data} % is "wrangling" too close to data carpentry?
-\subsection*{Obtaining and maintaining quality data}
-%\subsection*{Ensure you have quality data}
+\subsection*{Obtaining data}
 
 As with all biological analyses, a critical step of sequence analysis is obtaining high-quality data for your scientific question. 
 With vast amounts of sequencing data already available in public repositories, it is often possible to begin investigating your research question by seeking out publicly available data. 
@@ -763,11 +756,6 @@ Wasabi & Paid & data storage solution only \\
 
 \subsubsection*{Storing data and metadata} %safeguard your data
 
-As soon as you get your data, it is critical to store a read-only (write-protected) copy of your raw sequence files and any accompanying metadata (including experimental design, sequencing, and sample information) to safeguard against any accidental changes or deletions.
-Ideally, keep one copy of the data in a location accessible to your computational workspace, and additional backups in different locations, such as \textit{both} a local backup disk and cloud storage.
-Any changes you wish to make to your raw data during analysis (e.g. quality control) should be documented and saved to new files, rather than modifying the raw data. 
-By ``keeping raw data raw", you'll be able to return to it anytime you need to change your workflow or develop a new analysis. 
-
 When working with metadata, it may be necessary to reformat your files to facilitate computational analyses and comparisons between samples. In these cases, document the changes and store both the original files and the properly-formatted metadata as raw data. Standard guidelines for formatting data for scientific computing are given in \cite{wilson2017good}.
 
 %Keeping metadata formatted in a way that is easy for a computer to interpret makes using the metadata easier for things like quality control or comparisons between samples.
@@ -798,18 +786,16 @@ For publicly-available files, a checksum value is often provided, so that you ca
 \end{figure}
 
 \subsubsection*{Backup and storage} 
+
+Workflow sysems allow users to generate an automatable, repeatable workflow.
+This removes the necessity of storing some intermediate files as these can be easily regenerated.
+However, storing or backing up raw data or computationally intensive results can be a burden in data intensive workflows.
 Many universities provide cloud storage space (e.g. through google drive, box, dropbox etc), and researchers can pay for individual storage on these services, or services attached to cloud computing (e.g. Amazon Web Services). 
 Full computer backups can be conducted to these storage locations (e.g. with rclone \cite{bailleul2016rclone}), or there are also a number of paid services that will conduct backups at regular intervals (e.g. Backblaze, Dropbox Pro). 
-There are also several free online repositories designed to help researchers store and share data and project materials. 
+Free online repositories mentioned in the version control section like OSF, Dryad, and Zenodo can also store or backup important files. 
 
+Regardless of which storage or backup strategy you choose, it is a good idea to have multiple independent backups of raw data and workflows; these cannot be easily regenerated if lost to a computer failure or other unforseeable event like a lab fire. 
 % Link out to data/project management info? e.g. Many of these considerations are addressed in a data carpentry lesson (https://datacarpentry.org/organization-genomics/). 
-
-%\subsubsection*{Compression for easier storage and transfer}
-%Compression reduces the space needed to store files by encoding strings of characters in smaller representations. This not only saves storage space but also decreases the time required for data transfer. Many bioinformatic programs now work on either compressed and uncompressed data, meaning there is often no reason to fully uncompress data once compressed. Two types of compression are common in bioinformatics workflows: single file (e.g. data) compression, and archive compression. The most commonly-used single-file compression tool is gzip, which is often applied to fastq and fasta sequencing files (file suffix: `.gz`). Bzip2, which is gaining popularity as a gzip alternative, is more space efficient than gzip, but takes more time to compress files (though less time to decompress). The two most common archive compression, which combine many files into a single archive file, are tar (“tape archive”) and zip compression. These two types of compression can be combined for maximal compression: each file can be compressed before the archive file is generated, or the archive file itself can be compressed with gzip or bzip2. (best practice = the former?)
-
-%\subsection*{Tools to facilitate documentation and reproducibility}
-
-
 
 \subsection*{Ensure you have quality data} %purpose and strategies
 
