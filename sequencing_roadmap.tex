@@ -647,6 +647,9 @@ Quasi-mapping produces the minimum information necessary for read quantification
 
 \section*{Practical considerations for workflow-enabled biology}
 
+While workflows enable data intensive biology, many steps like finding or backing up data are orchestrated outside of a workflow.
+Below we discuss practical considerations for working with large-scale data sets.
+
 \subsection*{Obtaining data}
 
 As with all biological analyses, a critical step of sequence analysis is obtaining high-quality data for your scientific question. 
@@ -707,17 +710,16 @@ single cell RNA-seq & \cite{bacher2016, haque2017} \\
 \end{table}
 
 As your experiment progresses, keep track of as much information as possible -- dates and times of sample collection, storage, and extraction, sample names, aberrations that occurred during collection, kit lot used for extraction, and any other sample measurements you might be able to obtain (temperature, location, metabolite concentration, name of collector, etc). 
-This metadata serves multiple purposes. 
-First, it allows you to keep track of your samples and perform the experiments or comparisons you intended to perform. 
-Second, it allows you to control for batch effects that may arise from unintended batching during sampling or experimental procedures. 
-Third, recording more information may make the data you collect reusable for future applications and analysis by yourself and others, particularly for meta-analyses. 
+This metadata allows you to keep track of your samples, to control for batch effects that may arise from unintended batching during sampling or experimental procedures and makes the data you collect reusable for future applications and analysis by yourself and others.
+When working with metadata, using a standardized format that is easy for a computer to read can simplify downstream analysis. 
+Standard guidelines for formatting data for scientific computing are given in \cite{wilson2017good}.
 
 \subsubsection*{Securing Computational Resources}
 
 Sequence analysis requires access to computing systems with adequate storage and analysis power for your data. 
 For some smaller-scale datasets, local desktop or even laptop systems can be sufficient, especially if using tools that implement data-reduction strategies such as minhashing \cite{rowe2019streaming}. 
 However, larger projects require additional computing power, or may be restricted to certain operating systems (e.g. linux). 
-For these projects, solutions range from research-focused high performance computing systems (e.g. university HPC, XSEDE/Jetstream, add non-USA example) to research-integrated commercial analysis platforms (e.g. AWS, Seven Bridges, Google Cloud, Microsoft Azure). 
+For these projects, solutions range from research-focused high performance computing systems to research-integrated commercial analysis platforms. 
 Both research-only and  and commercial clusters provide avenues for research and educational proposals to enable access to their computing resources (see \textbf{Table \ref{tab:computational_resources}}). 
 In preparing for data analysis, be sure to allocate sufficient computational resources and funding for storage and analysis, including large intermediate files and resources required for personnel training. 
 
@@ -753,12 +755,6 @@ Wasabi & Paid & data storage solution only \\
 \caption{\label{tab:computational_resources} \textbf{Research cloud resources} Cloud provider indicates the name of the cloud, standard model indicates the most common route toward using the cloud, and limitations indicates limitations in access or services provided by the cloud.}
 \end{table}
 
-
-\subsubsection*{Storing data and metadata} %safeguard your data
-
-When working with metadata, it may be necessary to reformat your files to facilitate computational analyses and comparisons between samples. In these cases, document the changes and store both the original files and the properly-formatted metadata as raw data. Standard guidelines for formatting data for scientific computing are given in \cite{wilson2017good}.
-
-%Keeping metadata formatted in a way that is easy for a computer to interpret makes using the metadata easier for things like quality control or comparisons between samples.
 
 \subsubsection*{Transferring Data (or not)} 
 
@@ -797,19 +793,13 @@ Free online repositories mentioned in the version control section like OSF, Drya
 Regardless of which storage or backup strategy you choose, it is a good idea to have multiple independent backups of raw data and workflows; these cannot be easily regenerated if lost to a computer failure or other unforseeable event like a lab fire. 
 % Link out to data/project management info? e.g. Many of these considerations are addressed in a data carpentry lesson (https://datacarpentry.org/organization-genomics/). 
 
-\subsection*{Ensure you have quality data} %purpose and strategies
+\subsection*{Ensuring you have quality data} %purpose and strategies
 
-%TODO: add punchy topic sentence on why QC is essential?
-% TODO: reword QC section so organisation conveys:  (don't think we currently get these messages across)
- %- YOU are the best QC tool you've got. Look at / critically assess your data (at every step). Use that big brain for pattern recognition
-% - Use visualization and tools to make this simpler! Hey, checkout out fastqc/etc in this greybox!
-% - Here are some common errors and contaminants - make sure to look for them and other data-specific pitfalls
- 
 The adage, ``garbage in, garbage out" describes most sequencing data analysis: the quality of the input data determines the quality of the output results. 
-Errors in sequencing data can be introduced at every stage, from sample generation to analysis. 
-Assessing data at every analysis step can reveal these errors early. 
+This is true whether your workflow analyzes six samples or 600 samples.
+Assessing data at every analysis step can reveal problems and errors early. 
 You are the single most effective quality control tool that you have, so its important to interrogate your data to search for problems. 
-While simply looking at your data is sometimes sufficient to catch issues, visualization and software tools (e.g. FastQC, see \textbf{Figure \ref{fig:fastqc}}) make quality control easier. 
+While simply looking at your data is sometimes sufficient to catch issues, visualization and software tools make quality control easier. 
 
 %% note on published data (from `accessing publicly-available data` section)
 %As both sequencing technology and analysis tools have changed over time, we recommend conducting your own quality control upon beginning to work with a new dataset (see section \textbf{Quality  Control}).
@@ -817,21 +807,19 @@ While simply looking at your data is sometimes sufficient to catch issues, visua
 
 \subsubsection*{Critically assess your data}
 %\textbf{Look at your data} 
-Quality control can be as simple as looking at the first few and last few lines of input and output data files, or checking the size of those files {\ref{tab:bash_commands}}. 
+Quality control can be as simple as looking at the first few and last few lines of input and output data files, or checking the size of those files (\textbf{Table \ref{tab:bash_commands}}). 
 To develop an intuition for what proper inputs and outputs look like for a given tool, it is often helpful to first run the test example or data that is packaged with the software. 
 Comparing these input and output file formats to your own data can help identify and address inconsistencies. 
 
 Visualization is another powerful way to pick out unusual or unexpected patterns. 
 Although large abnormalities may be clear from looking at files, others may be small and difficult to find. 
-Visualizing raw sequencing data with FastQC (\textbf{Figure \ref{fig:fastqc}}) and processed sequencing data with tools like the Integrative Genome Browser and plotting tabular results files using python or R can make aberrant or inconsistent results easier to track down.
+Visualizing raw sequencing data with FastQC (\textbf{Figure \ref{fig:multiqc}}) and processed sequencing data with tools like the Integrative Genome Browser and plotting tabular results files using python or R can make aberrant or inconsistent results easier to track down.
 
-Many tools or operating systems generate log files or messages while running. 
+Many tools generate log files or messages while running. 
 These files contain information about the quantity, quality, and results from the run, or error messages about why a run failed. 
 Inspecting these files can be helpful to make sure tools ran properly and consistently, or to debug failed runs. 
-However, log files often contain voluminous text or special character spacing, making it difficult for both humans and computers to process the information therein. 
-MultiQC is a helpful tool to parse and interpret some log files \cite{ewels2016}. 
-MultiQC finds and automatically parses log files from other tools and generates a combined report and parsed data tables that include all samples. 
-MultiQC currently supports 78 tools that span all stages of bioinformatic analysis pipelines, including all-star tools like samtools, BBMap, and FastQC. 
+Parsing and visualizing log files with a tool like MultiQC can improve interpretability of program-specific log files (\textbf{Figure \ref{fig:multiqc}}).
+
 
 \begin{table}
 \resizebox{\textwidth}{!}{
@@ -862,16 +850,17 @@ cut & cut columns from a table. & cut -d``," -f1 samples.csv \\
 \end{table}
 
 
+However, log files often contain voluminous text or special character spacing, making it difficult for both humans and computers to process the information therein. 
+MultiQC is a helpful tool to parse and interpret some log files \cite{ewels2016}. 
+
+MultiQC currently supports 78 tools that span all stages of bioinformatic analysis pipelines, including all-star tools like samtools, BBMap, and FastQC. 
 \begin{figure}
 \includegraphics[width=.9\textwidth]{figures/fastqc.png}
-\caption{FastQC provides quality control measurements and visualizations for raw sequencing data, and is a near-universal first step in sequencing data analysis because of the insights it provides.
-FastQC measures and summarizes 10 quality metrics and provides recommendations for whether the sample is within an acceptable quality range. In this figure, we show the per sequence GC content quality metric for \textbf{A} a metagenome with bacteria and archaea species. \textbf{B} \textit{Escherichia coli} isolate genome sequencing, \textbf{C} RAD-sequencing and \textbf{D} RNA-sequencing from \textit{Saccharomyces cerevisiae}. While the GC distribution shown in \textbf{A} would be concerning if the sample were from an isolate, it is acceptable and expected to see non-normal distributions for metagenomes.} 
-\label{fig:fastqc}
+\caption{MultiQC finds and automatically parses log files from other tools and generates a combined report and parsed data tables that include all samples. MultiQC currently supports 78 tools. \textbf{A} MultiQC summary of FastQC. FastQC provides quality control measurements and visualizations for raw sequencing data, and is a near-universal first step in sequencing data analysis because of the insights it provides. FastQC measures and summarizes 10 quality metrics and provides recommendations for whether the sample is within an acceptable quality range. Not all metrics readily apply to all sequencing data types. For example, while multiple GC peaks might be concerning in whole genome sequencing of a bacterial isolate, we would expect a non-normal distrubtion for metagenome sequencing. \textbf{B} ...} 
+\label{fig:multiqc}
 \end{figure}
 
 
-%FastQC provides quality control measurements and visualizations for raw sequencing data, and is a near-universal first step in sequencing data analysis because of the insights it provides.
-%FastQC measures and summarizes 10 quality metrics and provides recommendations for whether the sample is within an acceptable quality range. 
 %The FastQC report is rich with information, both for prescribed and off-label interpretations. 
 %For example, FastQC reports sequence length distribution, where the length of each read is plotted in a histogram. 
 %For raw Illumina sequences, we expect a sharp peak where all reads are the same length; when there is variation in the length of sequences, we can infer that the reads have been trimmed in some way. 
@@ -885,8 +874,7 @@ FastQC measures and summarizes 10 quality metrics and provides recommendations f
 
 \subsubsection*{Handling common biases in sequencing data} % this title isn't right yet, just trying to concisely summarize the all caps
 
-There are many known biases in sequencing data. 
-These biases originate from experimental design, methodology, sequencing chemistry, or workflows, and are helpful to target specifically with quality control measures. 
+Biases in sequencing data originate from experimental design, methodology, sequencing chemistry, or workflows, and are helpful to target specifically with quality control measures. 
 For example, PCR duplicates can cause problems in libraries that underwent an amplification step, and often need to be removed prior to downstream analysis. 
 Contamination can arise during sample collection, nucleotide extraction, library prepartion, or through sequencing spike-ins like PhiX, and could change data interpretation if not removed (CITE TARDIGRADE PNAS PAPERS).
 Libraries sequenced with high concentrations of free adapters or with low concentration samples may have increased barcode hopping, leading to contamination between samples (CITATION). 
