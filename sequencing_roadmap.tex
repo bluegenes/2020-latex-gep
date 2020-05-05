@@ -506,9 +506,9 @@ If a key piece of a workflow inexplicably stops working, good version control ca
 If multiple people are working on the same project, version control can both avoid conflict and ensure that no productivity is lost. 
 
 Version control systems such as Git or Mercurial can be used to properly keep track of all changes over time, even across multiple users, scripting languages, and including visualizations. 
-In particular, Git has emerged as the dominant version control system for biological code, particularly when combined with online repositories such as Github, GitLab, or Bitbucket, which store online version histories for all tracked files.
+In particular, Git has emerged as the dominant version control system for biological code, particularly when combined with online repositories such as Github, GitLab, or Bitbucket, which store online version histories for all tracked files \citep{ram2013git, blischak2016quick}.
 In addition to acting as an additional backup location, the online services support drag-and-drop file addition and full control over the repository using the web interface, which greatly lowers the barrier to getting started with version control systems. 
-While these systems do not work well with Google Docs or Microsoft Word, they can greatly simplify asynchronous collaborative manuscript writing when combined with services such as Overleaf and Manubot (CITE). 
+While these systems do not work well with Google Docs or Microsoft Word, they can greatly simplify asynchronous collaborative manuscript writing when combined with services such as Overleaf and Manubot \cite{himmelstein2019open}. 
 
 Git version control is primarily designed to handle small text files, but version control also exists for data sets.
 Data version control can be used to store a read-only copy of raw sequencing files and accompanying metadata, or to keep track of difference in intermediate files that change with tool paramters or versions. 
@@ -580,7 +580,7 @@ Sharing your workflow is a useful way to communicate every step you took in a da
 Your collaborators, peer reviewers, and scientists seeking to use a similar method as your own will all benefit from open and accessible code. 
 Sticking to a clear documentation strategy, using a version control system, and packaging your code in notebooks or as a workflow prepare them to be easily shared with others. 
 However, sharing code in this way can still be burdensome for others to interact with given the need for software installation and differences in user operating systems. 
-Tools like Binder, Whole Tale, and Shiny apps can reduce the time to reproduction by other scientists by constructing controlled environments identical to those in which the original computation was performed. 
+Tools like Binder, Whole Tale, and Shiny apps can reduce the time to reproduction by other scientists by constructing controlled environments identical to those in which the original computation was performed \citep{Jupyter2018, brinckman2019computing}. 
 These tools substantially reduce overhead associated with interacting with someones code base and data, and in doing so, make it fast and easy to rerun portions of the analysis, check accuracy, or even tweak the analysis to produce new results. 
 These tools are also great for teaching, as they provide consistent learner interfaces and environments. 
 
@@ -603,8 +603,8 @@ For example, if a Shiny app contained RNA-seq differential expression data, it m
 Shiny apps allow collaborators who may or may not know R to change R visualisations to fit their interests.   
  
  \textbf{Other tools} There are many other tools that aid in reproducibility or sharing of results. 
-Some tools, such as Whole Tale, aim to package the entire research object by capturing data, code and software environments in one executable package (CITATION). 
-Other tools such as Vega-lite and plotly produce single interactive visualizations that can be shared with collaborators or integrated into websites (CITATIONS).
+Some tools, such as Whole Tale, aim to package the entire research object by capturing data, code and software environments in one executable package \cite{brinckman2019computing}. 
+Other tools such as Vega-lite and plotly produce single interactive visualizations that can be shared with collaborators or integrated into websites \citep{satyanarayan2016vega, sievert2017plotly}.
 }
 \end{greybox}
 
@@ -637,9 +637,9 @@ Sketching algorithms have been reviewed in-depth by Rowe \cite{rowe2019streaming
 
 \textbf{Read quasi-mapping vs alignment} RNA-seq analysis approaches like differential expression or transcript clustering rely on transcript or gene counts.
 Many tools can be used to generate these counts by quantifying the number of reads that overlap with each transcript or gene.
-For example, tools like STAR and HISAT2 produce alignments that can be post-processed to generate per-transcript read counts.
+For example, tools like STAR and HISAT2 produce alignments that can be post-processed to generate per-transcript read counts \citep{dobin2013star, kim2019graph}.
 However, these tools generate information-rich output, specifying per-base alignments for each read.
-Quasi-mapping produces the minimum information necessary for read quantification, thereby reducing the time and resources needed to generate and store read count information (CITE: RAPMAP). 
+Quasi-mapping produces the minimum information necessary for read quantification, thereby reducing the time and resources needed to generate and store read count information \cite{srivastava2016rapmap}. 
 
 \textbf{Anything else to mention?}  
 + blast approximations?
@@ -662,8 +662,8 @@ In others cases, particularly for biologists conducting novel experiments, these
 Most journals now require data for all manuscripts to be made accessible, either at publication or after a short moratorium.
 You can find relevant sequencing data either by starting from the ``data accessibility" sections of papers relevant to your research or by directly searching for your organism, environment, or treatment of choice in public data portals and repositories. 
 
-The International Nucleotide Sequence Database Collaboration (INSDC), which includes the Sequence Read Archive (SRA), European Nucleotide Archive (ENA), and DataBank of Japan (DDBJ) is the largest repository for raw sequencing data. 
-Additional curated databases focus on processed data instead, such as gene expression in the Gene Expression Omnibus (GEO).  
+The International Nucleotide Sequence Database Collaboration (INSDC), which includes the Sequence Read Archive (SRA), European Nucleotide Archive (ENA), and DataBank of Japan (DDBJ) is the largest repository for raw sequencing data \cite{cochrane2016international}. 
+Additional curated databases focus on processed data instead, such as gene expression in the Gene Expression Omnibus (GEO) \cite{edgar2002gene}.  
 Organism-specific databases such as \textbf{Wormbase} (\textit{Caenorhabditis elegas}) specialize on curating and integrating sequencing and other data associated with a model organism \cite{harris2020wormbase}. 
 The SRA, ENA, and DDBJ no longer accept raw sequencing data from large consortia projects, so data from these efforts are often hosted in consortia-specific databases such as those hosted by the Tara Ocean Foundation \cite{pesant2015open}.
 Unlike the SRA and associated databases which are centralized and searchable, databases overseen by consortia often require domain-specific knowledge and have unique download and authentication protocols.
@@ -759,7 +759,8 @@ Wasabi & Paid & data storage solution only \\
 \subsubsection*{Transferring Data (or not)} 
 
 If you're working with publicly-available data, you may be able to work on a compute system where the data are already available, circumventing time and effort required for downloading and moving the data.
-Databases such as the Sequence Read Archive (SRA) are now available on commercial cloud computing systems (Google, AWS; https://www.ncbi.nlm.nih.gov/sra/docs/sra-cloud/), and open source projects such as Galaxy enable import and work on SRA sequence files directly from a web browser (CITE galaxy, sra in cloud site). Ongoing projects such as the NIH Common Fund Data Ecosystem, aim to develop a data portal to make NIH Common Fund data, including biomedical sequencing data, more findable,
+Databases such as the Sequence Read Archive (SRA) are now available on commercial cloud computing systems (Google, AWS; https://www.ncbi.nlm.nih.gov/sra/docs/sra-cloud/), and open source projects such as Galaxy enable import and work on SRA sequence files directly from a web browser (CITE galaxy, sra in cloud site). 
+Ongoing projects such as the NIH Common Fund Data Ecosystem, aim to develop a data portal to make NIH Common Fund data, including biomedical sequencing data, more findable,
 accessible, interoperable, and reusable (FAIR). 
 
 In most cases, you'll still need to transfer some data - either downloading raw data or transferring important intermediate and results files for backup and sharing (or both). 
