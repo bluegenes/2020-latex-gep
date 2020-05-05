@@ -683,9 +683,9 @@ Given the resources invested in collecting samples for sequencing, it's importan
 \hline
 \textbf{Sequencing type} & \textbf{Resources} \\
 \hline
-RNA-sequencing & \cite{conesa2016, schurch2016, ching2014} \\
+RNA-sequencing & \cite{conesa2016survey, schurch2016many, ching2014} \\
 \hline
-Metagenomic sequencing & \cite{knight2012, quince2017, eisenhofer2019} \\
+Metagenomic sequencing & \cite{knight2012, quince2017shotgun, eisenhofer2019} \\
 \hline
 Amplicon sequencing & \cite{mclaren2019, murray2015, sinha2017 } \\
 \hline
@@ -759,7 +759,7 @@ Wasabi & Paid & data storage solution only \\
 \subsubsection*{Transferring Data (or not)} 
 
 If you're working with publicly-available data, you may be able to work on a compute system where the data are already available, circumventing time and effort required for downloading and moving the data.
-Databases such as the Sequence Read Archive (SRA) are now available on commercial cloud computing systems (Google, AWS; https://www.ncbi.nlm.nih.gov/sra/docs/sra-cloud/), and open source projects such as Galaxy enable import and work on SRA sequence files directly from a web browser (CITE galaxy, sra in cloud site). 
+Databases such as the Sequence Read Archive (SRA) are now available on commercial cloud computing systems, and open source projects such as Galaxy enable import and work on SRA sequence files directly from a web browser \citep{afgan2018galaxy, noauthor_sra_nodate}. 
 Ongoing projects such as the NIH Common Fund Data Ecosystem, aim to develop a data portal to make NIH Common Fund data, including biomedical sequencing data, more findable,
 accessible, interoperable, and reusable (FAIR). 
 
@@ -814,12 +814,12 @@ Comparing these input and output file formats to your own data can help identify
 
 Visualization is another powerful way to pick out unusual or unexpected patterns. 
 Although large abnormalities may be clear from looking at files, others may be small and difficult to find. 
-Visualizing raw sequencing data with FastQC (\textbf{Figure \ref{fig:multiqc}}) and processed sequencing data with tools like the Integrative Genome Browser and plotting tabular results files using python or R can make aberrant or inconsistent results easier to track down.
+Visualizing raw sequencing data with FastQC (\textbf{Figure \ref{fig:multiqc}}) and processed sequencing data with tools like the Integrative Genome Viewer and plotting tabular results files using python or R can make aberrant or inconsistent results easier to track down \citep{andrews2010fastqc, thorvaldsdottir2013integrative}.
 
 Many tools generate log files or messages while running. 
 These files contain information about the quantity, quality, and results from the run, or error messages about why a run failed. 
 Inspecting these files can be helpful to make sure tools ran properly and consistently, or to debug failed runs. 
-Parsing and visualizing log files with a tool like MultiQC can improve interpretability of program-specific log files (\textbf{Figure \ref{fig:multiqc}}).
+Parsing and visualizing log files with a tool like MultiQC can improve interpretability of program-specific log files (\textbf{Figure \ref{fig:multiqc}} \cite{ewels2016}).
 
 
 \begin{table}
@@ -851,35 +851,20 @@ cut & cut columns from a table. & cut -d``," -f1 samples.csv \\
 \end{table}
 
 
-However, log files often contain voluminous text or special character spacing, making it difficult for both humans and computers to process the information therein. 
-MultiQC is a helpful tool to parse and interpret some log files \cite{ewels2016}. 
-
-MultiQC currently supports 78 tools that span all stages of bioinformatic analysis pipelines, including all-star tools like samtools, BBMap, and FastQC. 
 \begin{figure}
 \includegraphics[width=.9\textwidth]{figures/fastqc.png}
-\caption{MultiQC finds and automatically parses log files from other tools and generates a combined report and parsed data tables that include all samples. MultiQC currently supports 78 tools. \textbf{A} MultiQC summary of FastQC. FastQC provides quality control measurements and visualizations for raw sequencing data, and is a near-universal first step in sequencing data analysis because of the insights it provides. FastQC measures and summarizes 10 quality metrics and provides recommendations for whether the sample is within an acceptable quality range. Not all metrics readily apply to all sequencing data types. For example, while multiple GC peaks might be concerning in whole genome sequencing of a bacterial isolate, we would expect a non-normal distrubtion for metagenome sequencing. \textbf{B} ...} 
+\caption{MultiQC finds and automatically parses log files from other tools and generates a combined report and parsed data tables that include all samples. MultiQC currently supports 78 tools. \textbf{A} MultiQC summary of FastQC. FastQC provides quality control measurements and visualizations for raw sequencing data, and is a near-universal first step in sequencing data analysis because of the insights it provides \cite{andrews2010fastqc}. FastQC measures and summarizes 10 quality metrics and provides recommendations for whether the sample is within an acceptable quality range. Not all metrics readily apply to all sequencing data types. For example, while multiple GC peaks might be concerning in whole genome sequencing of a bacterial isolate, we would expect a non-normal distrubtion for metagenome sequencing. \textbf{B} ...} 
 \label{fig:multiqc}
 \end{figure}
 
 
-%The FastQC report is rich with information, both for prescribed and off-label interpretations. 
-%For example, FastQC reports sequence length distribution, where the length of each read is plotted in a histogram. 
-%For raw Illumina sequences, we expect a sharp peak where all reads are the same length; when there is variation in the length of sequences, we can infer that the reads have been trimmed in some way. 
-%Another example is per sequence GC content. FastQC reports the percent content of GC nucleotides in the sequencing reads. 
-%For single-species sequencing runs, we expect a smooth curve and a single peak. 
-%If we observe multiple peaks, this may indicate that multiple species were sequenced in the sequencing run or that other abnormalities occurred during sequencing. 
-%Many high-quality sequencing runs will fail FastQC metrics. 
-%For example, we expect duplication levels to be high for RNA-sequencing or amplicon data. 
-%Likewise, we expect multiple peaks in GC content for metagenomic data. 
-%Insights gained using FastQC may not be definitive, but given the speed and computational tractability of the program, it is a rapid first-pass analysis to better understand the quality and content of the data that can be further tested by additional tools.}
-
 \subsubsection*{Handling common biases in sequencing data} % this title isn't right yet, just trying to concisely summarize the all caps
 
 Biases in sequencing data originate from experimental design, methodology, sequencing chemistry, or workflows, and are helpful to target specifically with quality control measures. 
-For example, PCR duplicates can cause problems in libraries that underwent an amplification step, and often need to be removed prior to downstream analysis. 
-Contamination can arise during sample collection, nucleotide extraction, library prepartion, or through sequencing spike-ins like PhiX, and could change data interpretation if not removed (CITE TARDIGRADE PNAS PAPERS).
-Libraries sequenced with high concentrations of free adapters or with low concentration samples may have increased barcode hopping, leading to contamination between samples (CITATION). 
-Stringent trimming of RNA-sequencing data may reduce isoform discovery (CITE MCMANNES). 
+For example, PCR duplicates can cause problems in libraries that underwent an amplification step, and often need to be removed prior to downstream analysis \citep{meyer2014identifying, parekh2016impact, schweyen2014detection, fu2018elimination, smith2014biased}. 
+Contamination can arise during sample collection, nucleotide extraction, library prepartion, or through sequencing spike-ins like PhiX, and could change data interpretation if not removed \citep{boothby2015evidence, koutsovoulos2016no, mukherjee2015large}.
+Libraries sequenced with high concentrations of free adapters or with low concentration samples may have increased barcode hopping, leading to contamination between samples \cite{van2019index}. 
+Stringent trimming of RNA-sequencing data may reduce isoform discovery \cite{macmanes2014optimal}. 
 The exact biases in a specific data set or workflow will vary greatly between experiments. 
 To determine what issues are most likely to plague your specific data set, it can be helpful to find recent publications using a similar experimental design, or to speak with experts at a sequencing core.
 
@@ -892,7 +877,7 @@ Therefore, it is important to think critically about your expectations, and what
 
 If you have tried the strategies above and are having trouble with your data, it’s time to ask for help. 
 The first point of attack is always to Google the error, including any identifying error message or code, the program name, and if necessary, the type of data you’re running. 
-There are a vast array of online resources for bioinformatic help ranging from question sites such as Stack Overflow and BioStars, to personal or academic blogs or even tutorials and lessons written by experts in the field. 
+There are a vast array of online resources for bioinformatic help ranging from question sites such as Stack Overflow and BioStars, to personal or academic blogs or even tutorials and lessons written by experts in the field \cite{parnell2011biostar}. 
 In most cases, the error you’ve encountered has been encountered many times before, and often the solution is readily available. 
 If you can’t find any solutions in the relevant search results, it’s time to escalate. 
 If the error is with a specific program, it’s best to post on that program’s help or issue location (e.g. GitHub Issues), or google group mailing list. 
