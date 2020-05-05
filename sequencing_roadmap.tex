@@ -285,7 +285,7 @@ The wealth of information present in sequencing data has the potential to revolu
 However, sequence analysis remains both complex and computationally intensive, problems that are compounded during analysis of large datasets.
 
 The magnitude of sequencing data requires a principled approach to management, analysis, and dissemination of results.
-As sequencing analysis has matured over the past decade, several papers have presented ``best" or ``good enough" practices for computational biological analyses (\cite{aruliah2012best}, \cite{wilson2014best}, \cite{shade2015roadmap}, \cite{wilson2017good}).
+As sequencing analysis has matured over the past decade, several papers have presented ``best" or ``good enough" practices for computational biological analyses \cite{aruliah2012best, wilson2014best, shade2015roadmap, wilson2017good}.
 These recommendations have both helped build consensus and fueled additional tool and workflow development.
 Since the latest paper in 2017 \cite{wilson2017good}, a number of important tools have greatly reduced the barrier to entry and opened the door to end-to-end reproducible analyses. % simple, shareable, etc
 Many of these changes owe their origin, at least in part, to the open science movement and the recognition of the importance of entry-level training, such as that provided by The Carpentries \cite{teal2015data} (open sci movement CITE).
@@ -335,8 +335,8 @@ These systems required the user to implement substantial scaffolding around core
 Workflow systems have alleviated this overhead and simplified the process of scripting a workflow.
 
 Advances in workflow systems have led to wide-spread community adoption in part attributable to the open science movement \cite{strozzi2019scalable}. 
-A critical mass of workflow system-specific code has accumulated such that many routine tasks are already encoded and available for others to use \citep{ewels2020nf, cokelaer2017sequana}.
-At the same time, consensus approaches for routine tasks have emerged, further encouraging reuse of existing code \citep{conesa2016survey, quince2017shotgun, luecken2019current, da2016next, knight2018best}.
+A critical mass of workflow system-specific code has accumulated such that many routine tasks are already encoded and available for others to use \cite{ewels2020nf, cokelaer2017sequana}.
+At the same time, consensus approaches for routine tasks have emerged, further encouraging reuse of existing code \cite{conesa2016survey, quince2017shotgun, luecken2019current, da2016next, knight2018best}.
 
 \subsubsection*{How will your life be changed with workflows?}
 
@@ -371,7 +371,7 @@ Often times, workflow parameters are exposed to the user, allowing the user to c
 Some examples include the ATLAS metagenome assembly and binning pipeline (https://github.com/metagenome-atlas/atlas) \cite{kieser2019atlas}, the Sunbeam metagenome analysis pipeline (https://github.com/sunbeam-labs/sunbeam) \cite{clarke2019sunbeam}, the Elvers \textit{de novo} transcriptome and differential expression pipeline (https://github.com/dib-lab/elvers), the dammit eukaryotic transcriptome pipeline (https://github.com/dib-lab/dammit), and the nf-core RNA-seq pipeline (https://github.com/nf-core/rnaseq/). 
 
 Workflow systems are also available as graphical user interface systems.
-Websites like Galaxy, Cavatica, and EMBL-EBI MGnify offer online portals in which users build workflows around publicly-available or user-uploaded data \citep{afgan2018galaxy, volchenboum2017data, mitchell2020mgnify}.
+Websites like Galaxy, Cavatica, and EMBL-EBI MGnify offer online portals in which users build workflows around publicly-available or user-uploaded data \cite{afgan2018galaxy, volchenboum2017data, mitchell2020mgnify}.
 
 \subsubsection*{How to learn to use workflows systems?}
 
@@ -379,7 +379,7 @@ There are many scriptable workflow systems that offer similar benefits for data 
 Given the plethora of choices and the steep learning curve associated with integrating a workflow system into daily workflow management, it can be difficult to decide which workflow system to adopt. 
 While there are many workflow softwares to choose from, each software has it own strengths, meaning each software will meet an individuals computing goals differently (see \textbf{Table \ref{tab:workflows}}).
 Our lab has adopted Snakemake given its integration with Python and its flexibility to execute code with different languages (e.g. bash and R) and software management tools (see section XXX) \cite{koster2012snakemake}.
-Software like Nextflow and Common Workflow Language scale better to pipelines with hundreds of thousands of steps and support containerization more rigidly, making them ideal for production-level pipelines \citep{di2017nextflow, amstutz2016common}. 
+Software like Nextflow and Common Workflow Language scale better to pipelines with hundreds of thousands of steps and support containerization more rigidly, making them ideal for production-level pipelines \cite{di2017nextflow, amstutz2016common}. 
 There are also language-specific workflow managers, such as ROpenSci's Drake for R \cite{landau2018drake}. 
 Further, workflow systems are not necessarily exclusive entities; Snakemake can export pipelines in Common Workflow Language, allowing the same workflow to be fully compatible with two separate workflow systems. 
 
@@ -506,7 +506,7 @@ If a key piece of a workflow inexplicably stops working, good version control ca
 If multiple people are working on the same project, version control can both avoid conflict and ensure that no productivity is lost. 
 
 Version control systems such as Git or Mercurial can be used to properly keep track of all changes over time, even across multiple users, scripting languages, and including visualizations. 
-In particular, Git has emerged as the dominant version control system for biological code, particularly when combined with online repositories such as Github, GitLab, or Bitbucket, which store online version histories for all tracked files \citep{ram2013git, blischak2016quick}.
+In particular, Git has emerged as the dominant version control system for biological code, particularly when combined with online repositories such as Github, GitLab, or Bitbucket, which store online version histories for all tracked files \cite{ram2013git, blischak2016quick}.
 In addition to acting as an additional backup location, the online services support drag-and-drop file addition and full control over the repository using the web interface, which greatly lowers the barrier to getting started with version control systems. 
 While these systems do not work well with Google Docs or Microsoft Word, they can greatly simplify asynchronous collaborative manuscript writing when combined with services such as Overleaf and Manubot \cite{himmelstein2019open}. 
 
@@ -580,7 +580,7 @@ Sharing your workflow is a useful way to communicate every step you took in a da
 Your collaborators, peer reviewers, and scientists seeking to use a similar method as your own will all benefit from open and accessible code. 
 Sticking to a clear documentation strategy, using a version control system, and packaging your code in notebooks or as a workflow prepare them to be easily shared with others. 
 However, sharing code in this way can still be burdensome for others to interact with given the need for software installation and differences in user operating systems. 
-Tools like Binder, Whole Tale, and Shiny apps can reduce the time to reproduction by other scientists by constructing controlled environments identical to those in which the original computation was performed \citep{Jupyter2018, brinckman2019computing}. 
+Tools like Binder, Whole Tale, and Shiny apps can reduce the time to reproduction by other scientists by constructing controlled environments identical to those in which the original computation was performed \cite{Jupyter2018, brinckman2019computing}. 
 These tools substantially reduce overhead associated with interacting with someones code base and data, and in doing so, make it fast and easy to rerun portions of the analysis, check accuracy, or even tweak the analysis to produce new results. 
 These tools are also great for teaching, as they provide consistent learner interfaces and environments. 
 
@@ -604,7 +604,7 @@ Shiny apps allow collaborators who may or may not know R to change R visualisati
  
  \textbf{Other tools} There are many other tools that aid in reproducibility or sharing of results. 
 Some tools, such as Whole Tale, aim to package the entire research object by capturing data, code and software environments in one executable package \cite{brinckman2019computing}. 
-Other tools such as Vega-lite and plotly produce single interactive visualizations that can be shared with collaborators or integrated into websites \citep{satyanarayan2016vega, sievert2017plotly}.
+Other tools such as Vega-lite and plotly produce single interactive visualizations that can be shared with collaborators or integrated into websites \cite{satyanarayan2016vega, sievert2017plotly}.
 }
 \end{greybox}
 
@@ -637,7 +637,7 @@ Sketching algorithms have been reviewed in-depth by Rowe \cite{rowe2019streaming
 
 \textbf{Read quasi-mapping vs alignment} RNA-seq analysis approaches like differential expression or transcript clustering rely on transcript or gene counts.
 Many tools can be used to generate these counts by quantifying the number of reads that overlap with each transcript or gene.
-For example, tools like STAR and HISAT2 produce alignments that can be post-processed to generate per-transcript read counts \citep{dobin2013star, kim2019graph}.
+For example, tools like STAR and HISAT2 produce alignments that can be post-processed to generate per-transcript read counts \cite{dobin2013star, kim2019graph}.
 However, these tools generate information-rich output, specifying per-base alignments for each read.
 Quasi-mapping produces the minimum information necessary for read quantification, thereby reducing the time and resources needed to generate and store read count information \cite{srivastava2016rapmap}. 
 
@@ -759,7 +759,7 @@ Wasabi & Paid & data storage solution only \\
 \subsubsection*{Transferring Data (or not)} 
 
 If you're working with publicly-available data, you may be able to work on a compute system where the data are already available, circumventing time and effort required for downloading and moving the data.
-Databases such as the Sequence Read Archive (SRA) are now available on commercial cloud computing systems, and open source projects such as Galaxy enable import and work on SRA sequence files directly from a web browser \citep{afgan2018galaxy, noauthor_sra_nodate}. 
+Databases such as the Sequence Read Archive (SRA) are now available on commercial cloud computing systems, and open source projects such as Galaxy enable import and work on SRA sequence files directly from a web browser \cite{afgan2018galaxy, noauthor_sra_nodate}. 
 Ongoing projects such as the NIH Common Fund Data Ecosystem, aim to develop a data portal to make NIH Common Fund data, including biomedical sequencing data, more findable,
 accessible, interoperable, and reusable (FAIR). 
 
@@ -814,7 +814,7 @@ Comparing these input and output file formats to your own data can help identify
 
 Visualization is another powerful way to pick out unusual or unexpected patterns. 
 Although large abnormalities may be clear from looking at files, others may be small and difficult to find. 
-Visualizing raw sequencing data with FastQC (\textbf{Figure \ref{fig:multiqc}}) and processed sequencing data with tools like the Integrative Genome Viewer and plotting tabular results files using python or R can make aberrant or inconsistent results easier to track down \citep{andrews2010fastqc, thorvaldsdottir2013integrative}.
+Visualizing raw sequencing data with FastQC (\textbf{Figure \ref{fig:multiqc}}) and processed sequencing data with tools like the Integrative Genome Viewer and plotting tabular results files using python or R can make aberrant or inconsistent results easier to track down \cite{andrews2010fastqc, thorvaldsdottir2013integrative}.
 
 Many tools generate log files or messages while running. 
 These files contain information about the quantity, quality, and results from the run, or error messages about why a run failed. 
@@ -861,8 +861,8 @@ cut & cut columns from a table. & cut -d``," -f1 samples.csv \\
 \subsubsection*{Handling common biases in sequencing data} % this title isn't right yet, just trying to concisely summarize the all caps
 
 Biases in sequencing data originate from experimental design, methodology, sequencing chemistry, or workflows, and are helpful to target specifically with quality control measures. 
-For example, PCR duplicates can cause problems in libraries that underwent an amplification step, and often need to be removed prior to downstream analysis \citep{meyer2014identifying, parekh2016impact, schweyen2014detection, fu2018elimination, smith2014biased}. 
-Contamination can arise during sample collection, nucleotide extraction, library prepartion, or through sequencing spike-ins like PhiX, and could change data interpretation if not removed \citep{boothby2015evidence, koutsovoulos2016no, mukherjee2015large}.
+For example, PCR duplicates can cause problems in libraries that underwent an amplification step, and often need to be removed prior to downstream analysis \cite{meyer2014identifying, parekh2016impact, schweyen2014detection, fu2018elimination, smith2014biased}. 
+Contamination can arise during sample collection, nucleotide extraction, library prepartion, or through sequencing spike-ins like PhiX, and could change data interpretation if not removed \cite{boothby2015evidence, koutsovoulos2016no, mukherjee2015large}.
 Libraries sequenced with high concentrations of free adapters or with low concentration samples may have increased barcode hopping, leading to contamination between samples \cite{van2019index}. 
 Stringent trimming of RNA-sequencing data may reduce isoform discovery \cite{macmanes2014optimal}. 
 The exact biases in a specific data set or workflow will vary greatly between experiments. 
