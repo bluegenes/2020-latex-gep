@@ -461,6 +461,15 @@ Once you have a working environment, you can have conda export a corresponding e
 }
 \end{greybox}
 
+\begin{figure}
+\includegraphics[width=0.9\textwidth]{figures/conda_figure.pdf}
+\caption{ 
+\textbf{A. Conda Recipe Repositories} Each program distributed via Conda has a ``recipe" describing all software dependencies needed for Conda installation ( each of which must also be installable via conda). These are stored and managed in separate ``channels", some of which specialize (e.g. ``bioconda" specializes in bioinformatic software, ``r" specializes in R language packages). \\
+\textbf{B.Use Conda Environments to Avoid Installation Conflicts}  Conda does not require root privileges for software installation, thus enabling use by researchers working on shared cluster systems. However, even user-based software installation can encounter dependency conflicts. For example, you might need to use python2 to install and run a program (e.g. older scripts written by members of your lab), while also using snakemake to execute your workflows (requires python>=3.5). By installing each program into an isolated ``environment" that contains only the software required to run that program, you can ensure all programs will run without issue. Conda virtual environments can be created and installed either on the command line, or via an environment YAML file, as shown. In this case, the environment file also specified which Conda channels to use when searching for the desired programs.
+}
+\label{fig:conda_figure}
+\end{figure}
+
 
 \section*{Strategies to get the most out of your workflows}
 
@@ -518,15 +527,16 @@ While OSF and other similar repositories (e.g. figshare) are suitable for use at
 Other services are compatible with git version control, e.g. Git Large File Storage (LFS) and Data Version Control (DVC).
 
 These version control systems can also facilitate code and data availability and reproducibility for publication. 
-For example, to ensure the correct version of the code is preserved, you can create a “release,” a snapshot of the current code and files in a GitHub repository. 
-You can then generate a DOI for that release using Zenodo and make it available to reviewers and beyond (see "sharing" section, below).
+For example, to ensure the correct version of the code is preserved, you can create a ``release", a snapshot of the current code and files in a GitHub repository. 
+You can then generate a DOI for that release using Zenodo and make it available to reviewers and beyond (see ``sharing" section, below).
 
-%\begin{greybox}{git version control
-%? do we even need this? probably not. will leave here in case we think of something to put in there.
-%no - let's not talk about git code at all -- emphasize how easy the web interface is, and point people there
-%until they feel the need to do things on the command line
-%}
-%\end{greybox}
+\begin{figure}
+\includegraphics[width=0.9\textwidth]{figures/version_control.pdf}
+\caption{ 
+\textbf{Version Control} In this example, a typo in version 1 (in red) was corrected (green). Version control systems such as git and mercurial track line-by-line changes and store the information. These systems are particularly useful to handle accidental deletions or early code or text you'd like to return to after deletion.
+}
+\label{fig:version_control}
+\end{figure}
 
 
 \subsection*{Documenting reproducible workflows for yourself and others}
@@ -546,11 +556,18 @@ While the preferred tools discussed below will certainly change over time, these
 Consistent, descriptive names keep your project organized and interpretable for yourself and collaborators. 
 This applies to your files, your scripts, your variables, your workflows, your manuscripts, and even your projects, each of which should have a unique and descriptive identifier. 
 Since the number of files in data-intensive biology can quickly get out of hand, consistent file naming is especially important. 
-For example, you can implement a numbering scheme for your files, where the first file in your analysis starts with "00", the next with "01", etc. 
+For example, you can implement a numbering scheme for your files, where the first file in your analysis starts with ``00", the next with ``01", etc. 
 You can also append the tool name to output to make it clear where the file came from. 
 Additionally, using a standardized yet flexible folder structure from the outset of your project facilitates file organization, even as a project becomes increasingly complex. 
 Keeping independent portions of your analysis in descriptive folders can help keep your project workspace clean and organized.
 Within your files, using consistent and descriptive variable names will help build a readable codebase.
+
+\begin{figure}
+\includegraphics[width=0.9\textwidth]{figures/filenaming.pdf}
+\caption{ filenaming caption goes here}
+\label{fig:filenaming}
+\end{figure}
+
 
 \subsubsection*{Store metadata about your workflow with your workflow} 
 Biological analyses often span hundreds of steps and involve many small decisions: What parameters for each step? 
