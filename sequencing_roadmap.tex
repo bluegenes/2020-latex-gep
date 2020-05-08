@@ -329,16 +329,16 @@ These traits are highly desirable in bioinformatic workflows where many steps co
 \begin{figure}
 \includegraphics[width=0.99\textwidth]{figures/workflow_figure.pdf}
 \caption{ Bioinformatic workflow systems have built-in functionality that simplifies running analysis pipelines.
-\textbf{A. Samples} Workflow systems enable you to use the same code to run each step on each sample, if desired.
+\textbf{A. Samples} Workflow systems enable you to use the same code to run each step on each sample. Samples can be easily added if the analysis expands.
 \textbf{B. Software Management} Integration with software management tools (e.g. conda, sigularity) can automate software installation for each step.
 \textbf{C. Branching} Many analysis pipelines contain branching pathways that involve two entirely different sets of tools.
 %\textbf{C. Branching, F. Ordering, and G. Parallelization}  
-\textbf{D. Standard Steps} Many steps are now considered "standard" (e.g. quality control). Workflow languages keep all information for a step together and can be written to enable you to remix and reuse each individual step across pipelines.
+\textbf{D. Standard Steps} Many steps are now considered ``standard" (e.g. quality control). Workflow languages keep all information for a step together and can be written to enable you to remix and reuse each individual step across pipelines.
 \textbf{E. Rerun as necessary} Workflow systems keep track of which steps executed properly and on which samples, and allow you to rerun failed steps (or additional steps) rather than reexecuting the entire workflow.
 \textbf{F.Ordering} Workflow systems ensure tasks are executed in the correct order for each sample file.
 \textbf{G.Parallelization} Independent tasks can be executed in parallel, up to the available compute resources. Workflow systems handle this ordering and run independent tasks on available resources.
 \textbf{H. Reporting} Workflow languages enable comprehensive reporting on workflow execution and resource utilization by each tool.
-\textbf{I.Portability}} Analyses written in workflow languages (with integrated software management) can be run across computing systems without changes to code.
+\textbf{I.Portability} Analyses written in workflow languages (with integrated software management) can be run across computing systems without changes to code.
 \label{fig:workflow_figure}
 \end{figure}
 % NOTE: branching, ordering, parallelization = all basically the same concept. I like having them in the diagram, but maybe reorganize to have them all together? Ordering makes sense first, but the diagram makes the most sense as-is.
