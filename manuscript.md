@@ -67,11 +67,11 @@ header-includes: '<!--
 
   <link rel="alternate" type="application/pdf" href="https://bluegenes.github.io/2020-latex-gep/manuscript.pdf" />
 
-  <link rel="alternate" type="text/html" href="https://bluegenes.github.io/2020-latex-gep/v/8b9b5ced2c7c963bf3ea5afb8f31f9a4a54ab697/" />
+  <link rel="alternate" type="text/html" href="https://bluegenes.github.io/2020-latex-gep/v/8893ea2ddffdbd22fe396bd937ca5877e126d11a/" />
 
-  <meta name="manubot_html_url_versioned" content="https://bluegenes.github.io/2020-latex-gep/v/8b9b5ced2c7c963bf3ea5afb8f31f9a4a54ab697/" />
+  <meta name="manubot_html_url_versioned" content="https://bluegenes.github.io/2020-latex-gep/v/8893ea2ddffdbd22fe396bd937ca5877e126d11a/" />
 
-  <meta name="manubot_pdf_url_versioned" content="https://bluegenes.github.io/2020-latex-gep/v/8b9b5ced2c7c963bf3ea5afb8f31f9a4a54ab697/manuscript.pdf" />
+  <meta name="manubot_pdf_url_versioned" content="https://bluegenes.github.io/2020-latex-gep/v/8893ea2ddffdbd22fe396bd937ca5877e126d11a/manuscript.pdf" />
 
   <meta property="og:type" content="article" />
 
@@ -103,9 +103,9 @@ title: Manuscript Title
 
 <small><em>
 This manuscript
-([permalink](https://bluegenes.github.io/2020-latex-gep/v/8b9b5ced2c7c963bf3ea5afb8f31f9a4a54ab697/))
+([permalink](https://bluegenes.github.io/2020-latex-gep/v/8893ea2ddffdbd22fe396bd937ca5877e126d11a/))
 was automatically generated
-from [bluegenes/2020-latex-gep@8b9b5ce](https://github.com/bluegenes/2020-latex-gep/tree/8b9b5ced2c7c963bf3ea5afb8f31f9a4a54ab697)
+from [bluegenes/2020-latex-gep@8893ea2](https://github.com/bluegenes/2020-latex-gep/tree/8893ea2ddffdbd22fe396bd937ca5877e126d11a)
 on May 14, 2020.
 </em></small>
 
